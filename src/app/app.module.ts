@@ -9,6 +9,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from '../core/core.module';
+import {PetService} from '../services/pet.service';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {CoreModule} from '../core/core.module';
     providers: [
         StatusBar,
         SplashScreen,
+        PetService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

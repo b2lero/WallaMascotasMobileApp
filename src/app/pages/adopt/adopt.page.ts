@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Pet} from '../../../models/pet.model';
+import {PetService} from '../../../services/pet.service';
 
 @Component({
   selector: 'app-adopt',
@@ -13,8 +14,12 @@ export class AdoptPageComponent {
 
   pets: Pet[];
 
-  constructor() {
-
+  constructor(private petService: PetService) {
+    this.petService.readAllPets().subscribe(
+        data => {
+          console.log(data);
+        }
+    );
   }
 
 }
