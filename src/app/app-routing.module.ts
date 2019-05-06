@@ -1,20 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {HomePageComponent} from './pages/home/home.page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    redirectTo: HomePageComponent.URL
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  }
+  {path: HomePageComponent.URL, loadChildren: './pages/home/home.module#HomePageModule'}
 ];
 
 @NgModule({
@@ -23,4 +17,9 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+
+export class AppRoutingModule {
+  static COMPONENTS = [
+      HomePageComponent
+  ];
+}

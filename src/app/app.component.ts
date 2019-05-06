@@ -9,16 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  // URL LINKS HERE CANNOT BE TOUCHED !!!!
   public appPages = [
     {
-      title: 'Home',
+      title: 'home',
       url: '/home',
       icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
     }
   ];
 
