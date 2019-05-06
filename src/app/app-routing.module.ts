@@ -8,7 +8,8 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: HomePageComponent.URL
   },
-  {path: HomePageComponent.URL, loadChildren: './pages/home/home.module#HomePageModule'}
+  {path: HomePageComponent.URL, loadChildren: './pages/home/home.module#HomePageModule'},
+  {path: 'adopt', loadChildren: './pages/adopt/adopt.module#AdoptPageModule'}
 ];
 
 @NgModule({
