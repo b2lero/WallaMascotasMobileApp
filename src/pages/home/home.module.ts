@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home.page';
-import {CoreModule} from '../../../core/core.module';
+import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   imports: [

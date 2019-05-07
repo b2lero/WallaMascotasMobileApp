@@ -1,16 +1,16 @@
-<app-header [title]="pageTitle"></app-header>
+<app-header [title]='pageTitle'></app-header>
 
 <ion-content>
-    <ion-card *ngFor="let pet of pets">
+    <ion-card *ngFor='let pet of animals'>
 
         <ion-card-header>
-            <img src="" alt="">
+            <ion-img src="{{pet.pictureUrl.url}}"></ion-img>
+            <ion-card-subtitle>{{pet.region.name}}</ion-card-subtitle>
             <ion-card-title>{{pet.name}}</ion-card-title>
-            <ion-card-subtitle>{{pet.breed}}</ion-card-subtitle>
+            <ion-card-subtitle>{{pet.region.country}} - {{pet.age}} meses</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
+            {{pet.description}}
         </ion-card-content>
     </ion-card>
 </ion-content>
