@@ -8,6 +8,11 @@ import { Component } from '@angular/core';
 export class HomePageComponent {
   static URL = 'home';
   private pageTitle = 'home';
+
+  constructor() {
+
+  }
+
 }
 
 
