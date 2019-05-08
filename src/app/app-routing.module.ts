@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {HomePageComponent} from '../pages/home/home.page';
 import {AdoptPageComponent} from '../pages/adopt/adopt.page';
+import {PetProfilePageComponent} from '../pages/adopt/pet-profile/pet-profile.page';
 
 const routes: Routes = [
   {
@@ -10,7 +11,10 @@ const routes: Routes = [
     redirectTo: HomePageComponent.URL
   },
   {path: HomePageComponent.URL, loadChildren: '../pages/home/home.module#HomePageModule'},
-  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule'}
+  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule'},
+  {path: AdoptPageComponent.URL + '/' + PetProfilePageComponent.URL,
+    loadChildren: '../pages/adopt/pet-profile/pet-profile.module#PetProfilePageModule'
+  }
 ];
 
 @NgModule({
@@ -22,6 +26,8 @@ const routes: Routes = [
 
 export class AppRoutingModule {
   static COMPONENTS = [
-      HomePageComponent
+      HomePageComponent,
+      AdoptPageComponent,
+      PetProfilePageComponent
   ];
 }
