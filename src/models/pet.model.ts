@@ -5,6 +5,7 @@ interface Picture {
 }
 
 export interface IPet {
+    id?: string;
     name: string;
     age: number;
     description: string;

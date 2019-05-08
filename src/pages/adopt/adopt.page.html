@@ -1,16 +1,21 @@
 <app-header [title]='pageTitle'></app-header>
 
 <ion-content>
-    <ion-card *ngFor='let pet of animals'>
+    <ion-card *ngFor='let pet of animals' [routerLink]="['pet/' + pet.id]">
 
         <ion-card-header>
-            <ion-img src="{{pet.pictureUrl.url}}"></ion-img>
-            <ion-card-subtitle>{{pet.region.name}}</ion-card-subtitle>
-            <ion-card-title>{{pet.name}}</ion-card-title>
-            <ion-card-subtitle>{{pet.region.country}} - {{pet.age}} meses</ion-card-subtitle>
+            <ion-card-title class="ion-margin-bottom">{{pet.name}}</ion-card-title>
+            <ion-img class="ion-margin-bottom" src="{{pet.pictureUrl.url}}"></ion-img>
+            <ion-card-subtitle color="dark">{{pet.region.country.name}}</ion-card-subtitle>
+            <ion-card-subtitle>{{pet.region.name}} - {{pet.age}} meses</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content class="ion-no-padding ion-padding-horizontal ion-margin-bottom">
             {{pet.description}}
         </ion-card-content>
+        <ion-item detail>
+            <ion-label color="primary">
+                Mas Informacion
+            </ion-label>
+        </ion-item>
     </ion-card>
 </ion-content>
