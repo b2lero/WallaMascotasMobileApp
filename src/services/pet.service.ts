@@ -4,11 +4,6 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
 import {IPet} from '../models/pet.model';
 import {map} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-
-interface DogsApiImages {
-    message: Array<string>;
-}
 
 @Injectable()
 export class PetService {

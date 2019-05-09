@@ -19,7 +19,21 @@ export class AppComponent {
     },
     {
       title: 'Adoptar',
-      url: '/adopt'
+      url: '/adopt',
+      children: [
+        {
+          title: 'Adoptar un perro',
+          url: '/PETS'
+        },
+        {
+          title: 'Adoptar  un gato',
+          url: '/CATS'
+        },
+        {
+          title: 'Adoptar otra mascotas',
+          url: '/OTHERANIMALS'
+        }
+      ]
     }
   ];
 

@@ -4,6 +4,18 @@ interface Picture {
     url: string;
 }
 
+interface Phone {
+    countryCode: string;
+    number: string;
+}
+
+interface User {
+    name: string;
+    surname: string;
+    mail: string;
+    phones: Phone[];
+}
+
 export interface IPet {
     id?: string;
     name: string;
@@ -11,6 +23,8 @@ export interface IPet {
     description: string;
     breed: string;
     pictureUrl?: Picture;
+    user: User;
     location?: string;
     region?: IRegion;
+    creationUtcDateTime: Date;
 }

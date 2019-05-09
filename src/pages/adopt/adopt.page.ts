@@ -15,13 +15,8 @@ export class AdoptPageComponent implements OnInit {
     private animals: IPet[] = [];
     private mockPets: IPet[] = [];
 
-    ngOnInit(): void {
-        console.log('--> Seeding Mock Data');
-        this.seedWithLookAlikeData();
-    }
-
     constructor(private petService: PetService, private router: Router) {
-        console.log(' 1 --> Loading Adopt Page');
+        console.log('--> Loading Adopt Page');
         this.petService.readAllPets().subscribe(
             (data: IPet[]) => {
                 this.animals = data.length === 0 ? this.mockPets : data;
@@ -46,6 +41,11 @@ export class AdoptPageComponent implements OnInit {
             );
         }
         this.mockPets = mockPets;
+    }
+
+    ngOnInit(): void {
+        console.log('--> Seeding Mock Data');
+        this.seedWithLookAlikeData();
     }
 }
 
