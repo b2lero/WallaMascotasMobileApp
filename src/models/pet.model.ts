@@ -22,7 +22,7 @@ export interface IPet {
     age: number;
     description: string;
     breed: string;
-    pictureUrl?: Picture;
+    pictures?: Picture[];
     user: User;
     location?: string;
     region?: IRegion;

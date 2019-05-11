@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/adopt"></ion-back-button>
+            <ion-back-button defaultHref="/pets"></ion-back-button>
         </ion-buttons>
         <ion-title>
             Perfil de {{pet.name}}
@@ -12,7 +12,7 @@
 <ion-content>
     <ion-grid class="ion-margin-horizontal">
         <ion-row class="ion-margin-top">
-            <ion-img [src]="pet.pictureUrl.url"></ion-img>
+            <ion-img [src]="pet.pictures[0].url"></ion-img>
         </ion-row>
         <ion-row>
             <ion-text color="primary">
