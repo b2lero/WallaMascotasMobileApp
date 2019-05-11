@@ -9,6 +9,7 @@ import {Component, Input} from '@angular/core';
 
 export class HeaderComponent {
     @Input() title: string;
+    @Input() activateSubSegment;
     constructor() {
     }
 }

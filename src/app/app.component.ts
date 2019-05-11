@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   // URL LINKS HERE CANNOT BE TOUCHED !!!!
+  // Side Menu
   public appPages = [
     {
       title: 'home',
@@ -18,8 +19,7 @@ export class AppComponent {
     },
     {
       title: 'Adoptar',
-      url: '/adopt',
-      icon: 'dog'
+      url: '/pets'
     }
   ];
 
