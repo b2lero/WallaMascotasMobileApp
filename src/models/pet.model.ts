@@ -21,10 +21,10 @@ export interface IPet {
     name: string;
     age: number;
     description: string;
-    breed: string;
+    breed?: string;
     pictures?: Picture[];
-    user: User;
+    user?: User;
     location?: string;
     region?: IRegion;
-    creationUtcDateTime: Date;
+    creationUtcDateTime?: Date;
 }

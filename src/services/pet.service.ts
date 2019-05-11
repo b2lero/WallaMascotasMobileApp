@@ -19,6 +19,10 @@ export class PetService {
         return this.httpService.get(ApiEndpoint.PETS).pipe(map( result => result.pets));
     }
 
+    readPetById(id: string): Observable<IPet> {
+        return this.httpService.get(ApiEndpoint.PETS + '/' + id);
+    }
+
     // GET /countries
     readAllcountries() {
         return this.httpService.get(ApiEndpoint.COUNTRIES);
