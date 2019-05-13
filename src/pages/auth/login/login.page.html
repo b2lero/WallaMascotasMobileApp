@@ -1,0 +1,21 @@
+<app-header [title]="pageTitle"></app-header>
+
+<ion-content>
+
+  <ion-list lines="none">
+    <form [formGroup]="loginForm">
+      <ion-item-group>
+        <ion-item>
+          <ion-label position="floating" color="primary">Correo Electronico</ion-label>
+          <ion-input formControlName="email" type="text" class="border-input"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-label position="floating" color="primary">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password" class="border-input"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-horizontal ion-margin-top" expand="block" color="primary" (click)="login()">Conectarse</ion-button>
+      </ion-item-group>
+
+    </form>
+  </ion-list>
+</ion-content>
