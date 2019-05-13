@@ -22,8 +22,8 @@ export class AppComponent {
       url: '/pets'
     },
     {
-      title: 'Logion',
-      url: 'auth',
+      title: 'Login',
+      url: 'login',
       icon: 'contact'
     }
   ];

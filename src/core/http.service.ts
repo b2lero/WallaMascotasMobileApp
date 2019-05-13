@@ -48,10 +48,6 @@ export class HttpService {
     return this;
   }
 
-  private authBasic(mobile: number, password: string): HttpService {
-    return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
-  }
-
   private resetOptions(): void {
     this.headers = new HttpHeaders();
     this.params = new HttpParams();
