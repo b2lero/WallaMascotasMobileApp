@@ -16,10 +16,16 @@ interface User {
     phones: Phone[];
 }
 
+interface PetType {
+    id?: string;
+    name: string;
+}
+
 export interface IPet {
     id?: string;
     name: string;
     age: number;
+    type: PetType;
     description: string;
     breed?: string;
     pictures?: Picture[];

@@ -12,13 +12,13 @@ export class PetService {
     }
 
     // Todo GET /pets by category
-    // Todo GET /pets/:id
 
     // GET /pets
     readAllPets(): Observable<IPet[]> {
         return this.httpService.get(ApiEndpoint.PETS).pipe(map( result => result.pets));
     }
 
+    // GET /pets/:id
     readPetById(id: string): Observable<IPet> {
         return this.httpService.get(ApiEndpoint.PETS + '/' + id);
     }

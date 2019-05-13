@@ -9,62 +9,62 @@
     </ion-toolbar>
 </ion-header>
 
-<!--<ion-content>-->
-<!--    <ion-grid class="ion-margin-horizontal">-->
-<!--        <ion-row class="ion-margin-top">-->
-<!--&lt;!&ndash;            <ion-img [src]="pet.pictures[0].url"></ion-img>&ndash;&gt;-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-text color="primary">-->
-<!--                <h1>{{pet.name}}</h1>-->
-<!--            </ion-text>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Tipo</strong></ion-col>-->
-<!--            <ion-col>undefined</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Nombre</strong></ion-col>-->
-<!--            <ion-col>{{pet.name}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Raza</strong></ion-col>-->
-<!--            <ion-col>{{pet.breed}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Sexo</strong></ion-col>-->
-<!--            <ion-col>undefined</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Pais</strong></ion-col>-->
-<!--&lt;!&ndash;            <ion-col>{{pet.region.country.name}}</ion-col>&ndash;&gt;-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Chip</strong></ion-col>-->
-<!--            <ion-col>undefined</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Email <ion-icon name="mail"></ion-icon></strong></ion-col>-->
-<!--            <ion-col>{{pet.user.mail}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Tel <ion-icon name="call"></ion-icon></strong></ion-col>-->
-<!--            <ion-col>{{pet.user.phones[0].number}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Fecha de alta:</strong></ion-col>-->
-<!--            <ion-col>{{pet.creationUtcDateTime}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Provincia</strong></ion-col>-->
-<!--            <ion-col>{{pet.region.name}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            <ion-col><strong>Fecha de nacimiento</strong></ion-col>-->
-<!--            <ion-col>{{pet.age}}</ion-col>-->
-<!--        </ion-row>-->
-<!--        <ion-row>-->
-<!--            &lt;!&ndash; TODO Add social media & more information about this dog&ndash;&gt;-->
-<!--        </ion-row>-->
-<!--    </ion-grid>-->
-<!--</ion-content>-->
+<ion-content>
+    <ion-grid class="ion-margin-horizontal">
+        <ion-row class="ion-margin-top">
+            <ion-img [src]="pet.pictures[0].url"></ion-img>
+        </ion-row>
+        <ion-row>
+            <ion-text color="primary">
+                <h1>{{pet.name}}</h1>
+            </ion-text>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Tipo</strong></ion-col>
+<!--            <ion-col>{{pet.type.name}}</ion-col>-->
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Nombre</strong></ion-col>
+            <ion-col>{{pet.name}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Raza</strong></ion-col>
+            <ion-col>{{pet.breed}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Sexo</strong></ion-col>
+            <ion-col>undefined</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Pais</strong></ion-col>
+            <ion-col>{{pet.region.country.name}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Chip</strong></ion-col>
+            <ion-col>undefined</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Email <ion-icon name="mail"></ion-icon></strong></ion-col>
+            <ion-col>{{pet.user.mail}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Tel <ion-icon name="call"></ion-icon></strong></ion-col>
+            <ion-col>{{pet.user.phones[0].number}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Fecha de alta:</strong></ion-col>
+            <ion-col>{{pet.creationUtcDateTime}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Provincia</strong></ion-col>
+            <ion-col>{{pet.region.name}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col><strong>Fecha de nacimiento</strong></ion-col>
+            <ion-col>{{pet.age}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <!-- TODO Add social media & more information about this dog-->
+        </ion-row>
+    </ion-grid>
+</ion-content>
