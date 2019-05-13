@@ -20,6 +20,11 @@ export class AppComponent {
     {
       title: 'Adoptar',
       url: '/pets'
+    },
+    {
+      title: 'Logion',
+      url: 'auth',
+      icon: 'contact'
     }
   ];
 
