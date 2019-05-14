@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginPageComponent implements OnInit {
   private loginForm: FormGroup;
   private submitted =  false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private loginService: UserService) { }
 
   get email() {
     return this.loginForm.get('email');
@@ -33,6 +34,25 @@ export class LoginPageComponent implements OnInit {
 
   private onSubmit(form: FormGroup) {
     this.submitted = true;
+    
+    if (this.loginForm.valid) {
+      const mail = this.email.value;
+      const password = this.password.value;
+      const credentials = { mail, password, type: 'Vanilla'};
+
+      this.loginService.login(credentials).subscribe(
+        res => {
+          console.log(res);
+        },
+          (e) => {
+          console.log('Error', e);
+          },
+          () => {
+
+          }
+      );
+
+    }
   }
 
 }
