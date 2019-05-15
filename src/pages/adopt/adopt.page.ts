@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IPet} from '../../models/pet.model';
 import {PetService} from '../../services/pet.service';
 import {Router} from '@angular/router';
+import {HttpService} from '../../core/http.service';
 
 @Component({
     selector: 'app-adopt',
@@ -15,7 +16,7 @@ export class AdoptPageComponent implements OnInit {
     private animals: IPet[] = [];
     // private mockPets: IPet[] = [];
 
-    constructor(private petService: PetService, private router: Router) {
+    constructor(private petService: PetService, private router: Router, private authtentication: HttpService) {
         console.log('--> Loading Adopt Page');
         this.petService.readAllPets().subscribe(
             (petsList: IPet[]) => {

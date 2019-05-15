@@ -4,6 +4,7 @@ import {HomePageComponent} from '../pages/home/home.page';
 import {AdoptPageComponent} from '../pages/adopt/adopt.page';
 import {PetProfilePageComponent} from '../pages/adopt/pet-profile/pet-profile.page';
 import {LoginPageComponent} from '../pages/auth/login/login.page';
+import {HttpService} from '../core/http.service';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
     redirectTo: HomePageComponent.URL
   },
   {path: HomePageComponent.URL, loadChildren: '../pages/home/home.module#HomePageModule'},
-  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule'},
+  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule', canActivate: [HttpService]},
   {path: AdoptPageComponent.URL + '/' + PetProfilePageComponent.URL,
     loadChildren: '../pages/adopt/pet-profile/pet-profile.module#PetProfilePageModule'
   },

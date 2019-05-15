@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
+import {Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   private loginForm: FormGroup;
   private submitted =  false;
 
-  constructor(private formBuilder: FormBuilder, private loginService: UserService) { }
+  constructor(private formBuilder: FormBuilder, private loginService: UserService, private router: Router) { }
 
   get email() {
     return this.loginForm.get('email');
@@ -34,22 +36,15 @@ export class LoginPageComponent implements OnInit {
 
   private onSubmit(form: FormGroup) {
     this.submitted = true;
-    
     if (this.loginForm.valid) {
       const mail = this.email.value;
       const password = this.password.value;
       const credentials = { mail, password, type: 'Vanilla'};
 
-      this.loginService.login(credentials).subscribe(
-        res => {
-          console.log(res);
-        },
-          (e) => {
-          console.log('Error', e);
-          },
-          () => {
-
-          }
+      this.loginService.connect(credentials).subscribe(
+        res => console.log('--> response connect', res),
+        e => console.log('ERROR LOGIN', e),
+          () => this.router.navigate(['home'])
       );
 
     }
