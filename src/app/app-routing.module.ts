@@ -13,7 +13,7 @@ const routes: Routes = [
     redirectTo: HomePageComponent.URL
   },
   {path: HomePageComponent.URL, loadChildren: '../pages/home/home.module#HomePageModule'},
-  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule', canActivate: [HttpService]},
+  {path: AdoptPageComponent.URL, loadChildren: '../pages/adopt/adopt.module#AdoptPageModule'},
   {path: AdoptPageComponent.URL + '/' + PetProfilePageComponent.URL,
     loadChildren: '../pages/adopt/pet-profile/pet-profile.module#PetProfilePageModule'
   },

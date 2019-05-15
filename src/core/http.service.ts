@@ -74,6 +74,7 @@ export class HttpService implements CanActivate {
         this.storage.remove('USER_INFO').then(() => {
                 this.router.navigate(['home']);
                 this.authState.next(false);
+                console.log('--> Logged Out, redirect to /home ...');
             }
         );
     }

@@ -16,12 +16,12 @@ export class AdoptPageComponent implements OnInit {
     private animals: IPet[] = [];
     // private mockPets: IPet[] = [];
 
-    constructor(private petService: PetService, private router: Router, private authtentication: HttpService) {
+    constructor(private petService: PetService, private router: Router) {
         console.log('--> Loading Adopt Page');
         this.petService.readAllPets().subscribe(
             (petsList: IPet[]) => {
                 console.log('--> Content of petsList');
-                console.log(petsList[0]);
+                console.log('First ', petsList[0]);
                 this.animals = petsList;
             }
         );
@@ -32,11 +32,9 @@ export class AdoptPageComponent implements OnInit {
 
     private updateContentPets(e) {
         const idSelectedElm = e.detail.value;
+        console.log('--> Filter selected: ', idSelectedElm);
         // TODO  Filter Content by Category: dogs, cats, others
     }
-
-
-
 }
 
 // TODO

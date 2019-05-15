@@ -26,7 +26,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('-- Init Form w empty values--');
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['']
@@ -42,11 +41,10 @@ export class LoginPageComponent implements OnInit {
       const credentials = { mail, password, type: 'Vanilla'};
 
       this.loginService.connect(credentials).subscribe(
-        res => console.log('--> response connect', res),
+        res => console.log('--> response login connection', res),
         e => console.log('ERROR LOGIN', e),
           () => this.router.navigate(['home'])
       );
-
     }
   }
 
