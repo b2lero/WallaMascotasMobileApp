@@ -1,0 +1,22 @@
+<app-header [title]="pageTitle"></app-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+      <ion-item-group>
+        <ion-item>
+          <ion-label position="stacked" color="primary">Correo Electronico</ion-label>
+          <ion-input formControlName="email" type="text" class="bg-input" clearInput></ion-input>
+          <ion-item *ngIf="submitted && email.invalid">
+            <p class="ion-danger">Please enter a valid email</p>
+          </ion-item>
+        </ion-item>
+        <ion-item >
+          <ion-label position="stacked" color="primary">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password" class="bg-input"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Conectarse</ion-button>
+      </ion-item-group>
+    </form>
+  </ion-list>
+</ion-content>
