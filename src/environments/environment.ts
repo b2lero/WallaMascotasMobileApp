@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   API: 'https://wallamascotas-api-pre.azurewebsites.net/api/'
-
 };
 
 /*

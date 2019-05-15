@@ -4,6 +4,7 @@ import {HomePageComponent} from '../pages/home/home.page';
 import {AdoptPageComponent} from '../pages/adopt/adopt.page';
 import {PetProfilePageComponent} from '../pages/adopt/pet-profile/pet-profile.page';
 import {LoginPageComponent} from '../pages/auth/login/login.page';
+import {HttpService} from '../core/http.service';
 
 const routes: Routes = [
   {

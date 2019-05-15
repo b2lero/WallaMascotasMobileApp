@@ -16,6 +16,18 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngIf="!authentication.authState.value">
+            <ion-item [routerDirection]="'root'" [routerLink]="[loginPage.url]">
+              <ion-icon slot="start" [name]="loginPage.icon"></ion-icon>
+              <ion-label>{{loginPage.title}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngIf="authentication.authState.value">
+            <ion-item [routerDirection]="'root'" [routerLink]="['home']" (click)="authentication.logout()">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>Log out</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>

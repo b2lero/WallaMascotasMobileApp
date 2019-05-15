@@ -1,5 +1,7 @@
 {
   "name": "WallaMascotasMobileApp",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

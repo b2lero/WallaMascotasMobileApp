@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IPet} from '../../models/pet.model';
 import {PetService} from '../../services/pet.service';
 import {Router} from '@angular/router';
+import {HttpService} from '../../core/http.service';
 
 @Component({
     selector: 'app-adopt',
@@ -20,7 +21,7 @@ export class AdoptPageComponent implements OnInit {
         this.petService.readAllPets().subscribe(
             (petsList: IPet[]) => {
                 console.log('--> Content of petsList');
-                console.log(petsList[0]);
+                console.log('First ', petsList[0]);
                 this.animals = petsList;
             }
         );
@@ -31,11 +32,9 @@ export class AdoptPageComponent implements OnInit {
 
     private updateContentPets(e) {
         const idSelectedElm = e.detail.value;
+        console.log('--> Filter selected: ', idSelectedElm);
         // TODO  Filter Content by Category: dogs, cats, others
     }
-
-
-
 }
 
 // TODO
