@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PetService} from '../../../services/pet.service';
 
 @Component({
   selector: 'app-submit-pet',
@@ -12,8 +13,9 @@ export class SubmitPetPageComponent implements OnInit {
   pageTitle = 'Alta Mascota';
   submitPetForm: FormGroup;
   typeAnimals = ['perro', 'gato', 'otro'];
+  isSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private petService: PetService) { }
 
   get fControls() {
     return this.submitPetForm.controls;
@@ -26,6 +28,7 @@ export class SubmitPetPageComponent implements OnInit {
       breed: ['', [Validators.required]],
       country: ['', [Validators.required]],
       region: ['', [Validators.required]],
+      description: ['',[Validators.required]],
       gender: ['', [Validators.required]],
       size: ['',[Validators.required]],
       birthdate: ['', [Validators.required]],
@@ -41,7 +44,11 @@ export class SubmitPetPageComponent implements OnInit {
   }
 
   onSubmit(submitFormPet: FormGroup) {
-    console.log(submitFormPet);
+    this.isSubmitted = true;
+    if (this.submitPetForm.valid) {
+      console.log(this.submitPetForm.value);
+      // todo connect Endpoint
+    }
   }
 
 }

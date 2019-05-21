@@ -13,7 +13,7 @@ export class PetService {
 
     // Todo GET /pets by category
 
-    // POST /pets
+    // POST /pets/pages
     readAllPets(): Observable<IPet[]> {
         const pageDefault = {page: 1, pageSize: 10};
         return this.httpService.post(ApiEndpoint.PETS_PAGES, pageDefault).pipe(map( result => result.pets));
@@ -22,6 +22,11 @@ export class PetService {
     // GET /pets/:id
     readPetById(id: string): Observable<IPet> {
         return this.httpService.get(ApiEndpoint.PETS + '/' + id);
+    }
+
+    // POST /pets
+    createPet(pet: IPet) {
+        return this.httpService.post(ApiEndpoint.PETS, pet);
     }
 
     // GET /countries

@@ -11,8 +11,8 @@
         <ion-label position="stacked" color="primary">Nombre</ion-label>
         <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.name.invalid">
-        <p class="ion-danger">Ingresar nombre de la mascota</p>
+      <ion-item *ngIf="fControls.name.touched && fControls.name.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar nombre de la mascota</p>
       </ion-item>
 
       <ion-item>
@@ -21,55 +21,65 @@
           <ion-select-option *ngFor="let type of typeAnimals">{{type}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.type.invalid">
-        <p class="ion-danger">Ingresar tipo de la mascota</p>
+      <ion-item *ngIf="fControls.type.touched && fControls.type.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar tipo de la mascota</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Raza</ion-label>
         <ion-input formControlName="breed" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.breed.invalid">
-        <p class="ion-danger">Ingresar raza de la mascota</p>
+      <ion-item *ngIf="fControls.breed.touched && fControls.breed.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar raza de la mascota</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
         <ion-input formControlName="country" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.country.invalid">
-        <p class="ion-danger">Ingresar el pais</p>
+      <ion-item *ngIf="fControls.country.touched && fControls.country.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar el pais</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Region</ion-label>
         <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.region.invalid">
-        <p class="ion-danger">Ingresar la region</p>
+      <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar la region</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Sexo</ion-label>
         <ion-input formControlName="gender" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty && fControls.gender.invalid">
-        <p class="ion-danger">Ingresar el sexo de la mascota</p>
+      <ion-item *ngIf="fControls.gender.touched && fControls.gender.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar el sexo de la mascota</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Fecha de Nacimiento</ion-label>
-        <ion-datetime formControlName="birthdate" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
+        <ion-datetime formControlName="birthdate" placeholder="dd/mm/yyyy" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
       </ion-item>
-      <ion-item *ngIf="this.submitPetForm.dirty">
-        <p class="ion-danger" *ngIf="fControls.birthdate.invalid">Ingresar la fecha de nacimiento</p>
+      <ion-item *ngIf="fControls.birthdate.touched && fControls.birthdate.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar la fecha de nacimiento</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Tamaño</ion-label>
         <ion-input formControlName="size" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
+      <ion-item *ngIf="fControls.size.touched && fControls.size.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar el tamaño de la mascota</p>
+      </ion-item>
 
+      <ion-item>
+        <ion-label position="stacked" color="primary">Descripcion</ion-label>
+        <ion-textarea formControlName="description" type="text" class="bg-input" clearInput></ion-textarea>
+      </ion-item>
+      <ion-item *ngIf="fControls.description.touched && fControls.description.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar pequeña descripcion</p>
+      </ion-item>
     </ion-item-group>
 
     <ion-item-group>
@@ -138,6 +148,6 @@
 
     </ion-item-group>
 
-    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Conectarse</ion-button>
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Conectarse</ion-button>
   </form>
 </ion-content>
