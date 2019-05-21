@@ -21,14 +21,25 @@ interface PetType {
     name: string;
 }
 
+interface IPhone {
+    id?: string;
+    countryCode?: string;
+    number: string;
+    description?: string;
+}
+
 export interface IPet {
     id?: string;
     name: string;
-    age: number;
+    birthDate: string;
     type: PetType;
+    mails?: Array<string>;
     description: string;
     breed?: string;
-    pictures?: Picture[];
+    isFemale?: boolean;
+    pictures?: Array<Picture>;
+    hasChip?: boolean;
+    phones: Array<IPhone>;
     user?: User;
     location?: string;
     region?: IRegion;
