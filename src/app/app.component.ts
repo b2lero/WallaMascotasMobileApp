@@ -20,6 +20,10 @@ export class AppComponent {
         {
             title: 'Adoptar',
             url: '/pets'
+        },
+        {
+            title: 'Alta mascota',
+            url: '/submit/pets'
         }
     ];
 

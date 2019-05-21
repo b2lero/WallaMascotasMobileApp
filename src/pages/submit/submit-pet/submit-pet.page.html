@@ -1,0 +1,143 @@
+<app-header [title]="pageTitle"></app-header>
+
+<ion-content>
+  <form [formGroup]="submitPetForm" (ngSubmit)="onSubmit(submitPetForm)">
+    <ion-item-group>
+      <ion-item-divider class="ion-margin-top">
+        <ion-label>Informacion Mascota</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Nombre</ion-label>
+        <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.name.invalid">
+        <p class="ion-danger">Ingresar nombre de la mascota</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Tipo</ion-label>
+        <ion-select formControlName="type">
+          <ion-select-option *ngFor="let type of typeAnimals">{{type}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.type.invalid">
+        <p class="ion-danger">Ingresar tipo de la mascota</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Raza</ion-label>
+        <ion-input formControlName="breed" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.breed.invalid">
+        <p class="ion-danger">Ingresar raza de la mascota</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Pais</ion-label>
+        <ion-input formControlName="country" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.country.invalid">
+        <p class="ion-danger">Ingresar el pais</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Region</ion-label>
+        <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.region.invalid">
+        <p class="ion-danger">Ingresar la region</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Sexo</ion-label>
+        <ion-input formControlName="gender" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty && fControls.gender.invalid">
+        <p class="ion-danger">Ingresar el sexo de la mascota</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Fecha de Nacimiento</ion-label>
+        <ion-datetime formControlName="birthdate" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
+      </ion-item>
+      <ion-item *ngIf="this.submitPetForm.dirty">
+        <p class="ion-danger" *ngIf="fControls.birthdate.invalid">Ingresar la fecha de nacimiento</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Tamaño</ion-label>
+        <ion-input formControlName="size" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider class="ion-margin-top">
+        <ion-label>Informacion Extra</ion-label>
+      </ion-item-divider>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Vacunado</ion-label>
+              <ion-checkbox formControlName="isVaccinated" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Chip</ion-label>
+              <ion-checkbox formControlName="hasChip" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Leucemia</ion-label>
+              <ion-checkbox formControlName="isPositiveInLeukemia" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Leishmania</ion-label>
+              <ion-checkbox formControlName="isPositiveInLeismania" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Licensia PPP</ion-label>
+              <ion-checkbox formControlName="hasPppLicense" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Esterilizado</ion-label>
+              <ion-checkbox formControlName="isSterilized" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>En tratamiento</ion-label>
+              <ion-checkbox formControlName="isInTreatment" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Inmunodeficiencia Felina</ion-label>
+              <ion-checkbox formControlName="isPositiveInFelineImmunodeficiency" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item-group>
+
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Conectarse</ion-button>
+  </form>
+</ion-content>
