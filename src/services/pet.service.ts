@@ -13,9 +13,10 @@ export class PetService {
 
     // Todo GET /pets by category
 
-    // GET /pets
+    // POST /pets
     readAllPets(): Observable<IPet[]> {
-        return this.httpService.get(ApiEndpoint.PETS).pipe(map( result => result.pets));
+        const pageDefault = {page: 1, pageSize: 10};
+        return this.httpService.post(ApiEndpoint.PETS_PAGES, pageDefault).pipe(map( result => result.pets));
     }
 
     // GET /pets/:id
