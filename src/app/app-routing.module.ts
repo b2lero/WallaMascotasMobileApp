@@ -4,7 +4,7 @@ import {HomePageComponent} from '../pages/home/home.page';
 import {AdoptPageComponent} from '../pages/adopt/adopt.page';
 import {PetProfilePageComponent} from '../pages/adopt/pet-profile/pet-profile.page';
 import {LoginPageComponent} from '../pages/auth/login/login.page';
-import {HttpService} from '../core/http.service';
+import {SubmitPetPageComponent} from '../pages/submit/submit-pet/submit-pet.page';
 
 const routes: Routes = [
   {
@@ -17,7 +17,8 @@ const routes: Routes = [
   {path: AdoptPageComponent.URL + '/' + PetProfilePageComponent.URL,
     loadChildren: '../pages/adopt/pet-profile/pet-profile.module#PetProfilePageModule'
   },
-  { path: LoginPageComponent.URL, loadChildren: '../pages/auth/login/login.module#LoginPageModule' }
+  { path: LoginPageComponent.URL, loadChildren: '../pages/auth/login/login.module#LoginPageModule' },
+  { path: 'submit/' + SubmitPetPageComponent.URL, loadChildren: '../pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' }
 ];
 
 @NgModule({
@@ -31,6 +32,7 @@ export class AppRoutingModule {
   static COMPONENTS = [
       HomePageComponent,
       AdoptPageComponent,
-      PetProfilePageComponent
+      PetProfilePageComponent,
+      SubmitPetPageComponent
   ];
 }
