@@ -36,6 +36,7 @@ export class AdoptPageComponent implements OnInit {
 
 
     loadPets(e) {
+        // Change state on each call from 'Loading' to 'Enable
         e.target.complete();
         const request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
         this.petService.readAllPets(request).subscribe(
@@ -48,8 +49,7 @@ export class AdoptPageComponent implements OnInit {
                     this.currentPage += 1;
                 } else {
                     // All data loaded
-                    e.target.disable = true;
-                    this.infiniteScroll.disabled = true;
+                    e.target.disabled = true;
                 }
                 console.log('Array Pets size', this.animals.length);
             }
