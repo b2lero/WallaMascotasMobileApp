@@ -1,7 +1,7 @@
 <app-header [title]='pageTitle'></app-header>
 
 <ion-toolbar>
-    <ion-segment (ionChange)="updateContentPets($event)">
+    <ion-segment (ionChange)="loadContentBasedOnCategory($event)">
         <ion-segment-button value="dogs" checked>
             <ion-label>perros</ion-label>
         </ion-segment-button>
@@ -26,7 +26,7 @@
         </ion-card-content>
     </ion-card>
 
-    <ion-infinite-scroll threshold="20px" (ionInfinite)="loadPets($event)">
+    <ion-infinite-scroll threshold="20px" (ionInfinite)="loadMorePets()">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="Loading more data...">
