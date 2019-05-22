@@ -19,10 +19,17 @@
             <ion-card-title class="ion-margin-bottom">{{pet.name}}</ion-card-title>
             <ion-img class="ion-margin-bottom" src="{{pet.pictures[0].url}}"></ion-img>
             <ion-card-subtitle color="dark">{{pet.region.country.name}}</ion-card-subtitle>
-            <ion-card-subtitle>{{pet.region.name}} - {{pet.age}} años</ion-card-subtitle>
+            <ion-card-subtitle>{{pet.region.name}} - {{pet.birthDate}} años</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content class="ion-no-padding ion-padding-horizontal ion-margin-bottom">
             {{pet.description}}
         </ion-card-content>
     </ion-card>
+
+    <ion-infinite-scroll threshold="20px" (ionInfinite)="loadPets($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

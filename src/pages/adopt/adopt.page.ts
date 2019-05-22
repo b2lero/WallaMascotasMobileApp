@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IPet} from '../../models/pet.model';
 import {PetService} from '../../services/pet.service';
 import {Router} from '@angular/router';
+import {IonInfiniteScroll} from '@ionic/angular';
 
 @Component({
     selector: 'app-adopt',
@@ -11,27 +12,58 @@ import {Router} from '@angular/router';
 export class AdoptPageComponent implements OnInit {
 
     static URL = 'pets';
-    private pageTitle = 'Adoptar una mascota';
-    private animals: IPet[] = [];
+    pageTitle = 'Adoptar una mascota';
+    animals: IPet[] = [];
+    currentPage = 1;
+    PAGE_SIZE = 10;
+    request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
 
     constructor(private petService: PetService, private router: Router) {
-        console.log('--> Loading Adopt Page');
-        this.petService.readAllPets().subscribe(
-            (petsList: IPet[]) => {
-                this.animals = petsList;
+    }
+
+    ngOnInit(): void {
+        this.petService.readAllPets(this.request).subscribe(
+            result => {
+                this.animals = result.pets;
+                this.currentPage += 1;
+            }
+        );
+
+    }
+
+
+
+    loadPets(e) {
+        e.target.complete();
+        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
+        this.petService.readAllPets(request).subscribe(
+            (result) => {
+                console.log(result);
+                const pets = this.animals;
+                const newPets = result.pets;
+                if (newPets.length > 0) {
+                    this.animals = pets.concat(newPets);
+                    this.currentPage += 1;
+                } else {
+                    // All data loaded
+                    e.target.disable = true;
+                    this.infiniteScroll.disabled = true;
+                }
+                console.log('Array Pets size', this.animals.length);
             }
         );
     }
 
-    ngOnInit(): void {
-    }
 
     private updateContentPets(e) {
         const idSelectedElm = e.detail.value;
         console.log('--> Filter selected: ', idSelectedElm);
-        // TODO  Filter Content by Category: dogs, cats, others
+        this.animals.map(
+          x => console.log(x)
+        );
     }
 }
 
-// TODO
-// Agregar filtros busqueda mascotas
+
