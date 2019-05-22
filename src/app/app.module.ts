@@ -12,11 +12,12 @@ import {CoreModule} from '../core/core.module';
 import {PetService} from '../services/pet.service';
 import {UserService} from '../services/user.service';
 import {IonicStorageModule} from '@ionic/storage';
-
+import {SortPipe} from '../pipes/sort.pipe';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        SortPipe
     ],
     entryComponents: [],
     imports: [
