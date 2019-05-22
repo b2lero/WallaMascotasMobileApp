@@ -26,7 +26,7 @@ export class PetService {
 
     // POST /pets
     createPet(pet: IPet) {
-        return this.httpService.post(ApiEndpoint.PETS, pet);
+        return this.httpService.successful('Pet Successfully Submitted').post(ApiEndpoint.PETS, pet);
     }
 
     // GET /countries
