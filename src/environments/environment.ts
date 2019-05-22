@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'https://wallamascotas-api-pre.azurewebsites.net/api/v1/public/'
+  API: 'https://wallamascotas-api-pre.azurewebsites.net/api/v1/public'
 };
 
 /*

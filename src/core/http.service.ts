@@ -7,6 +7,7 @@ import {catchError, map} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {Storage} from '@ionic/storage';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
+import {ToastController} from '@ionic/angular';
 
 @Injectable()
 export class HttpService implements CanActivate {
@@ -21,7 +22,7 @@ export class HttpService implements CanActivate {
     private myToken;
     public authState = new BehaviorSubject(false);
 
-    constructor(private http: HttpClient, private router: Router, private storage: Storage) {
+    constructor(private http: HttpClient, private router: Router, private storage: Storage, public toastCtrl: ToastController) {
         this.resetOptions();
     }
 
@@ -137,13 +138,19 @@ export class HttpService implements CanActivate {
         }
     }
 
+    async presentToast(customMessage: string, time: number) {
+        const toast = await this.toastCtrl.create({
+            message: customMessage,
+            duration: time,
+            position: 'bottom'
+        });
+        toast.present();
+    }
+
     private handleError(response): any {
         let error;
         if (response.status === HttpService.UNAUTHORIZED) {
-            // this.snackBar.open('Unauthorized', 'Error', {
-            //   duration: 2000
-            // });
-            console.log('Unauthorized');
+            this.presentToast('Unauthorized', 3500);
             this.router.navigate(['']);
             return throwError(response.error);
         } else {
@@ -153,8 +160,7 @@ export class HttpService implements CanActivate {
                 } else {
                     error = response.error; // with 'text': JSON.parse(response.error);
                 }
-                console.log('NOT FOUND');
-                console.log(error);
+                this.presentToast(error.error + ':' + error.message, 3000);
                 return throwError(error);
             } catch (e) {
                 console.log('error' + e, 'No Server Response');
