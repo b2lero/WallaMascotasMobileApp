@@ -140,7 +140,7 @@ export class SubmitPetPageComponent implements OnInit {
             .then(imagePath => {
                 const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
                 const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                this.copyFileToLocalDir(currentName, correctPath, this.createFileName());
+                this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
             });
     }
 
@@ -156,14 +156,14 @@ export class SubmitPetPageComponent implements OnInit {
         this.storage.get(this.STORAGE_KEY).then(images => {
             const arr = JSON.parse(images);
             if (!arr) {
-                const newImages = [name];
+                const newImages = [nameFileImage];
                 this.storage.set(this.STORAGE_KEY, JSON.stringify(newImages));
             } else {
-                arr.push(name);
+                arr.push(nameFileImage);
                 this.storage.set(this.STORAGE_KEY, JSON.stringify(arr));
             }
 
-            const localFilePath = this.file.dataDirectory + name;
+            const localFilePath = this.file.dataDirectory + nameFileImage;
             const resPath = this.pathForImage(localFilePath);
 
             const newEntry = {
