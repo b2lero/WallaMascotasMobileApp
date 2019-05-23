@@ -145,8 +145,32 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider class="ion-margin-top">
+        <ion-label>Subir photos</ion-label>
+      </ion-item-divider>
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-img src="{{sourcePathImg}}"></ion-img>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-button (click)="submitPhoto()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+            Subir foto
+          </ion-button>
+        </ion-row>
+      </ion-grid>
 
     </ion-item-group>
+
+
 
     <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Conectarse</ion-button>
   </form>

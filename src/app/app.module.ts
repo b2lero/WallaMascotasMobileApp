@@ -13,6 +13,10 @@ import {PetService} from '../services/pet.service';
 import {UserService} from '../services/user.service';
 import {IonicStorageModule} from '@ionic/storage';
 import {SortPipe} from '../pipes/sort.pipe';
+import {Camera} from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { File } from '@ionic-native/File/ngx';
+import {FilePath} from '@ionic-native/file-path/ngx';
 
 @NgModule({
     declarations: [
@@ -32,6 +36,10 @@ import {SortPipe} from '../pipes/sort.pipe';
         SplashScreen,
         PetService,
         UserService,
+        Camera,
+        WebView,
+        File,
+        FilePath,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]
