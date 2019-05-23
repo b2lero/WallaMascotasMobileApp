@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PetService} from '../../../services/pet.service';
 import {HttpService} from '../../../core/http.service';
@@ -44,7 +44,8 @@ export class SubmitPetPageComponent implements OnInit {
         private file: File,
         private storage: Storage,
         private webview: WebView,
-        private filePath: FilePath
+        private filePath: FilePath,
+        private changeRef: ChangeDetectorRef
     ) {
     }
 
@@ -127,23 +128,19 @@ export class SubmitPetPageComponent implements OnInit {
         return d.getTime() + '_IOS_IMAGE' + '.jpg';
     }
 
-    takePicture(sourceType: PictureSourceType) {
+    takePicture(deviceSourceType: PictureSourceType) {
         const cameraOptions: CameraOptions = {
             quality: 100,
-            destinationType: this.camera.DestinationType.DATA_URL,
-            encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            cameraDirection: 0
+            sourceType: deviceSourceType,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
         };
 
         this.camera.getPicture(cameraOptions)
             .then(imagePath => {
-                // In this case the platform must be specified
-                if (sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-                    const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-                    const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                    this.copyFileToLocalDir(currentName, correctPath, this.createFileName());
-                }
+                const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+                const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+                this.copyFileToLocalDir(currentName, correctPath, this.createFileName());
             });
     }
 
@@ -176,7 +173,7 @@ export class SubmitPetPageComponent implements OnInit {
             };
 
             this.storedImages = [newEntry, ...this.storedImages];
-            this.ref.detectChanges(); // trigger change detection cycle
+            this.changeRef.detectChanges(); // trigger change detection cycle
         });
     }
 
