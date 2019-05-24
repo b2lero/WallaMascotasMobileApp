@@ -5,6 +5,7 @@ import {AdoptPageComponent} from '../pages/adopt/adopt.page';
 import {PetProfilePageComponent} from '../pages/adopt/pet-profile/pet-profile.page';
 import {LoginPageComponent} from '../pages/auth/login/login.page';
 import {SubmitPetPageComponent} from '../pages/submit/submit-pet/submit-pet.page';
+import {SubmitAsociationPageComponent} from '../pages/submit/submit-asociation/submit-asociation.page';
 
 const routes: Routes = [
   {
@@ -18,7 +19,9 @@ const routes: Routes = [
     loadChildren: '../pages/adopt/pet-profile/pet-profile.module#PetProfilePageModule'
   },
   { path: LoginPageComponent.URL, loadChildren: '../pages/auth/login/login.module#LoginPageModule' },
-  { path: 'submit/' + SubmitPetPageComponent.URL, loadChildren: '../pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' }
+  { path: 'submit/' + SubmitPetPageComponent.URL, loadChildren: '../pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' },
+  { path: 'submit/' + SubmitAsociationPageComponent.URL,
+    loadChildren: '../pages/submit/submit-asociation/submit-asociation.module#SubmitAsociationPageModule' }
 ];
 
 @NgModule({

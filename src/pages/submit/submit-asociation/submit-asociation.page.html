@@ -1,0 +1,116 @@
+<app-header [title]="pageTitle"></app-header>
+
+<ion-content>
+
+    <form [formGroup]="submitAsociation" (ngSubmit)="onSubmit(submitAsociation)">
+        <ion-item-group>
+            <ion-item-divider class="ion-margin-top">
+                <ion-label>Informacion Asociacion</ion-label>
+            </ion-item-divider>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Nombre</ion-label>
+                <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="fControls.name.touched && fControls.name.invalid && this.isSubmitted" lines="none">
+                <p class="error-danger">Ingresar nombre de la mascota</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">TLF</ion-label>
+                <ion-input formControlName="TLF" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="fControls.TLF.touched && fControls.TLF.invalid && this.isSubmitted">
+                <p class="error-danger">Ingresar TLF</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Correo Electronico</ion-label>
+                <ion-input formControlName="email" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="fControls.email.touched && fControls.email.invalid" lines="none">
+                <p [class.error-danger]="fControls.email.invalid">Please enter a valid email</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Tipo</ion-label>
+                <ion-select formControlName="type">
+                    <ion-select-option *ngFor="let type of typeAsociations">{{type}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="fControls.type.touched && fControls.type.invalid && this.isSubmitted"  lines="none">
+                <p class="error-danger">Ingresar tipo de la mascota</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Pais</ion-label>
+                <ion-input formControlName="country" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="fControls.country.touched && fControls.country.invalid && this.isSubmitted"  lines="none">
+                <p class="error-danger">Ingresar el pais</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Region</ion-label>
+                <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
+                <p class="error-danger">Ingresar la region</p>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Pagina Web</ion-label>
+                <ion-input formControlName="web" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Descripcion</ion-label>
+                <ion-textarea formControlName="description" type="text" class="bg-input"></ion-textarea>
+            </ion-item>
+            <ion-item *ngIf="fControls.description.touched && fControls.description.invalid && this.isSubmitted"  lines="none">
+                <p class="error-danger">Ingresar pequeña descripcion</p>
+            </ion-item>
+
+            <ion-item-divider class="ion-margin-top">
+                <ion-label>Informacion Adicional</ion-label>
+            </ion-item-divider>
+
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Envios</ion-label>
+                <ion-select formControlName="typeShipping">
+                    <ion-select-option *ngFor="let type of typeShippings">{{type}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="fControls.typeShipping.touched && fControls.typeShipping.invalid && this.isSubmitted"  lines="none">
+                <p class="error-danger">Ingresar tipo de envios</p>
+            </ion-item>
+
+        </ion-item-group>
+
+        <ion-item-group>
+            <ion-item-divider class="ion-margin-top">
+                <ion-label>Fotos de las instalaciones</ion-label>
+            </ion-item-divider>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col *ngFor="let img of storedImagesAssociations">
+                        <ion-img src="{{img.path}}"></ion-img>
+                        <ion-label>{{img.name}}</ion-label>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-button (click)="submitPhoto()">
+                        <ion-icon slot="icon-only" name="camera"></ion-icon>
+                        Subir foto
+                    </ion-button>
+                </ion-row>
+            </ion-grid>
+
+        </ion-item-group>
+
+        <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>
+    </form>
+</ion-content>

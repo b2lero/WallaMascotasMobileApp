@@ -122,6 +122,10 @@ export class HttpService implements CanActivate {
     }
 
     private extractData(response): any {
+        if (this.successfulNotification) {
+            this.presentToast(this.successfulNotification);
+            this.successfulNotification = undefined;
+        }
         const contentType = response.headers.get('content-type');
         const token = response.body.token;
         if (token) {
@@ -138,10 +142,10 @@ export class HttpService implements CanActivate {
         }
     }
 
-    async presentToast(customMessage: string, time: number) {
+    async presentToast(customMessage: string, time?: number) {
         const toast = await this.toastCtrl.create({
             message: customMessage,
-            duration: time,
+            duration: 2000,
             position: 'bottom'
         });
         toast.present();

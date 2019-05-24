@@ -75,11 +75,12 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Descripcion</ion-label>
-        <ion-textarea formControlName="description" type="text" class="bg-input" clearInput></ion-textarea>
+        <ion-textarea formControlName="description" type="text" class="bg-input"></ion-textarea>
       </ion-item>
       <ion-item *ngIf="fControls.description.touched && fControls.description.invalid && this.isSubmitted"  lines="none">
         <p class="error-danger">Ingresar pequeña descripcion</p>
       </ion-item>
+
     </ion-item-group>
 
     <ion-item-group>
@@ -173,6 +174,6 @@
 
 
 
-    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Conectarse</ion-button>
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Enviar</ion-button>
   </form>
 </ion-content>

@@ -1,79 +1,33 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PetService} from '../../../services/pet.service';
-import {HttpService} from '../../../core/http.service';
+import {ChangeDetectorRef, Component, Input, Output} from '@angular/core';
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {ActionSheetController} from '@ionic/angular';
 import {File} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
-import {IPet} from '../../../models/pet.model';
 
 @Component({
-    selector: 'app-submit-pet',
-    templateUrl: './submit-pet.page.html',
-    styleUrls: ['./submit-pet.page.scss'],
-})
-export class SubmitPetPageComponent implements OnInit {
+    selector: 'app-upload',
+    templateUrl: 'upload.component.html',
+    styleUrls: ['upload.component.scss']
 
-    static URL = 'pets';
-    pageTitle = 'Alta Mascota';
-    submitPetForm: FormGroup;
-    typeAnimals = ['perro', 'gato', 'otro'];
-    isSubmitted: boolean;
-    hasChip = false;
-    isVaccinated = false;
-    isPositiveInLeukemia = false;
-    isPositiveInLeismania = false;
-    hasPppLicense = false;
-    isSterilized = false;
-    isInTreatment = false;
-    isPositiveInFelineImmunodeficiency = false;
-    // Photos Storage
-    STORAGE_KEY = 'my_images'; // we create our own folder
-    storedImages = [];
-    // Camera
+})
+
+export class UploadComponent {
+    // @Input() title: string;
+
+    @Input() storedImages = []; // recibo
+    STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
 
     constructor(
-        private formBuilder: FormBuilder,
-        private petService: PetService,
-        private httpService: HttpService,
         private camera: Camera,
         public actionSheetController: ActionSheetController,
         private file: File,
         private storage: Storage,
         private webview: WebView,
         private filePath: FilePath,
-        private changeRef: ChangeDetectorRef
-    ) {
-    }
-
-    ngOnInit() {
-        this.submitPetForm = this.formBuilder.group({
-            name: ['', [Validators.required]],
-            type: ['', [Validators.required]],
-            breed: ['', [Validators.required]],
-            country: ['', [Validators.required]],
-            region: ['', [Validators.required]],
-            description: ['', [Validators.required]],
-            gender: ['', [Validators.required]],
-            size: ['', [Validators.required]],
-            birthdate: ['', [Validators.required]],
-            hasChip: [''],
-            isVaccinated: [''],
-            isPositiveInLeukemia: [''],
-            isPositiveInLeismania: [''],
-            hasPppLicense: [''],
-            isSterilized: [''],
-            isInTreatment: [''],
-            isPositiveInFelineImmunodeficiency: ['']
-        });
-    }
-
-    get fControls() {
-        return this.submitPetForm.controls;
+        private changeRef: ChangeDetectorRef) {
     }
 
     loadStoredImages() {
@@ -178,17 +132,5 @@ export class SubmitPetPageComponent implements OnInit {
         });
     }
 
-
-    onSubmit(submitFormPet: FormGroup) {
-        this.isSubmitted = true;
-        const newPet: IPet = submitFormPet.value;
-        if (newPet && this.submitPetForm.valid) {
-
-            this.petService.createPet(newPet).subscribe(
-                success => console.log('--> Success pet submitted', success)
-            );
-
-        }
-    }
 
 }
