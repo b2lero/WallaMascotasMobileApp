@@ -17,11 +17,13 @@ npm-debug.log*
 .sourcemaps/
 .sass-cache/
 .tmp/
+.gradle/
 .versions/
 coverage/
 www/
 node_modules/
 tmp/
+android/
 temp/
 platforms/
 plugins/
