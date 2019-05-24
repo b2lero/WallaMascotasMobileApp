@@ -8,6 +8,7 @@ import {File} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
+import {IPet} from '../../../models/pet.model';
 
 @Component({
     selector: 'app-submit-pet',
@@ -180,12 +181,13 @@ export class SubmitPetPageComponent implements OnInit {
 
     onSubmit(submitFormPet: FormGroup) {
         this.isSubmitted = true;
-        if (this.submitPetForm.valid) {
-            const newPet = this.submitPetForm.value;
+        const newPet: IPet = submitFormPet.value;
+        if (newPet && this.submitPetForm.valid) {
 
             this.petService.createPet(newPet).subscribe(
-                response => console.log('--> response request post', response)
+                success => console.log('--> Success pet submitted', success)
             );
+
         }
     }
 

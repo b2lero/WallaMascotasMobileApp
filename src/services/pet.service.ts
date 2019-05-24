@@ -3,7 +3,6 @@ import {HttpService} from '../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
 import {IPet} from '../models/pet.model';
-import {map} from 'rxjs/operators';
 
 @Injectable()
 export class PetService {

@@ -12,16 +12,15 @@ import {CoreModule} from '../core/core.module';
 import {PetService} from '../services/pet.service';
 import {UserService} from '../services/user.service';
 import {IonicStorageModule} from '@ionic/storage';
-import {SortPipe} from '../pipes/sort.pipe';
 import {Camera} from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/File/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
+import {AssociationService} from '../services/association.service';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        SortPipe
+        AppComponent
     ],
     entryComponents: [],
     imports: [
@@ -32,14 +31,15 @@ import {FilePath} from '@ionic-native/file-path/ngx';
         AppRoutingModule
     ],
     providers: [
-        StatusBar,
-        SplashScreen,
-        PetService,
-        UserService,
         Camera,
-        WebView,
         File,
         FilePath,
+        PetService,
+        AssociationService,
+        StatusBar,
+        SplashScreen,
+        UserService,
+        WebView,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

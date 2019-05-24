@@ -93,7 +93,21 @@
                 <ion-label>Fotos de las instalaciones</ion-label>
             </ion-item-divider>
 
-<!-- TODO add upload photo component-->
+            <ion-grid>
+                <ion-row>
+                    <ion-col *ngFor="let img of storedImagesAssociations">
+                        <ion-img src="{{img.path}}"></ion-img>
+                        <ion-label>{{img.name}}</ion-label>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-button (click)="submitPhoto()">
+                        <ion-icon slot="icon-only" name="camera"></ion-icon>
+                        Subir foto
+                    </ion-button>
+                </ion-row>
+            </ion-grid>
 
         </ion-item-group>
 
