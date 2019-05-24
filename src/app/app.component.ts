@@ -24,6 +24,10 @@ export class AppComponent {
         {
             title: 'Alta mascota',
             url: '/submit/pets'
+        },
+        {
+            title: 'Alta Asociacion',
+            url: '/submit/asociation'
         }
     ];
 
