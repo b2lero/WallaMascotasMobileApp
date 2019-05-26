@@ -1,36 +1,31 @@
-import {ChangeDetectorRef, Component, Input, Output} from '@angular/core';
-import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
+import {Injectable} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
-import {File} from '@ionic-native/File/ngx';
-import {Storage} from '@ionic/storage';
+import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
+import {File} from '@ionic-native/File/ngx';
+import {Storage} from '@ionic/storage';
+import {Subject} from 'rxjs';
 
-@Component({
-    selector: 'app-upload',
-    templateUrl: 'upload.component.html',
-    styleUrls: ['upload.component.scss']
 
-})
-
-export class UploadComponent {
+@Injectable()
+export class ImageUploadService {
     // @Input() title: string;
 
-    @Input() storedImages = []; // recibo
+    storedImages = [];
     STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
 
     constructor(
         private camera: Camera,
-        public actionSheetController: ActionSheetController,
+        private actionSheetController: ActionSheetController,
         private file: File,
         private storage: Storage,
         private webview: WebView,
-        private filePath: FilePath,
-        private changeRef: ChangeDetectorRef) {
+        private filePath: FilePath) {
     }
 
-    loadStoredImages() {
+    private loadStoredImages() {
         this.storage.get(this.STORAGE_KEY).then(images => {
             if (images) {
                 const arr = JSON.parse(images);
@@ -44,7 +39,7 @@ export class UploadComponent {
         });
     }
 
-    pathForImage(img) {
+    private pathForImage(img) {
         if (img === null) {
             return '';
         } else {
@@ -78,12 +73,12 @@ export class UploadComponent {
         await actionSheet.present();
     }
 
-    createFileName() {
+    private createFileName() {
         const d = new Date();
         return d.getTime() + '_IOS_IMAGE' + '.jpg';
     }
 
-    takePicture(deviceSourceType: PictureSourceType) {
+    private takePicture(deviceSourceType: PictureSourceType) {
         const cameraOptions: CameraOptions = {
             quality: 100,
             sourceType: deviceSourceType,
@@ -99,7 +94,7 @@ export class UploadComponent {
             });
     }
 
-    copyFileToLocalDir(namePath, currentName, newFileName) {
+    private copyFileToLocalDir(namePath, currentName, newFileName) {
         this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
             this.updateStoredImages(newFileName);
         }, error => {
@@ -107,7 +102,7 @@ export class UploadComponent {
         });
     }
 
-    updateStoredImages(nameFileImage) {
+    private updateStoredImages(nameFileImage) {
         this.storage.get(this.STORAGE_KEY).then(images => {
             const arr = JSON.parse(images);
             if (!arr) {
@@ -128,7 +123,7 @@ export class UploadComponent {
             };
 
             this.storedImages = [newEntry, ...this.storedImages];
-            this.changeRef.detectChanges(); // trigger change detection cycle
+            // this.changeRef.detectChanges(); // trigger change detection cycle
         });
     }
 

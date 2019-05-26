@@ -17,6 +17,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/File/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import {AssociationService} from '../services/association.service';
+import {ImageUploadService} from '../core/image-upload.service';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {AssociationService} from '../services/association.service';
         StatusBar,
         SplashScreen,
         UserService,
+        ImageUploadService,
         WebView,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
