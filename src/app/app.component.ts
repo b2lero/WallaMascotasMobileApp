@@ -28,6 +28,10 @@ export class AppComponent {
         {
             title: 'Alta Asociacion',
             url: '/submit/asociation'
+        },
+        {
+            title: 'Alta Servicio',
+            url: '/submit/services'
         }
     ];
 

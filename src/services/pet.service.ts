@@ -30,4 +30,9 @@ export class PetService {
     readAllcountries() {
         return this.httpService.get(ApiEndpoint.COUNTRIES);
     }
+
+    // GET /countries/:id/regions
+    readRegionById(id) {
+        return this.httpService.get(ApiEndpoint.COUNTRIES + '/' + id + '/regions');
+    }
 }

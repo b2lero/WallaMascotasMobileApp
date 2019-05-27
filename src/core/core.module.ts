@@ -4,26 +4,29 @@ import {FormsModule} from '@angular/forms';
 import {HttpService} from './http.service';
 import {HeaderComponent} from './header.component';
 import {IonicModule} from '@ionic/angular';
-import {UploadComponent} from './upload.component';
+import {ImageUploadComponent} from './image-upload.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
     imports: [
         FormsModule,
         HttpClientModule,
         IonicModule,
+        CommonModule
     ],
     declarations: [
         HeaderComponent,
-        UploadComponent
+        ImageUploadComponent
     ],
     exports: [
         HeaderComponent,
-        UploadComponent
+        ImageUploadComponent
     ],
     entryComponents: [
     ],
     providers: [
-        HttpService
+        HttpService,
+        ImageUploadComponent
     ]
 })
 

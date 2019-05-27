@@ -1,50 +1,50 @@
-import {ChangeDetectorRef, Component, Input, Output} from '@angular/core';
-import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
+import {ChangeDetectorRef, Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
+import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
+import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {File} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
-import {WebView} from '@ionic-native/ionic-webview/ngx';
-import {FilePath} from '@ionic-native/file-path/ngx';
 
 @Component({
-    selector: 'app-upload',
-    templateUrl: 'upload.component.html',
-    styleUrls: ['upload.component.scss']
+    selector: 'upload-image',
+    templateUrl: 'image-upload.component.html',
+    styleUrls: ['image-upload.component.scss']
 
 })
+export class ImageUploadComponent implements OnInit {
 
-export class UploadComponent {
-    // @Input() title: string;
-
-    @Input() storedImages = []; // recibo
+    storedImages = [];
     STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
+    @Output() imagesLinksStorage: EventEmitter<string[]> = new EventEmitter();
 
     constructor(
         private camera: Camera,
-        public actionSheetController: ActionSheetController,
+        private actionSheetController: ActionSheetController,
         private file: File,
         private storage: Storage,
         private webview: WebView,
-        private filePath: FilePath,
         private changeRef: ChangeDetectorRef) {
     }
 
-    loadStoredImages() {
-        this.storage.get(this.STORAGE_KEY).then(images => {
-            if (images) {
-                const arr = JSON.parse(images);
-                this.storedImages = [];
-                for (const img of arr) {
-                    const localfilePath = this.file.dataDirectory + img;
-                    const resolvedWebViewPath = this.pathForImage(localfilePath);
-                    this.storedImages.push({name: img, path: resolvedWebViewPath, filePath: localfilePath});
-                }
-            }
-        });
+    ngOnInit(): void {
     }
 
-    pathForImage(img) {
+    // private loadStoredImages() {
+    //     this.storage.get(this.STORAGE_KEY).then(images => {
+    //         if (images) {
+    //             const arr = JSON.parse(images);
+    //             this.storedImages = [];
+    //             for (const img of arr) {
+    //                 const localfilePath = this.file.dataDirectory + img;
+    //                 const resolvedWebViewPath = this.pathForImage(localfilePath);
+    //                 this.storedImages.push({name: img, path: resolvedWebViewPath, filePath: localfilePath});
+    //             }
+    //         }
+    //     });
+    // }
+
+    private pathForImage(img) {
         if (img === null) {
             return '';
         } else {
@@ -78,12 +78,12 @@ export class UploadComponent {
         await actionSheet.present();
     }
 
-    createFileName() {
+    private createFileName() {
         const d = new Date();
         return d.getTime() + '_IOS_IMAGE' + '.jpg';
     }
 
-    takePicture(deviceSourceType: PictureSourceType) {
+    private takePicture(deviceSourceType: PictureSourceType) {
         const cameraOptions: CameraOptions = {
             quality: 100,
             sourceType: deviceSourceType,
@@ -99,7 +99,7 @@ export class UploadComponent {
             });
     }
 
-    copyFileToLocalDir(namePath, currentName, newFileName) {
+    private copyFileToLocalDir(namePath, currentName, newFileName) {
         this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
             this.updateStoredImages(newFileName);
         }, error => {
@@ -107,7 +107,7 @@ export class UploadComponent {
         });
     }
 
-    updateStoredImages(nameFileImage) {
+    private updateStoredImages(nameFileImage) {
         this.storage.get(this.STORAGE_KEY).then(images => {
             const arr = JSON.parse(images);
             if (!arr) {
@@ -129,6 +129,7 @@ export class UploadComponent {
 
             this.storedImages = [newEntry, ...this.storedImages];
             this.changeRef.detectChanges(); // trigger change detection cycle
+            this.imagesLinksStorage.emit(this.storedImages);
         });
     }
 

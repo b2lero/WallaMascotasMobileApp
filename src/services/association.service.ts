@@ -13,4 +13,6 @@ export class AssociationService {
         return this.httpService.post(ApiEndpoint.ASSOCIATIONS, requestBody);
     }
 
+    
+
 }

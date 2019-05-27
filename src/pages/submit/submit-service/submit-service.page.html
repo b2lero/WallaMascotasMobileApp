@@ -1,0 +1,107 @@
+<app-header [title]="pageTitle"></app-header>
+
+<ion-content>
+
+  <form [formGroup]="submitFormService" (ngSubmit)="onSubmit(submitFormService)">
+    <ion-item-group>
+      <ion-item-divider class="ion-margin-top">
+        <ion-label>Informacion Asociacion</ion-label>
+      </ion-item-divider>
+
+        <ion-list>
+          <ion-list-header>Seleccione un servicio</ion-list-header>
+          <ion-item>
+            <ion-label>Servicio:</ion-label>
+            <ion-select formControlName="typeService" placeholder="seleccione uno">
+              <ion-select-option *ngFor="let service of typeOfServices">{{service}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      <ion-item *ngIf="fControls.typeService.touched && fControls.typeService.invalid && this.isSubmitted" lines="none">
+        <p class="error-danger">Escoger un servicio</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Otro servico no incluido</ion-label>
+        <ion-input formControlName="otherService" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Nombre de la compania</ion-label>
+        <ion-input formControlName="nameCompany" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.nameCompany.touched && fControls.nameCompany.invalid && this.isSubmitted" lines="none">
+        <p class="error-danger">Ingresar nombre de la compania</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Nombre del servicio</ion-label>
+        <ion-input formControlName="nameService" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.nameService.touched && fControls.nameService.invalid && this.isSubmitted" lines="none">
+        <p class="error-danger">Ingresar nombre del servico</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Region</ion-label>
+        <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar la region</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Localidad</ion-label>
+        <ion-input formControlName="location" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.location.touched && fControls.location.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar la localidad</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Correo Electronico</ion-label>
+        <ion-input formControlName="email" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.email.touched && fControls.email.invalid" lines="none">
+        <p class="error-danger">Correo electronico incorrecto</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Telefono</ion-label>
+        <ion-input formControlName="phone" type="tel" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.phone.touched && fControls.phone.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar numero de telefono</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Descripcion</ion-label>
+        <ion-textarea formControlName="description" type="text" class="bg-input"></ion-textarea>
+      </ion-item>
+
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider class="ion-margin-top">
+        <ion-label>Fotos de las instalaciones</ion-label>
+      </ion-item-divider>
+
+
+      <ion-grid>
+        <ion-row>
+          <ng-container *ngFor="let img of imagesFromPhone">
+            <ion-col size="4">
+              <ion-img src="{{img.path}}"></ion-img>
+              <ion-label>{{img.name}}</ion-label>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+
+      <upload-image (imagesLinksStorage)="loadPictures($event)"></upload-image>
+
+    </ion-item-group>
+
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitFormService.valid">Enviar</ion-button>
+  </form>
+</ion-content>
