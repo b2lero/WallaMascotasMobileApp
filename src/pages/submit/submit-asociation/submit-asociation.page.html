@@ -95,19 +95,16 @@
 
             <ion-grid>
                 <ion-row>
-                    <ion-col *ngFor="let img of storedImagesAssociations">
-                        <ion-img src="{{img.path}}"></ion-img>
-                        <ion-label>{{img.name}}</ion-label>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row>
-                    <ion-button (click)="submitPhoto()">
-                        <ion-icon slot="icon-only" name="camera"></ion-icon>
-                        Subir foto
-                    </ion-button>
+                    <ng-container *ngFor="let img of imagesFromPhone">
+                        <ion-col size="4">
+                            <ion-img src="{{img.path}}"></ion-img>
+                            <ion-label>{{img.name}}</ion-label>
+                        </ion-col>
+                    </ng-container>
                 </ion-row>
             </ion-grid>
+
+            <upload-image (imagesLinksStorage)="loadPictures($event)"></upload-image>
 
         </ion-item-group>
         <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>

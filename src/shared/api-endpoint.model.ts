@@ -8,4 +8,7 @@ export class ApiEndpoint {
 
     public static USERS = '/users';
     public static USERS_AUTH = ApiEndpoint.USERS + '/authenticate';
+
+    static PROFESSIONAL_TYPES = '/professional-service-types';
+    static PROFESSIONAL_SERVICE = '/professional-services';
 }

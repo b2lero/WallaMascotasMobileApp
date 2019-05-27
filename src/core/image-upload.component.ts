@@ -1,20 +1,22 @@
-import {Injectable} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
-import {FilePath} from '@ionic-native/file-path/ngx';
 import {File} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
-import {Subject} from 'rxjs';
 
+@Component({
+    selector: 'upload-image',
+    templateUrl: 'image-upload.component.html',
+    styleUrls: ['image-upload.component.scss']
 
-@Injectable()
-export class ImageUploadService {
-    // @Input() title: string;
+})
+export class ImageUploadComponent implements OnInit {
 
     storedImages = [];
     STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
+    @Output() imagesLinksStorage: EventEmitter<string[]> = new EventEmitter();
 
     constructor(
         private camera: Camera,
@@ -22,22 +24,25 @@ export class ImageUploadService {
         private file: File,
         private storage: Storage,
         private webview: WebView,
-        private filePath: FilePath) {
+        private changeRef: ChangeDetectorRef) {
     }
 
-    private loadStoredImages() {
-        this.storage.get(this.STORAGE_KEY).then(images => {
-            if (images) {
-                const arr = JSON.parse(images);
-                this.storedImages = [];
-                for (const img of arr) {
-                    const localfilePath = this.file.dataDirectory + img;
-                    const resolvedWebViewPath = this.pathForImage(localfilePath);
-                    this.storedImages.push({name: img, path: resolvedWebViewPath, filePath: localfilePath});
-                }
-            }
-        });
+    ngOnInit(): void {
     }
+
+    // private loadStoredImages() {
+    //     this.storage.get(this.STORAGE_KEY).then(images => {
+    //         if (images) {
+    //             const arr = JSON.parse(images);
+    //             this.storedImages = [];
+    //             for (const img of arr) {
+    //                 const localfilePath = this.file.dataDirectory + img;
+    //                 const resolvedWebViewPath = this.pathForImage(localfilePath);
+    //                 this.storedImages.push({name: img, path: resolvedWebViewPath, filePath: localfilePath});
+    //             }
+    //         }
+    //     });
+    // }
 
     private pathForImage(img) {
         if (img === null) {
@@ -123,7 +128,8 @@ export class ImageUploadService {
             };
 
             this.storedImages = [newEntry, ...this.storedImages];
-            // this.changeRef.detectChanges(); // trigger change detection cycle
+            this.changeRef.detectChanges(); // trigger change detection cycle
+            this.imagesLinksStorage.emit(this.storedImages);
         });
     }
 
