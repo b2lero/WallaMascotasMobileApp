@@ -17,7 +17,6 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/File/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import {AssociationService} from '../services/association.service';
-import {ImageUploadComponent} from '../core/image-upload.component';
 import {ProfessionalServService} from '../services/professional-serv.service';
 
 @NgModule({

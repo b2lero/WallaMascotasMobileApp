@@ -24,6 +24,6 @@ const routes: Routes = [
         CoreModule,
         ReactiveFormsModule
     ],
-  declarations: [SubmitAsociationPageComponent]
+    declarations: [SubmitAsociationPageComponent]
 })
 export class SubmitAsociationPageModule {}

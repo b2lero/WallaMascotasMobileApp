@@ -1,11 +1,6 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {ActionSheetController} from '@ionic/angular';
-import {File} from '@ionic-native/File/ngx';
-import {Storage} from '@ionic/storage';
-import {WebView} from '@ionic-native/ionic-webview/ngx';
-import {FilePath} from '@ionic-native/file-path/ngx';
 import {Router} from '@angular/router';
 import {AssociationService} from '../../../services/association.service';
 
@@ -24,22 +19,10 @@ export class SubmitAsociationPageComponent implements OnInit {
     typeShippings = ['No se realizan', 'Misma provincia', 'Toda España', 'Toda Europa'];
     imagesFromPhone = [];
 
-    // Photos Storage
-    STORAGE_KEY = 'my_images'; // we create our own folder
-    storedImages = [];
-    // Camera
-    sourcePathImg = '/source/path/img';
-
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private associationService: AssociationService,
-                private camera: Camera,
-                public actionSheetController: ActionSheetController,
-                private file: File,
-                private storage: Storage,
-                private webview: WebView,
-                private filePath: FilePath,
-                private changeRef: ChangeDetectorRef) {
+                public actionSheetController: ActionSheetController) {
     }
 
     ngOnInit() {

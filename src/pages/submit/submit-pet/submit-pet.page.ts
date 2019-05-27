@@ -1,12 +1,7 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PetService} from '../../../services/pet.service';
-import {HttpService} from '../../../core/http.service';
-import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {ActionSheetController} from '@ionic/angular';
-import {File} from '@ionic-native/File/ngx';
-import {Storage} from '@ionic/storage';
-import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {IPet} from '../../../models/pet.model';
 
 @Component({

@@ -11,15 +11,19 @@ import {PetService} from '../../../services/pet.service';
 
 export class PetProfilePageComponent {
 
-    static URL = ':id';
     dogId: string;
     pet: IPet;
     sliderOpts;
+    backToRef = '/pets';
 
     constructor(private router: ActivatedRoute, private petservice: PetService) {
+    }
+
+    ionViewWillEnter() {
         this.dogId = this.router.snapshot.paramMap.get('id');
         this.petservice.readPetById(this.dogId).subscribe(
             (pet: IPet) => {
+                console.log(pet);
                 this.pet = pet;
             }
         );
