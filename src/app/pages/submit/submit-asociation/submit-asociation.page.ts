@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {AssociationService} from '../../../services/association.service';
+import {AssociationService} from '../../../../services/association.service';
 
 @Component({
     selector: 'app-submit-asociation',

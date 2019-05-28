@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from '../core/http.service';
-import {User} from '../models/user.model';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
+import {IUser} from '../models/user.model';
 
 @Injectable()
 export class UserService {
@@ -10,7 +10,7 @@ export class UserService {
     }
 
     // POST users/authenticate
-    connect(credentials: User) {
+    connect(credentials: IUser) {
         return this.httpService.login(ApiEndpoint.USERS_AUTH, credentials);
     }
 

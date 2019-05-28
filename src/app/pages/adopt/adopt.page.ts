@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IPet} from '../../models/pet.model';
-import {PetService} from '../../services/pet.service';
 import {Router} from '@angular/router';
 import {IonInfiniteScroll} from '@ionic/angular';
 import {Subject} from 'rxjs';
+import {PetService} from '../../../services/pet.service';
+import {IPet} from '../../../models/pet.model';
 
 @Component({
     selector: 'app-adopt',
@@ -27,7 +27,6 @@ export class AdoptPageComponent implements OnInit {
 
     ngOnInit(): void {
     }
-
 
     loadMorePets() {
         // Change state on each call from 'Loading' to 'Enable
@@ -58,9 +57,9 @@ export class AdoptPageComponent implements OnInit {
         // this.animals = [];
     }
 
-    loadContentBasedOnCategory(e) {
+    loadContentBasedOnCategory(event) {
         this.resetOptions();
-        this.categorySelected = e.detail.value;
+        this.categorySelected = event.detail.value;
         console.log('--> selected category', this.categorySelected);
         const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, category: this.categorySelected};
         this.petService.readAllPets(request).subscribe(

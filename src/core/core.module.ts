@@ -18,7 +18,7 @@ import {CommonModule} from '@angular/common';
     declarations: [
         HeaderComponent,
         ImageUploadComponent,
-        ProfileViewComponent
+        ProfileViewComponent,
     ],
     exports: [
         HeaderComponent,

@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageComponent } from './login.page';
-import {CoreModule} from '../../../core/core.module';
+import { SubmitServicePageComponent } from './submit-service.page';
+import {CoreModule} from '../../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPageComponent
+    component: SubmitServicePageComponent
   }
 ];
 
@@ -20,10 +20,10 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
-        CoreModule,
         RouterModule.forChild(routes),
+        CoreModule,
         ReactiveFormsModule
     ],
-  declarations: [LoginPageComponent]
+  declarations: [SubmitServicePageComponent]
 })
-export class LoginPageModule {}
+export class SubmitServicePageModule {}

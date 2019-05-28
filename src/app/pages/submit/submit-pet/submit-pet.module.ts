@@ -6,8 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SubmitPetPageComponent } from './submit-pet.page';
-import {CoreModule} from '../../../core/core.module';
-import {SubmitAsociationPageModule} from '../submit-asociation/submit-asociation.module';
+import {CoreModule} from '../../../../core/core.module';
 
 const routes: Routes = [
   {
@@ -23,8 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     CoreModule,
-    ReactiveFormsModule,
-    SubmitAsociationPageModule
+    ReactiveFormsModule
   ],
   declarations: [SubmitPetPageComponent]
 })

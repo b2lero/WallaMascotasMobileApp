@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PetService} from '../../../services/pet.service';
 import {ActionSheetController} from '@ionic/angular';
-import {IPet} from '../../../models/pet.model';
+import {PetService} from '../../../../services/pet.service';
+import {IPet} from '../../../../models/pet.model';
 
 @Component({
     selector: 'app-submit-pet',

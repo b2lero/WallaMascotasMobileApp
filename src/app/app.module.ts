@@ -32,11 +32,11 @@ import {ProfessionalServService} from '../services/professional-serv.service';
         AppRoutingModule
     ],
     providers: [
+        AssociationService,
         Camera,
         File,
         FilePath,
         PetService,
-        AssociationService,
         ProfessionalServService,
         StatusBar,
         SplashScreen,

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {IPet} from '../../../models/pet.model';
-import {PetService} from '../../../services/pet.service';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {PetService} from '../../../../services/pet.service';
+import {IPet} from '../../../../models/pet.model';
 
 @Component({
     selector: 'app-pet-profile',
@@ -11,17 +11,16 @@ import {PetService} from '../../../services/pet.service';
 
 export class PetProfilePageComponent {
 
-    dogId: string;
+    petId: string;
     pet: IPet;
     sliderOpts;
-    backToRef = '/pets';
 
     constructor(private router: ActivatedRoute, private petservice: PetService) {
     }
 
     ionViewWillEnter() {
-        this.dogId = this.router.snapshot.paramMap.get('id');
-        this.petservice.readPetById(this.dogId).subscribe(
+        this.petId = this.router.snapshot.paramMap.get('id');
+        this.petservice.readPetById(this.petId).subscribe(
             (pet: IPet) => {
                 console.log(pet);
                 this.pet = pet;
