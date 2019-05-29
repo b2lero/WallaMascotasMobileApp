@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SubmitAsociationPageComponent } from './submit-asociation.page';
+import { SubmitAsociationPage } from './submit-asociation.page';
 import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: SubmitAsociationPageComponent
+    component: SubmitAsociationPage
   }
 ];
 
@@ -24,6 +24,6 @@ const routes: Routes = [
         CoreModule,
         ReactiveFormsModule
     ],
-  declarations: [SubmitAsociationPageComponent]
+  declarations: [SubmitAsociationPage]
 })
 export class SubmitAsociationPageModule {}

@@ -9,7 +9,7 @@ import {PetService} from '../../../services/pet.service';
     styleUrls: ['./pet-profile.page.scss'],
 })
 
-export class PetProfilePageComponent {
+export class PetProfilePage {
 
     static URL = ':id';
     dogId: string;

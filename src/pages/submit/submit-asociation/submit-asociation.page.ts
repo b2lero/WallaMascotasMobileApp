@@ -14,7 +14,7 @@ import {AssociationService} from '../../../services/association.service';
     templateUrl: './submit-asociation.page.html',
     styleUrls: ['./submit-asociation.page.scss'],
 })
-export class SubmitAsociationPageComponent implements OnInit {
+export class SubmitAsociationPage implements OnInit {
 
     static URL = 'asociation';
     pageTitle = 'Alta asociacion';

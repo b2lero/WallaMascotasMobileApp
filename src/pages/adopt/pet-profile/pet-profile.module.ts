@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PetProfilePageComponent } from './pet-profile.page';
+import { PetProfilePage } from './pet-profile.page';
 import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: PetProfilePageComponent
+    component: PetProfilePage
   }
 ];
 
@@ -23,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PetProfilePageComponent]
+  declarations: [PetProfilePage]
 })
 export class PetProfilePageModule {}

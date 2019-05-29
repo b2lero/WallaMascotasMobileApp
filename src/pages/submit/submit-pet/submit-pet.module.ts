@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SubmitPetPageComponent } from './submit-pet.page';
+import { SubmitPetPage } from './submit-pet.page';
 import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: SubmitPetPageComponent
+    component: SubmitPetPage
   }
 ];
 
@@ -24,6 +24,6 @@ const routes: Routes = [
     CoreModule,
     ReactiveFormsModule
   ],
-  declarations: [SubmitPetPageComponent]
+  declarations: [SubmitPetPage]
 })
 export class SubmitPetPageModule {}

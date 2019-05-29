@@ -10,7 +10,7 @@ import {Subject} from 'rxjs';
     templateUrl: './adopt.page.html',
     styleUrls: ['./adopt.page.scss'],
 })
-export class AdoptPageComponent implements OnInit {
+export class AdoptPage implements OnInit {
 
     static URL = 'pets';
     pageTitle = 'Adoptar una mascota';
