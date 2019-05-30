@@ -1,5 +1,5 @@
-export interface IPhone {
-    countryCode: string;
+export interface Phone {
+    countryCode?: string;
     number: string;
-    description: string;
+    description?: string;
 }

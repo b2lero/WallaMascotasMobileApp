@@ -14,4 +14,9 @@ export class UserService {
         return this.httpService.login(ApiEndpoint.USERS_AUTH, credentials);
     }
 
+    // User Pets
+    readAllPetsByUserId(id, request) {
+        return this.httpService.post(ApiEndpoint.USERS + id + '/pets/pages', request);
+    }
+
 }

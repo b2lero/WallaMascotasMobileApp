@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PetService} from '../../../../services/pet.service';
 import {IPet} from '../../../../models/pet.model';
 
@@ -12,7 +12,7 @@ import {IPet} from '../../../../models/pet.model';
 export class PetProfilePageComponent {
 
     petId: string;
-    pet: IPet;
+    profile: IPet;
     sliderOpts;
 
     constructor(private router: ActivatedRoute, private petservice: PetService) {
@@ -23,7 +23,7 @@ export class PetProfilePageComponent {
         this.petservice.readPetById(this.petId).subscribe(
             (pet: IPet) => {
                 console.log(pet);
-                this.pet = pet;
+                this.profile = pet;
             }
         );
     }

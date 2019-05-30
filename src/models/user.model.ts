@@ -2,7 +2,7 @@ import {IRole} from './role.model';
 import {IRegion} from './region.model';
 import {IPicture} from './picture.model';
 import {IFunction} from './function.model';
-import {IPhone} from './phone.model';
+import {Phone} from './phone.model';
 
 export interface IUser {
     name?: string;
@@ -16,5 +16,5 @@ export interface IUser {
     picture?: IPicture;
     creationDate?: Date;
     functions?: Array<IFunction>;
-    phones?: Array<IPhone>;
+    phones?: Array<Phone>;
 }

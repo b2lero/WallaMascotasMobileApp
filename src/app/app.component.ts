@@ -32,6 +32,10 @@ export class AppComponent {
         {
             title: 'Alta Servicio',
             url: '/submit/services'
+        },
+        {
+            title: 'Mirar pagina assocation profile',
+            url: '/associations/:id'
         }
     ];
 

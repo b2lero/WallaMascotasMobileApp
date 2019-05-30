@@ -1,8 +1,8 @@
 import {IRegion} from './region.model';
 import {IPicture} from './picture.model';
-import {IPhone} from './phone.model';
 import {IUser} from './user.model';
 import {IPetType} from './pet-type.model';
+import {Phone} from './phone.model';
 
 export interface IPet {
     id?: string;
@@ -15,7 +15,7 @@ export interface IPet {
     isFemale?: boolean;
     pictures?: Array<IPicture>;
     hasChip?: boolean;
-    phones: Array<IPhone>;
+    phones: Array<Phone>;
     user?: IUser;
     location?: string;
     region?: IRegion;
