@@ -52,7 +52,7 @@
           <ion-label>Fotos animales</ion-label>
           <ion-item lines="none">
             <ion-label color="primary" class="--text-small">adoptados</ion-label>
-            <ion-toggle [(ngModel)]="isAdopted"></ion-toggle>
+            <ion-toggle [(ngModel)]="isAdopted" (ionChange)="loadAdoptedPets($event)"></ion-toggle>
           </ion-item>
         </ion-list-header>
         <ion-item lines="none">

@@ -68,7 +68,6 @@ export class AssociationProfilePage implements OnInit {
 
   loadMorePets() {
     this.infiniteScroll.complete();
-    console.log('it works infinite scroll');
     const request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
     console.log('next request', request);
     this.petSerivecTest.readAllPets(request).subscribe(
@@ -90,5 +89,18 @@ export class AssociationProfilePage implements OnInit {
 
   scrollToTop() {
     this.content.scrollToTop(500);
+  }
+
+  loadAdoptedPets($event: CustomEvent<any>) {
+    if (this.isAdopted) {
+      const request = {page: 1, pageSize: '3', status: 'adoptado'};
+      this.petSerivecTest.readAllPets(request).subscribe(
+          result => {
+            this.associationPetsImages = result.pets.map( el => el.pictures[0].url);
+            console.log(this.associationPetsImages);
+          }
+
+      );
+    }
   }
 }
