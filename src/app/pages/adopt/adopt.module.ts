@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SubmitPetPage } from './submit-pet.page';
+import { AdoptPage } from './adopt.page';
 import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: SubmitPetPage
+    component: AdoptPage
   }
 ];
 
@@ -21,9 +21,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    CoreModule,
-    ReactiveFormsModule
+    CoreModule
   ],
-  declarations: [SubmitPetPage]
+  declarations: [AdoptPage]
 })
-export class SubmitPetPageModule {}
+export class AdoptPageModule {}

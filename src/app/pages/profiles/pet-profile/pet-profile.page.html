@@ -1,10 +1,10 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons>
             <ion-back-button defaultHref="/pets"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Perfil
+            Perfil Mascota
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -13,65 +13,66 @@
     <ion-grid class="ion-margin-horizontal">
         <ion-row class="ion-margin-top">
             <ion-slides pager="true" [options]="sliderOpts">
-                <ion-slide *ngFor="let slide of pet?.pictures">
+                <ion-slide *ngFor="let slide of profile?.pictures">
                     <ion-img [src]="slide.url"></ion-img>
                 </ion-slide>
             </ion-slides>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.type.name">
             <ion-col><strong>Tipo</strong></ion-col>
-            <ion-col>{{pet?.type.name}}</ion-col>
+            <ion-col>{{profile?.type.name}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.name">
             <ion-col><strong>Nombre</strong></ion-col>
-            <ion-col>{{pet?.name}}</ion-col>
+            <ion-col>{{profile?.name}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.breed">
             <ion-col><strong>Raza</strong></ion-col>
-            <ion-col>{{pet?.breed}}</ion-col>
+            <ion-col>{{profile?.breed}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.isFemale">
             <ion-col><strong>Sexo</strong></ion-col>
             <ion-col>
-                <span *ngIf="pet?.isFemale"><ion-icon name="female"></ion-icon></span>
-                <span *ngIf="!pet?.isFemale"><ion-icon name="female"></ion-icon></span>
+                <span *ngIf="profile?.isFemale"><ion-icon name="female"></ion-icon></span>
+                <span *ngIf="!profile?.isFemale"><ion-icon name="female"></ion-icon></span>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.region.country.name">
             <ion-col><strong>Pais</strong></ion-col>
-            <ion-col>{{pet?.region.country.name}}</ion-col>
+            <ion-col>{{profile?.region.country.name}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.hasChip != undefined">
             <ion-col><strong>Chip</strong></ion-col>
             <ion-col>
-                <span *ngIf="pet?.hasChip">si</span>
-                <span *ngIf="!pet?.hasChip">no</span>
+                <span *ngIf="profile?.hasChip">si</span>
+                <span *ngIf="!profile?.hasChip">no</span>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.mails">
             <ion-col><strong>Email <ion-icon name="mail"></ion-icon></strong></ion-col>
-            <ion-col><p *ngFor="let mail of pet?.mails"></p></ion-col>
+            <ion-col><p *ngFor="let mail of profile?.mails"></p></ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.phones">
             <ion-col><strong>Tel <ion-icon name="call"></ion-icon></strong></ion-col>
             <ion-col>
-                <p *ngFor="let phone of pet?.phones"></p>
+                <p *ngFor="let phone of profile?.phones"></p>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.creationUtcDateTime">
             <ion-col><strong>Fecha de alta:</strong></ion-col>
-            <ion-col>{{pet?.creationUtcDateTime}}</ion-col>
+            <ion-col>{{profile?.creationUtcDateTime}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.region.name">
             <ion-col><strong>Provincia</strong></ion-col>
-            <ion-col>{{pet?.region.name}}</ion-col>
+            <ion-col>{{profile?.region.name}}</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="profile?.birthDate">
             <ion-col><strong>Fecha de nacimiento</strong></ion-col>
-            <ion-col>{{pet?.birthDate}}</ion-col>
+            <ion-col>{{profile?.birthDate}}</ion-col>
         </ion-row>
         <ion-row>
             <!-- TODO Add social media & more information about this dog-->
         </ion-row>
     </ion-grid>
+
 </ion-content>

@@ -1,46 +1,22 @@
 import {IRegion} from './region.model';
-
-interface Picture {
-    url: string;
-}
-
-interface Phone {
-    countryCode: string;
-    number: string;
-}
-
-interface User {
-    name: string;
-    surname: string;
-    mail: string;
-    phones: Phone[];
-}
-
-interface PetType {
-    id?: string;
-    name: string;
-}
-
-interface IPhone {
-    id?: string;
-    countryCode?: string;
-    number: string;
-    description?: string;
-}
+import {IPicture} from './picture.model';
+import {IUser} from './user.model';
+import {IPetType} from './pet-type.model';
+import {Phone} from './phone.model';
 
 export interface IPet {
     id?: string;
     name: string;
     birthDate: string;
-    type: PetType;
+    type: IPetType;
     mails?: Array<string>;
     description: string;
     breed?: string;
     isFemale?: boolean;
-    pictures?: Array<Picture>;
+    pictures?: Array<IPicture>;
     hasChip?: boolean;
-    phones: Array<IPhone>;
-    user?: User;
+    phones: Array<Phone>;
+    user?: IUser;
     location?: string;
     region?: IRegion;
     creationUtcDateTime?: Date;

@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SubmitServicePage } from './submit-service.page';
-import {CoreModule} from '../../../core/core.module';
+import {CoreModule} from '../../../../core/core.module';
 
 const routes: Routes = [
   {

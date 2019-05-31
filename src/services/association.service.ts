@@ -13,6 +13,8 @@ export class AssociationService {
         return this.httpService.post(ApiEndpoint.ASSOCIATIONS, requestBody);
     }
 
-    
+    readAssociationById(id): Observable<any> {
+        return this.httpService.get(ApiEndpoint.ASSOCIATIONS + '/' + id);
+    }
 
 }

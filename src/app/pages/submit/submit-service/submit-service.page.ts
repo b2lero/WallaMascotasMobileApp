@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProfessionalServService} from '../../../services/professional-serv.service';
-import {PetService} from '../../../services/pet.service';
+import {ProfessionalServService} from '../../../../services/professional-serv.service';
+import {PetService} from '../../../../services/pet.service';
 
 @Component({
     selector: 'app-submit-service',

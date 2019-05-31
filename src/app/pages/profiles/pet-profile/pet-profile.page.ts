@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {IPet} from '../../../models/pet.model';
-import {PetService} from '../../../services/pet.service';
+import {PetService} from '../../../../services/pet.service';
+import {IPet} from '../../../../models/pet.model';
 
 @Component({
     selector: 'app-pet-profile',
@@ -11,16 +11,19 @@ import {PetService} from '../../../services/pet.service';
 
 export class PetProfilePage {
 
-    static URL = ':id';
-    dogId: string;
-    pet: IPet;
+    petId: string;
+    profile: IPet;
     sliderOpts;
 
     constructor(private router: ActivatedRoute, private petservice: PetService) {
-        this.dogId = this.router.snapshot.paramMap.get('id');
-        this.petservice.readPetById(this.dogId).subscribe(
+    }
+
+    ionViewWillEnter() {
+        this.petId = this.router.snapshot.paramMap.get('id');
+        this.petservice.readPetById(this.petId).subscribe(
             (pet: IPet) => {
-                this.pet = pet;
+                console.log(pet);
+                this.profile = pet;
             }
         );
     }
