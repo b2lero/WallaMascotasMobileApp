@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./associations.page.scss'],
 })
 export class AssociationsPage implements OnInit {
-    static URL = 'associations';
+
+  static URL = 'associations';
 
   constructor() { }
 
