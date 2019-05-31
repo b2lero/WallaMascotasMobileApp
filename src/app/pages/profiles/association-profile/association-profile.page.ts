@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {IAssociation} from '../../../../models/association.model';
 import {AssociationService} from '../../../../services/association.service';
 import {ActivatedRoute} from '@angular/router';
@@ -18,12 +18,12 @@ export class AssociationProfilePage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent) content: IonContent;
   mockPicture = {url: './../../../../assets/imgs/wallamascotas_logo.jpg'};
-  currentPage = 1;
+  private currentPage = 1;
   PAGE_SIZE = 8;
   associationId: string;
   associationPetsImages: IPet[] = [];
   request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
-  isAdopted = false;
+  isAdoptedToogle = false;
   profileAssoc: IAssociation = {
     name: 'Wallamascotas',
     location: 'Madrid',
@@ -43,31 +43,41 @@ export class AssociationProfilePage implements OnInit {
       private petSerivecTest: PetService,
       private userService: UserService,
       private assocService: AssociationService,
-      private router: ActivatedRoute) {
+      private router: ActivatedRoute,
+      private changeDetect: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.associationId = this.router.snapshot.paramMap.get('id');
-    // this.assocService.readAssociationById(this.associationId).subscribe(
-    //     data => this.profileAssoc = data
-    // );
-    this.petSerivecTest.readAllPets(this.request).subscribe(
+    // this.readAssociationById(this.associationId);
+    // this.readAllPetsPicturesByAsssociationId(this.associationId);
+    this.loadPets(this.request);
+    this.currentPage += 1;
+  }
+
+  readAssocById(id) {
+    this.assocService.readAssociationById(id).subscribe(
+        data => this.profileAssoc = data
+    );
+  }
+
+  readPetsPicturesByAsssociationId(id) {
+    this.userService.readAllPetsByUserId(this.associationId, this.request).subscribe(
       data => {
         this.associationPetsImages = data.pets.map( el => el.pictures[0].url);
-        this.currentPage += 1;
       }
     );
-    // this.userService.readAllPetsByUserId(this.associationId, this.request).subscribe(
-    //   data => {
-    //     this.associationPets = data.pets;
-    //   }
-    // );
+  }
 
-
+  loadPets(request) {
+    this.petSerivecTest.readAllPets(request).subscribe(
+        data => {
+          this.associationPetsImages = data.pets.map( el => el.pictures[0].url);
+        }
+    );
   }
 
   loadMorePets() {
-    this.infiniteScroll.complete();
     const request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
     console.log('next request', request);
     this.petSerivecTest.readAllPets(request).subscribe(
@@ -78,12 +88,14 @@ export class AssociationProfilePage implements OnInit {
             if (newImgsUrls.length > 0) {
               this.associationPetsImages = imgsUrls.concat(newImgsUrls);
               this.currentPage += 1;
+              console.log(this.infiniteScroll.disabled);
             } else {
-              this.infiniteScroll.disabled = true;
               this.isContentLoaded = true;
             }
           }, 200);
-        }
+        },
+        () => {},
+        () => this.infiniteScroll.complete()
     );
   }
 
@@ -91,16 +103,24 @@ export class AssociationProfilePage implements OnInit {
     this.content.scrollToTop(500);
   }
 
-  loadAdoptedPets($event: CustomEvent<any>) {
-    if (this.isAdopted) {
-      const request = {page: 1, pageSize: '3', status: 'adoptado'};
-      this.petSerivecTest.readAllPets(request).subscribe(
-          result => {
-            this.associationPetsImages = result.pets.map( el => el.pictures[0].url);
-            console.log(this.associationPetsImages);
-          }
+  resetOptions() {
+    this.currentPage = 1;
+    // this.infiniteScroll.disabled = false;
+    this.isContentLoaded = false;
+  }
 
-      );
+  loadAdoptedPets() {
+    if (this.isAdoptedToogle) {
+      this.changeDetect.detectChanges();
+      // this.infiniteScroll.disabled = false;
+      this.resetOptions();
+      const req = {page: 1, pageSize: this.PAGE_SIZE, status: 'adoptado'};
+      this.loadPets(req);
+    } else {
+      const newReq = {page: 1, pageSize: this.PAGE_SIZE};
+      this.resetOptions();
+      this.loadPets(newReq);
     }
   }
+
 }

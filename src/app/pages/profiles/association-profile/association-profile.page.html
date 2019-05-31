@@ -52,7 +52,7 @@
           <ion-label>Fotos animales</ion-label>
           <ion-item lines="none">
             <ion-label color="primary" class="--text-small">adoptados</ion-label>
-            <ion-toggle [(ngModel)]="isAdopted" (ionChange)="loadAdoptedPets($event)"></ion-toggle>
+            <ion-toggle [(ngModel)]="isAdoptedToogle" (ionChange)="loadAdoptedPets()"></ion-toggle>
           </ion-item>
         </ion-list-header>
         <ion-item lines="none">
@@ -62,14 +62,14 @@
                 <ion-img class="--img-shadow" src="{{animal}}"></ion-img>
               </ion-col>
             </ng-container>
+            <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMorePets()">
+              <ion-infinite-scroll-content
+                      loadingSpinner="bubbles"
+                      loadingText="Loading more data...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
           </ion-row>
         </ion-item>
-        <ion-infinite-scroll threshold="20px" (ionInfinite)="loadMorePets()">
-          <ion-infinite-scroll-content
-                  loadingSpinner="bubbles"
-                  loadingText="Loading more data...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
       </ion-list>
     </ion-row>
     <ion-button expand="full" *ngIf="isContentLoaded" (click)="scrollToTop()">scoll to top</ion-button>
