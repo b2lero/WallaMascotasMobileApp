@@ -9,7 +9,7 @@ import {IPet} from '../../../../models/pet.model';
     templateUrl: './submit-pet.page.html',
     styleUrls: ['./submit-pet.page.scss'],
 })
-export class SubmitPetPageComponent implements OnInit {
+export class SubmitPetPage implements OnInit {
 
     static URL = 'pets';
     pageTitle = 'Alta Mascota';

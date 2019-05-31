@@ -34,8 +34,8 @@ export class AppComponent {
             url: '/submit/services'
         },
         {
-            title: 'Mirar pagina assocation profile',
-            url: '/associations/:id'
+            title: 'Asociaciones',
+            url: '/associations'
         }
     ];
 

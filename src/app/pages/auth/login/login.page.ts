@@ -8,7 +8,7 @@ import {UserService} from '../../../../services/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPage implements OnInit {
   static URL  = 'login';
   private pageTitle = 'Login';
   private loginForm: FormGroup;

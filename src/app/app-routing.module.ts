@@ -1,32 +1,32 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {HomePageComponent} from './pages/home/home.page';
-import {AdoptPageComponent} from './pages/adopt/adopt.page';
-import {LoginPageComponent} from './pages/auth/login/login.page';
-import {SubmitPetPageComponent} from './pages/submit/submit-pet/submit-pet.page';
-import {SubmitAsociationPageComponent} from './pages/submit/submit-asociation/submit-asociation.page';
-import {SubmitServicePageComponent} from './pages/submit/submit-service/submit-service.page';
-import {AssociationProfilePage} from './pages/profiles/association-profile/association-profile.page';
-
+import {HomePage} from './pages/home/home.page';
+import {AdoptPage} from './pages/adopt/adopt.page';
+import {PetProfilePage} from './pages/profiles/pet-profile/pet-profile.page';
+import {LoginPage} from './pages/auth/login/login.page';
+import {SubmitPetPage} from './pages/submit/submit-pet/submit-pet.page';
+import {SubmitAsociationPage} from './pages/submit/submit-asociation/submit-asociation.page';
+import {SubmitServicePage} from './pages/submit/submit-service/submit-service.page';
+import {AssociationsPage} from './pages/associations/associations.page';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: HomePageComponent.URL
+    redirectTo: HomePage.URL
   },
-  {path: HomePageComponent.URL, loadChildren: './pages/home/home.module#HomePageModule'},
-  {path: AdoptPageComponent.URL, loadChildren: './pages/adopt/adopt.module#AdoptPageModule'},
-  {path: AdoptPageComponent.URL + '/:id' ,
+  {path: HomePage.URL, loadChildren: './pages/home/home.module#HomePageModule'},
+  {path: AdoptPage.URL, loadChildren: './pages/adopt/adopt.module#AdoptPageModule'},
+  {path: AdoptPage.URL + '/' + ':id' ,
     loadChildren: './pages/profiles/pet-profile/pet-profile.module#PetProfilePageModule'
   },
-  { path: LoginPageComponent.URL, loadChildren: './pages/auth/login/login.module#LoginPageModule' },
-  { path: 'submit/' + SubmitPetPageComponent.URL, loadChildren: './pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' },
-  { path: 'submit/' + SubmitAsociationPageComponent.URL,
+  { path: LoginPage.URL, loadChildren: './pages/auth/login/login.module#LoginPageModule' },
+  { path: 'submit/' + SubmitPetPage.URL, loadChildren: './pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' },
+  { path: 'submit/' + SubmitAsociationPage.URL,
     loadChildren: './pages/submit/submit-asociation/submit-asociation.module#SubmitAsociationPageModule' },
-  { path: 'submit/' + SubmitServicePageComponent.URL,
+  { path: 'submit/' + SubmitServicePage.URL,
     loadChildren: './pages/submit/submit-service/submit-service.module#SubmitServicePageModule' },
-  { path: 'associations' + '/:id', loadChildren: './pages/profiles/association-profile/association-profile.module#AssociationProfilePageModule' }
+  { path: AssociationsPage.URL, loadChildren: './pages/associations/associations.module#AssociationsPageModule' },
 ];
 
 @NgModule({

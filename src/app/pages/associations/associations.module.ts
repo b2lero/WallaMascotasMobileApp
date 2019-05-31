@@ -5,25 +5,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PetProfilePage } from './pet-profile.page';
-import {CoreModule} from '../../../../core/core.module';
-
+import { AssociationsPage } from './associations.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PetProfilePage
+    component: AssociationsPage
   }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PetProfilePage]
+  declarations: [AssociationsPage]
 })
-export class PetProfilePageModule {}
+export class AssociationsPageModule {}

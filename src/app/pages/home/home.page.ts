@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePageComponent {
+export class HomePage {
   static URL = 'home';
   private pageTitle = 'WallaMascotas';
 

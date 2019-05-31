@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdoptPageComponent } from './adopt.page';
+import { AdoptPage } from './adopt.page';
 import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdoptPageComponent
+    component: AdoptPage
   }
 ];
 
@@ -23,6 +23,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CoreModule
   ],
-  declarations: [AdoptPageComponent]
+  declarations: [AdoptPage]
 })
 export class AdoptPageModule {}

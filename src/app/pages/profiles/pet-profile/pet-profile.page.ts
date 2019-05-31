@@ -9,7 +9,7 @@ import {IPet} from '../../../../models/pet.model';
     styleUrls: ['./pet-profile.page.scss'],
 })
 
-export class PetProfilePageComponent {
+export class PetProfilePage {
 
     petId: string;
     profile: IPet;

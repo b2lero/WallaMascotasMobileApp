@@ -8,7 +8,7 @@ import {PetService} from '../../../../services/pet.service';
     templateUrl: './submit-service.page.html',
     styleUrls: ['./submit-service.page.scss'],
 })
-export class SubmitServicePageComponent implements OnInit {
+export class SubmitServicePage implements OnInit {
     static URL = 'services';
     pageTitle = 'Alta servico';
     submitFormService: FormGroup;
