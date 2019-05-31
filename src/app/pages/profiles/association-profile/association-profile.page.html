@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{profileAssoc.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+        <ion-col [size]="6">
+          <ion-img class="--img-shadow" src="{{profileAssoc.pictures[0].url}}"></ion-img>
+        </ion-col>
+        <ion-col [size]="6">
+          <ion-list>
+            <ion-list-header>Animales</ion-list-header>
+            <ion-item lines="none">
+              <ion-badge slot="start">{{profileAssoc.petsAvailable}}</ion-badge>
+              <ion-label>disponibles</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-badge slot="start" color="secondary">{{profileAssoc.adopted}}</ion-badge>
+              <ion-label>adoptados</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Fotos instalaciones</ion-label>
+        </ion-list-header>
+        <ion-item lines="none">
+          <ng-container *ngFor="let picture of profileAssoc.pictures">
+            <ion-col size="4">
+              <ion-img class="--img-shadow" src="{{picture.url}}"></ion-img>
+            </ion-col>
+          </ng-container>
+        </ion-item>
+        <ion-list-header>
+          <ion-label>Contacto</ion-label>
+        </ion-list-header>
+        <ion-item lines="none">
+          <ion-button>Enviar mensaje</ion-button>
+          <ion-button color="success"><ion-icon name="call" slot="end"></ion-icon>Llamar</ion-button>
+        </ion-item>
+        <ion-list-header>
+          <ion-label>Fotos animales</ion-label>
+          <ion-item lines="none">
+            <ion-label color="primary" class="--text-small">adoptados</ion-label>
+            <ion-toggle [(ngModel)]="isAdopted" (ionChange)="loadAdoptedPets($event)"></ion-toggle>
+          </ion-item>
+        </ion-list-header>
+        <ion-item lines="none">
+          <ion-row>
+            <ng-container *ngFor="let animal of associationPetsImages">
+              <ion-col size="4">
+                <ion-img class="--img-shadow" src="{{animal}}"></ion-img>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-item>
+        <ion-infinite-scroll threshold="20px" (ionInfinite)="loadMorePets()">
+          <ion-infinite-scroll-content
+                  loadingSpinner="bubbles"
+                  loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-list>
+    </ion-row>
+    <ion-button expand="full" *ngIf="isContentLoaded" (click)="scrollToTop()">scoll to top</ion-button>
+  </ion-grid>
+</ion-content>

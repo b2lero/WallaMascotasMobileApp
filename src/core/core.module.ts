@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpService} from './http.service';
 import {HeaderComponent} from './header.component';
 import {IonicModule} from '@ionic/angular';
-import {ImageUploadComponent} from './image-upload.component';
+import {ImageUploadComponent} from '../shared/image-upload.component';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
@@ -16,17 +16,16 @@ import {CommonModule} from '@angular/common';
     ],
     declarations: [
         HeaderComponent,
-        ImageUploadComponent
+        ImageUploadComponent,
     ],
     exports: [
         HeaderComponent,
-        ImageUploadComponent
+        ImageUploadComponent,
     ],
     entryComponents: [
     ],
     providers: [
-        HttpService,
-        ImageUploadComponent
+        HttpService
     ]
 })
 
