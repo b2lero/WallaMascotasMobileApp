@@ -5,12 +5,13 @@ import {IUser} from './user.model';
 import {IShippingType} from './shipping-type.model';
 
 export interface IAssociation {
+    id?: string;
     name: string;
     location: string;
-    region: IRegion;
+    region?: IRegion;
     email: Array<string>;
     shippingType?: IShippingType;
-    websiteUrl: string;
+    websiteUrl?: string;
     phones: Array<Phone>;
     pictures: Array<IPicture>;
     members?: Array<IUser>;
