@@ -1,9 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>associations</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="pageTitle"></app-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ng-container *ngFor="let assoc of listAssociations">
+                <ion-col size="6">
+                    <ion-card [routerLink]="[assoc.id]">
+                        <ion-item lines="none" color="primary">
+                            <ion-label><strong>Asociación</strong></ion-label>
+                        </ion-item>
+                        <ion-card-header class="padding-vertical">
+                            <ion-img src="{{association.pictures[0].url}}"></ion-img>
+                            <ion-card-title class="--text-small">{{assoc.name}}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content class="no-padding-top">
+                            <ion-text class="--text-description">{{assoc.location}}</ion-text>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ng-container>
 
+            <ion-infinite-scroll *ngIf="!noContent" threshold="20px" (ionInfinite)="loadMoreAssociations()">
+                <ion-infinite-scroll-content
+                        loadingSpinner="bubbles"
+                        loadingText="Loading more data...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-row>
+    </ion-grid>
 </ion-content>
