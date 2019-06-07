@@ -44,6 +44,7 @@ export class AppComponent {
         url: '/login',
         icon: 'log-in'
     };
+    private isNotif = false;
 
     constructor(
         private platform: Platform,

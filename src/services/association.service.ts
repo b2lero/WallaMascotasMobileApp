@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpService} from '../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
-import {AssociationPageRequest} from '../models/associationPageRequest.model';
 
 
 @Injectable()
@@ -22,5 +21,4 @@ export class AssociationService {
     readAllAssociations(requestBody): Observable<any> {
         return this.httpService.post(ApiEndpoint.ASSOCIATIONS_PAGES, requestBody);
     }
-
 }
