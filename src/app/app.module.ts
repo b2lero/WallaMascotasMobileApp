@@ -18,6 +18,7 @@ import { File } from '@ionic-native/File/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import {AssociationService} from '../services/association.service';
 import {ProfessionalServService} from '../services/professional-serv.service';
+import {NotificationService} from '../shared/notification.service';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import {ProfessionalServService} from '../services/professional-serv.service';
         Camera,
         File,
         FilePath,
+        NotificationService,
         PetService,
         ProfessionalServService,
         StatusBar,
