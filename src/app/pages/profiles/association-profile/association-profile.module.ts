@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { AssociationProfilePage } from './association-profile.page';
 import {CoreModule} from '../../../../core/core.module';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 const routes: Routes = [
   {
@@ -22,8 +21,7 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        CoreModule,
-        InfiniteScrollModule
+        CoreModule
     ],
   declarations: [AssociationProfilePage]
 })
