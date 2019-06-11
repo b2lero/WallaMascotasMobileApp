@@ -6,7 +6,7 @@ import {UserService} from '../../../../services/user.service';
 import {IPet} from '../../../../models/pet.model';
 import {PetService} from '../../../../services/pet.service';
 import {IonContent, IonInfiniteScroll, ToastController} from '@ionic/angular';
-import {NotificationService} from '../../../../shared/notification.service';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
     selector: 'app-association-profile',

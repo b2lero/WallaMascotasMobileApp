@@ -11,6 +11,10 @@ import {ToastController} from '@ionic/angular';
 
 @Injectable()
 export class HttpService implements CanActivate {
+
+    constructor(private http: HttpClient, private router: Router, private storage: Storage, public toastCtrl: ToastController) {
+        this.resetOptions();
+    }
     static API_END_POINT = environment.API;
     static UNAUTHORIZED = 401;
     static NOT_FOUND = 404;
@@ -21,11 +25,7 @@ export class HttpService implements CanActivate {
     private successfulNotification = undefined;
     private myToken;
     public authState = new BehaviorSubject(false);
-
-    constructor(private http: HttpClient, private router: Router, private storage: Storage, public toastCtrl: ToastController) {
-        this.resetOptions();
-    }
-
+    // private authState: Subject<boolean> = new Subject();
 
     param(key: string, value: string): HttpService {
         this.params = this.params.append(key, value); // This class is immutable
@@ -58,30 +58,31 @@ export class HttpService implements CanActivate {
     }
 
     isAuthenticated() {
-        return this.authState.value;
+        return this.authState.asObservable();
     }
 
     // tslint:disable-next-line:ban-types
     login(endpoint: string,  user: Object): Observable<any> {
         return this.http.post(HttpService.API_END_POINT + ApiEndpoint.USERS_AUTH, user, this.createOptions()).pipe(
-            map(response => this.extractData(response)
-            ), catchError (err => {
+            map(response =>  this.handleToken(response)
+            ), catchError(err => {
+                console.log('error caught', err);
                 return this.handleError(err);
             })
         );
     }
 
     logout() {
-        this.storage.remove('USER_INFO').then(() => {
-                this.router.navigate(['home']);
-                this.authState.next(false);
-                console.log('--> Logged Out, redirect to /home ...');
-            }
-        );
+        this.storage.clear();
+        this.authState.next(false);
+        this.router.navigate(['/home']);
     }
 
     canActivate(): boolean {
-        return this.isAuthenticated();
+        if (this.authState.value === false) {
+            this.presentToast('Not authenticated', 4000);
+        }
+        return this.authState.value;
     }
 
     private header(key: string, value: string): HttpService {
@@ -121,18 +122,28 @@ export class HttpService implements CanActivate {
         );
     }
 
+    private handleToken(response) {
+        console.log('handel token response', response);
+        if (response.status === 200) {
+            const token =  response.body.token;
+            this.setToken(token);
+            this.storage.set('USER_INFO', {
+                user_id: response.body.user.id,
+                username: response.body.user.name,
+                functions: response.body.user.functions
+            });
+            this.authState.next(true);
+        } else {
+            return response.body;
+        }
+    }
+
     private extractData(response): any {
         if (this.successfulNotification) {
             this.presentToast(this.successfulNotification);
             this.successfulNotification = undefined;
         }
         const contentType = response.headers.get('content-type');
-        const token = response.body.token;
-        if (token) {
-            this.setToken(token);
-            this.storage.set('USER_INFO', {user_id: response.body.user.id, username: response.body.user.name});
-            this.authState.next(true);
-        }
         if (contentType) {
             if (contentType.indexOf('application/json') !== -1) {
                 return response.body; // with 'text': JSON.parse(response.body);
@@ -141,6 +152,8 @@ export class HttpService implements CanActivate {
             return response;
         }
     }
+
+
 
     async presentToast(customMessage: string, time?: number) {
         const toast = await this.toastCtrl.create({
