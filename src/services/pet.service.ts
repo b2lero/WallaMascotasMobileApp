@@ -3,6 +3,7 @@ import {HttpService} from '../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
 import {IPet} from '../models/pet.model';
+import {IPetCategory} from '../models/pet-category.model';
 
 @Injectable()
 export class PetService {
@@ -34,5 +35,9 @@ export class PetService {
     // GET /countries/:id/regions
     readRegionById(id) {
         return this.httpService.get(ApiEndpoint.COUNTRIES + '/' + id + '/regions');
+    }
+
+    readPetCategories(): Observable<IPetCategory[]> {
+        return this.httpService.get(ApiEndpoint.PETS_CATEGORIES);
     }
 }

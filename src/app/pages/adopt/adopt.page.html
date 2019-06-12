@@ -2,15 +2,11 @@
 
 <ion-toolbar>
     <ion-segment (ionChange)="loadContentBasedOnCategory($event)">
-        <ion-segment-button value="dogs" checked>
-            <ion-label>perros</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="cats">
-            <ion-label>gatos</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="othersAnimals">
-            <ion-label>otros</ion-label>
-        </ion-segment-button>
+        <ng-container *ngFor="let category of categoriesPets; let i = index">
+            <ion-segment-button  value="{{category.id}}" [checked]="i === 0">
+                <ion-label>{{category.name}}</ion-label>
+            </ion-segment-button>
+        </ng-container>
     </ion-segment>
 </ion-toolbar>
 <ion-content>
