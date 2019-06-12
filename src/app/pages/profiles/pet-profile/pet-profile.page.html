@@ -12,7 +12,7 @@
 <ion-content>
     <ion-grid class="ion-margin-horizontal">
         <ion-row class="ion-margin-top">
-            <ion-slides pager="true" [options]="sliderOpts">
+            <ion-slides pager="true">
                 <ion-slide *ngFor="let slide of profile?.pictures">
                     <ion-img [src]="slide.url"></ion-img>
                 </ion-slide>

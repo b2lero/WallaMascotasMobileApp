@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from '../core/http.service';
-import {ApiEndpoint} from './api-endpoint.model';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ToastController} from '@ionic/angular';
+import {ApiEndpoint} from '../shared/api-endpoint.model';
 
 @Injectable()
 export class NotificationService {

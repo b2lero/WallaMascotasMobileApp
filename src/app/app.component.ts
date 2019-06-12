@@ -4,10 +4,12 @@ import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {HttpService} from '../core/http.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-root',
-    templateUrl: 'app.component.html'
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss']
 })
 export class AppComponent {
 
@@ -19,23 +21,33 @@ export class AppComponent {
         },
         {
             title: 'Adoptar',
-            url: '/pets'
+            url: '/pets',
+            icon: 'paw'
         },
         {
-            title: 'Alta mascota',
-            url: '/submit/pets'
-        },
-        {
-            title: 'Alta Asociacion',
-            url: '/submit/asociation'
-        },
-        {
-            title: 'Alta Servicio',
-            url: '/submit/services'
+            title: 'Dar de Alta',
+            children: [
+                {
+                    title: 'Alta Mascota',
+                    url: '/submit/pets',
+                    icon: 'arrow-dropright'
+                },
+                {
+                    title: 'Alta Asociacion',
+                    url: '/submit/asociation',
+                    icon: 'arrow-dropright'
+                },
+                {
+                    title: 'Alta Servicio',
+                    url: '/submit/services',
+                    icon: 'arrow-dropright'
+                },
+            ]
         },
         {
             title: 'Asociaciones',
-            url: '/associations'
+            url: '/associations',
+            icon: 'business'
         }
     ];
 
@@ -44,16 +56,43 @@ export class AppComponent {
         url: '/login',
         icon: 'log-in'
     };
-    private isNotif = false;
+
+    private authenticated = false;
 
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private authentication: HttpService
+        private storage: Storage,
+        private httpService: HttpService
     ) {
         this.initializeApp();
+        this.checkAuthentication();
+
+        this.httpService.isAuthenticated().subscribe(
+            result => {
+                this.authenticated = result;
+            }
+        );
     }
+
+    checkAuthentication() {
+        this.storage.get('FB_USER').then(user => {
+            console.log('user auth', user);
+            if (user.name) {
+                this.httpService.authState.next(true);
+                this.authenticated = true;
+                console.log('state observable', this.httpService.authState.value);
+            }
+            console.log('just launched', user.email);
+        }).catch(e => console.log('error local storage', e));
+    }
+
+    logout() {
+        this.httpService.logout();
+        this.authenticated = false;
+    }
+
 
     initializeApp() {
         this.platform.ready().then(() => {

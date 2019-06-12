@@ -18,7 +18,9 @@ import { File } from '@ionic-native/File/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import {AssociationService} from '../services/association.service';
 import {ProfessionalServService} from '../services/professional-serv.service';
-import {NotificationService} from '../shared/notification.service';
+import {Facebook} from '@ionic-native/facebook/ngx';
+import {NotificationService} from '../services/notification.service';
+import {FacebookService} from '../services/facebook.service';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import {NotificationService} from '../shared/notification.service';
     providers: [
         AssociationService,
         Camera,
+        Facebook,
+        FacebookService,
         File,
         FilePath,
         NotificationService,

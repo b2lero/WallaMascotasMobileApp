@@ -8,6 +8,7 @@ import {SubmitPetPage} from './pages/submit/submit-pet/submit-pet.page';
 import {SubmitAsociationPage} from './pages/submit/submit-asociation/submit-asociation.page';
 import {SubmitServicePage} from './pages/submit/submit-service/submit-service.page';
 import {AssociationsPage} from './pages/associations/associations.page';
+import {HttpService} from '../core/http.service';
 
 const routes: Routes = [
   {
@@ -20,12 +21,19 @@ const routes: Routes = [
   {path: AdoptPage.URL + '/' + ':id' ,
     loadChildren: './pages/profiles/pet-profile/pet-profile.module#PetProfilePageModule'
   },
-  { path: LoginPage.URL, loadChildren: './pages/auth/login/login.module#LoginPageModule' },
-  { path: 'submit/' + SubmitPetPage.URL, loadChildren: './pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule' },
+  { path: LoginPage.URL, loadChildren: './pages/auth/login/login.module#LoginPageModule'},
+  { path: 'submit/' + SubmitPetPage.URL, loadChildren: './pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule',
+    canActivate: [HttpService]
+  },
   { path: 'submit/' + SubmitAsociationPage.URL,
-    loadChildren: './pages/submit/submit-asociation/submit-asociation.module#SubmitAsociationPageModule' },
+    loadChildren: './pages/submit/submit-asociation/submit-asociation.module#SubmitAsociationPageModule',
+    canActivate: [HttpService]
+  },
   { path: 'submit/' + SubmitServicePage.URL,
-    loadChildren: './pages/submit/submit-service/submit-service.module#SubmitServicePageModule' },
+    loadChildren: './pages/submit/submit-service/submit-service.module#SubmitServicePageModule',
+    canActivate: [HttpService]
+  }
+    ,
   { path: AssociationsPage.URL, loadChildren: './pages/associations/associations.module#AssociationsPageModule' },
   { path: AssociationsPage.URL + '/' + ':id', loadChildren: './pages/profiles/association-profile/association-profile.module#AssociationProfilePageModule' },
 ];
