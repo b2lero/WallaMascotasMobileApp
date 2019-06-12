@@ -8,7 +8,8 @@ import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-root',
-    templateUrl: 'app.component.html'
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss']
 })
 export class AppComponent {
 
@@ -20,23 +21,33 @@ export class AppComponent {
         },
         {
             title: 'Adoptar',
-            url: '/pets'
+            url: '/pets',
+            icon: 'paw'
         },
         {
-            title: 'Alta mascota',
-            url: '/submit/pets'
-        },
-        {
-            title: 'Alta Asociacion',
-            url: '/submit/asociation'
-        },
-        {
-            title: 'Alta Servicio',
-            url: '/submit/services'
+            title: 'Dar de Alta',
+            children: [
+                {
+                    title: 'Alta Mascota',
+                    url: '/submit/pets',
+                    icon: 'arrow-dropright'
+                },
+                {
+                    title: 'Alta Asociacion',
+                    url: '/submit/asociation',
+                    icon: 'arrow-dropright'
+                },
+                {
+                    title: 'Alta Servicio',
+                    url: '/submit/services',
+                    icon: 'arrow-dropright'
+                },
+            ]
         },
         {
             title: 'Asociaciones',
-            url: '/associations'
+            url: '/associations',
+            icon: 'business'
         }
     ];
 
@@ -57,6 +68,9 @@ export class AppComponent {
     ) {
         this.initializeApp();
         this.checkAuthentication();
+    }
+
+    ionViewDidLoad() {
         this.httpService.isAuthenticated().subscribe(
             result => {
                 this.authenticated = result;
@@ -72,29 +86,8 @@ export class AppComponent {
                 this.authenticated = true;
                 console.log('state observable', this.httpService.authState.value);
             }
-            console.log('just launched', user.email) ;
+            console.log('just launched', user.email);
         }).catch(e => console.log('error local storage', e));
-
-        // this.storage.get('USER_INFO').then(user => {
-        //   //  this.authenticated = true;
-        //     console.log('user info auth', user);
-        //     if (user.username) {
-        //         this.authenticated = true;
-        //         //this.httpService.authState.next(true);
-        //
-        //         //console.log('state observable', this.httpService.authState.value);
-        //     }
-        //     console.log('just launched', user.email) ;
-        // }).catch(e => console.log('error local storage', e));
-
-        /*this.httpService.isAuthenticated().subscribe((respuesta => {
-            if(respuesta) {
-                this.authenticated = true;
-                console.log(respuesta);
-                this.faceb();
-            }
-        }));
-*/
     }
 
     logout() {

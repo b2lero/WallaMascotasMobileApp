@@ -19,6 +19,7 @@ export class FacebookService {
         this.facebook.login(['email']).then((response: FacebookLoginResponse) => {
             this.faceBookUserId = response.authResponse.userID;
             this.facebook.api('me?fields=email,name', []).then(user => {
+                // TODO check user email exist
                 this.storage.set('FB_USER', { name: user.name, email: user.email }).then((res) => {
                     this.httpService.authState.next(true);
                     console.log('registred in storage', res);
