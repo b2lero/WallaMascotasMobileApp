@@ -4,6 +4,7 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
 import {IPet} from '../models/pet.model';
 import {IPetCategory} from '../models/pet-category.model';
+import {ICountry} from '../models/country.model';
 
 @Injectable()
 export class PetService {
@@ -25,16 +26,6 @@ export class PetService {
     // POST /pets
     createPet(pet: IPet) {
         return this.httpService.successful('Pet Successfully Submitted').post(ApiEndpoint.PETS, pet);
-    }
-
-    // GET /countries
-    readAllcountries() {
-        return this.httpService.get(ApiEndpoint.COUNTRIES);
-    }
-
-    // GET /countries/:id/regions
-    readRegionById(id) {
-        return this.httpService.get(ApiEndpoint.COUNTRIES + '/' + id + '/regions');
     }
 
     readPetCategories(): Observable<IPetCategory[]> {

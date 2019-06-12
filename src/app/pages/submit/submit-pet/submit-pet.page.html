@@ -35,7 +35,9 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
-        <ion-input formControlName="country" type="text" class="bg-input" clearInput></ion-input>
+        <ion-select (ionChange)="getRegionsByCountry($event)">
+        <ion-select-option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item *ngIf="fControls.country.touched && fControls.country.invalid && this.isSubmitted"  lines="none">
         <p class="error-danger">Ingresar el pais</p>
@@ -43,10 +45,17 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Region</ion-label>
-        <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
+        <ion-select>
+          <ion-select-option value="{{region.id}}" *ngFor="let region of regions">{{region.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar la region</p>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Localidad</ion-label>
+        <ion-input formControlName="location" type="text" class="bg-input" clearInput></ion-input>
+      </ion-item>
+      <ion-item *ngIf="fControls.location.touched && fControls.location.invalid && this.isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar la localidad</p>
       </ion-item>
 
       <ion-item>
