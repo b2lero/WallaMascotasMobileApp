@@ -68,9 +68,7 @@ export class AppComponent {
     ) {
         this.initializeApp();
         this.checkAuthentication();
-    }
 
-    ionViewDidLoad() {
         this.httpService.isAuthenticated().subscribe(
             result => {
                 this.authenticated = result;

@@ -18,7 +18,7 @@
                         </ion-menu-toggle>
 
                         <!--          Item with children-->
-                        <ion-item button *ngIf="p.children?.length > 0" (click)="p.open = !p.open"
+                        <ion-item button *ngIf="p.children?.length > 0 && authenticated" (click)="p.open = !p.open"
                                   [class.parent-active]="p.open" detail="false">
                             <ion-icon slot="start" name="arrow-forward" *ngIf="!p.open"></ion-icon>
                             <ion-icon slot="start" name="arrow-down" *ngIf="p.open"></ion-icon>
@@ -39,13 +39,13 @@
                     <!-- Login Buttons-->
                     <ion-menu-toggle auto-hide="false" *ngIf="!authenticated">
                         <ion-item [routerDirection]="'root'" [routerLink]="[loginPage.url]">
-                            <ion-icon slot="start" [name]="loginPage.icon"></ion-icon>
+                            <ion-icon slot="start" [name]="loginPage.icon" color="primary"></ion-icon>
                             <ion-label>{{loginPage.title}}</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle auto-hide="false" *ngIf="authenticated">
                         <ion-item [routerDirection]="'root'" [routerLink]="['home']" (click)="logout()">
-                            <ion-icon slot="start" name="log-out"></ion-icon>
+                            <ion-icon slot="start" name="log-out" color="danger"></ion-icon>
                             <ion-label>Log out</ion-label>
                         </ion-item>
                     </ion-menu-toggle>

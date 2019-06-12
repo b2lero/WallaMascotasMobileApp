@@ -13,7 +13,6 @@ export class PetProfilePage {
 
     petId: string;
     profile: IPet;
-    sliderOpts;
 
     constructor(private router: ActivatedRoute, private petservice: PetService) {
     }
@@ -22,11 +21,9 @@ export class PetProfilePage {
         this.petId = this.router.snapshot.paramMap.get('id');
         this.petservice.readPetById(this.petId).subscribe(
             (pet: IPet) => {
-                console.log(pet);
                 this.profile = pet;
             }
         );
     }
 
-
- }
+}

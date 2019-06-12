@@ -1,7 +1,7 @@
 <app-header [title]="pageTitle"></app-header>
 
 <ion-content>
-  <ion-list lines="none">
+  <ion-list lines="none" class="ion-margin-top">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
       <ion-item-group>
         <ion-item>
@@ -15,13 +15,18 @@
           <ion-label position="stacked" color="primary">Contraseña</ion-label>
           <ion-input formControlName="password" type="password" class="bg-input"></ion-input>
         </ion-item>
-        <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Conectarse</ion-button>
+        <ion-item>
+          <ion-button class="center-btn" type="submit" expand="block" color="success" size="default">Conectarse</ion-button>
+        </ion-item>
       </ion-item-group>
     </form>
+    <ion-item lines="none">
+      <ion-button (click)="loginFB()" color="primary" class="center-btn">
+        <ion-icon name="logo-facebook"></ion-icon>
+        Login with Facebook
+      </ion-button>
+    </ion-item>
   </ion-list>
-  <ion-button expand="block" (click)="loginFB()" color="primary">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Login with Facebook
-  </ion-button>
+
 </ion-content>
 

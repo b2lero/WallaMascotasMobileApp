@@ -59,8 +59,4 @@ export class LoginPage implements OnInit {
     loginFB() {
         this.fbService.facebookConnect();
     }
-
-    logoutFB() {
-        this.httpService.logout();
-    }
 }

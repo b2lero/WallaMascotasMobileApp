@@ -31,7 +31,8 @@ const routes: Routes = [
   },
   { path: 'submit/' + SubmitServicePage.URL,
     loadChildren: './pages/submit/submit-service/submit-service.module#SubmitServicePageModule',
-    canActivate: [HttpService]}
+    canActivate: [HttpService]
+  }
     ,
   { path: AssociationsPage.URL, loadChildren: './pages/associations/associations.module#AssociationsPageModule' },
   { path: AssociationsPage.URL + '/' + ':id', loadChildren: './pages/profiles/association-profile/association-profile.module#AssociationProfilePageModule' },

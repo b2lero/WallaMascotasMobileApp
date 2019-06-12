@@ -81,6 +81,7 @@ export class HttpService implements CanActivate {
     canActivate(): boolean {
         if (this.authState.value === false) {
             this.presentToast('Not authenticated', 4000);
+            this.router.navigate(['/home']);
         }
         return this.authState.value;
     }
