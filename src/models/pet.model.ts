@@ -20,4 +20,5 @@ export interface IPet {
     location?: string;
     region?: IRegion;
     creationUtcDateTime?: Date;
+    petCategoriesIds: Array<number>;
 }

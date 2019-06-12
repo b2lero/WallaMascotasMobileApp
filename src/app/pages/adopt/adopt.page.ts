@@ -1,31 +1,42 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {IonInfiniteScroll} from '@ionic/angular';
-import {Subject} from 'rxjs';
 import {PetService} from '../../../services/pet.service';
 import {IPet} from '../../../models/pet.model';
+import {IPetCategory} from '../../../models/pet-category.model';
 
 @Component({
     selector: 'app-adopt',
     templateUrl: './adopt.page.html',
     styleUrls: ['./adopt.page.scss'],
 })
-export class AdoptPage implements OnInit {
+export class AdoptPage {
 
     static URL = 'pets';
     pageTitle = 'Adoptar una mascota';
     @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     animals: IPet[] = [];
     currentPage = 1;
-    PAGE_SIZE = 10;
+    PAGE_SIZE = 2;
     request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
     categorySelected: string;
-
+    categoriesPets: IPetCategory[];
 
     constructor(private petService: PetService, private router: Router) {
+        this.petService.readAllPets(this.request).subscribe(
+            result => {
+                this.animals = result.pets;
+                this.currentPage += 1;
+            }
+        );
     }
 
-    ngOnInit(): void {
+    ionViewWillEnter() {
+        this.petService.readPetCategories().subscribe(
+            result => {
+                this.categoriesPets = result;
+            }
+        );
     }
 
     loadMorePets() {
@@ -54,14 +65,14 @@ export class AdoptPage implements OnInit {
     resetOptions() {
         this.currentPage = 1;
         this.infiniteScroll.disabled = false;
-        // this.animals = [];
     }
 
     loadContentBasedOnCategory(event) {
         this.resetOptions();
-        this.categorySelected = event.detail.value;
-        console.log('--> selected category', this.categorySelected);
-        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, category: this.categorySelected};
+        const categorySelected = [];
+        categorySelected.push(event.detail.value);
+        console.log('--> selected category', categorySelected);
+        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelected};
         this.petService.readAllPets(request).subscribe(
             result => {
                 // update list pets with new category;
@@ -69,10 +80,21 @@ export class AdoptPage implements OnInit {
                 this.animals = result.pets;
                 this.currentPage += 1;
             },
-            () => {},
+            () => {
+            },
             () => {
                 // this.resetOptions();
                 console.log('State for next request', this.currentPage);
+            }
+        );
+    }
+
+    retrievePetCategoryID(categoryName) {
+        let categorySelected;
+        this.petService.readPetCategories().subscribe(
+            result => {
+                categorySelected = result.find((x) => x.name === categoryName);
+                return categorySelected;
             }
         );
     }
