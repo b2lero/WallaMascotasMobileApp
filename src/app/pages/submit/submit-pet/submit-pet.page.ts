@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController} from '@ionic/angular';
 import {PetService} from '../../../../services/pet.service';
-import {IPet} from '../../../../models/pet.model';
 import {ICountry} from '../../../../models/country.model';
 import {CountryService} from '../../../../services/country.service';
 import {IRegion} from '../../../../models/region.model';
+import {CameraService} from '../../../../services/camera.service';
+import {PetRequestModel} from '../../../../models/pet-request.model';
+import {ISizesPets} from '../../../../models/sizes-pets.model';
+import {fromPromise} from 'rxjs/internal-compatibility';
 
 @Component({
     selector: 'app-submit-pet',
@@ -17,6 +20,7 @@ export class SubmitPetPage implements OnInit {
     static URL = 'pets';
     pageTitle = 'Alta Mascota';
     countries: ICountry[];
+    sizesPets: ISizesPets [];
     regions: IRegion[];
     submitPetForm: FormGroup;
     typeAnimals = ['perro', 'gato', 'otro'];
@@ -31,18 +35,16 @@ export class SubmitPetPage implements OnInit {
     isPositiveInFelineImmunodeficiency = false;
     // Photos Storage
     imagesFromPhone = [];
+    private isPhotos = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private petService: PetService,
         public actionSheetController: ActionSheetController,
-        private countryService: CountryService
+        private countryService: CountryService,
+        private cameraService: CameraService,
+        private changeRef: ChangeDetectorRef
     ) {
-        this.countryService.readAllcountries().subscribe(
-            countries => {
-                this.countries = countries;
-            }
-        );
     }
 
     ngOnInit() {
@@ -53,8 +55,8 @@ export class SubmitPetPage implements OnInit {
             country: [''],
             region: [''],
             location: ['', [Validators.required]],
-            description: [''],
-            gender: [''],
+            description: ['', [Validators.required]],
+            IsFemale: [''],
             size: [''],
             birthdate: [''],
             hasChip: [''],
@@ -64,8 +66,25 @@ export class SubmitPetPage implements OnInit {
             hasPppLicense: [''],
             isSterilized: [''],
             isInTreatment: [''],
-            isPositiveInFelineImmunodeficiency: ['']
+            isPositiveInFelineImmunodeficiency: [''],
+            base64Pictures: ['']
         });
+
+        this.countryService.readAllcountries().subscribe(
+            countries => {
+                this.countries = countries;
+            }
+        );
+
+        this.petService.readPetSizes().subscribe(
+            result => {
+                this.sizesPets = result;
+            }
+        );
+    }
+
+    ionViewDidEnter() {
+        // this.changeRef.detectChanges();
     }
 
     get fControls() {
@@ -75,16 +94,13 @@ export class SubmitPetPage implements OnInit {
 
     onSubmit(submitFormPet: FormGroup) {
         this.isSubmitted = true;
-        const newPet: IPet = submitFormPet.value;
+        const newPet: PetRequestModel = submitFormPet.value;
+        newPet.base64Pictures = this.imagesFromPhone;
         if (newPet && this.submitPetForm.valid) {
             this.petService.createPet(newPet).subscribe(
                 success => console.log('--> Success pet submitted', success)
             );
         }
-    }
-
-    loadPictures(imagesTakenFromPhone: string[]) {
-        this.imagesFromPhone = imagesTakenFromPhone;
     }
 
     getRegionsByCountry(event) {
@@ -95,4 +111,29 @@ export class SubmitPetPage implements OnInit {
             }
         );
     }
+
+    uploadPhoto() {
+        fromPromise(this.cameraService.takePicture()).subscribe(
+            res => {
+                // @ts-ignore
+                this.imagesFromPhone = res;
+            }
+        );
+    }
+
+    loadPicturesFromCameraSource() {
+        this.cameraService.imagesTaken.asObservable().subscribe(
+            res => {
+                this.imagesFromPhone = res;
+                if (this.imagesFromPhone.length > 0) {
+                    this.isPhotos = true;
+                }
+            }
+        );
+    }
+
+    ionViewDidLeave() {
+        this.cameraService.resetPhotos();
+    }
+
 }

@@ -29,18 +29,12 @@
         <ion-label position="stacked" color="primary">Raza</ion-label>
         <ion-input formControlName="breed" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.breed.touched && fControls.breed.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar raza de la mascota</p>
-      </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
         <ion-select (ionChange)="getRegionsByCountry($event)">
         <ion-select-option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</ion-select-option>
         </ion-select>
-      </ion-item>
-      <ion-item *ngIf="fControls.country.touched && fControls.country.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar el pais</p>
       </ion-item>
 
       <ion-item>
@@ -60,10 +54,10 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Sexo</ion-label>
-        <ion-input formControlName="gender" type="text" class="bg-input" clearInput></ion-input>
-      </ion-item>
-      <ion-item *ngIf="fControls.gender.touched && fControls.gender.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar el sexo de la mascota</p>
+        <ion-select formControlName="IsFemale">
+          <ion-select-option value="true">Hembra</ion-select-option>
+          <ion-select-option value="false">Macho</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
@@ -76,11 +70,11 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Tamaño</ion-label>
-        <ion-input formControlName="size" type="text" class="bg-input" clearInput></ion-input>
+        <ion-select formControlName="size">
+          <ion-select-option value="{{size.id}}" *ngFor="let size of sizesPets">{{size.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item *ngIf="fControls.size.touched && fControls.size.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar el tamaño de la mascota</p>
-      </ion-item>
+
 
       <ion-item>
         <ion-label position="stacked" color="primary">Descripcion</ion-label>
@@ -174,11 +168,13 @@
         </ion-row>
       </ion-grid>
 
-      <upload-image (imagesLinksStorage)="loadPictures($event)"></upload-image>
-
+      <ion-item lines="none">
+        <ion-button (click)="uploadPhoto()">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+          Subir foto
+        </ion-button>
+      </ion-item>
     </ion-item-group>
-
-
 
     <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Enviar</ion-button>
   </form>

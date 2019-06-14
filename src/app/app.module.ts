@@ -22,6 +22,8 @@ import {Facebook} from '@ionic-native/facebook/ngx';
 import {NotificationService} from '../services/notification.service';
 import {FacebookService} from '../services/facebook.service';
 import {CountryService} from '../services/country.service';
+import {CameraService} from '../services/camera.service';
+import {ChangeDetectorStatus} from '@angular/core/src/change_detection/constants';
 
 @NgModule({
     declarations: [
@@ -38,6 +40,7 @@ import {CountryService} from '../services/country.service';
     providers: [
         AssociationService,
         Camera,
+        CameraService,
         CountryService,
         Facebook,
         FacebookService,

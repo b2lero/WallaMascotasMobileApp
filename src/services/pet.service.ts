@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 import {IPet} from '../models/pet.model';
 import {IPetCategory} from '../models/pet-category.model';
 import {ICountry} from '../models/country.model';
+import {PetRequestModel} from '../models/pet-request.model';
+import {ISizesPets} from '../models/sizes-pets.model';
 
 @Injectable()
 export class PetService {
@@ -24,11 +26,15 @@ export class PetService {
     }
 
     // POST /pets
-    createPet(pet: IPet) {
+    createPet(pet: PetRequestModel) {
         return this.httpService.successful('Pet Successfully Submitted').post(ApiEndpoint.PETS, pet);
     }
 
     readPetCategories(): Observable<IPetCategory[]> {
         return this.httpService.get(ApiEndpoint.PETS_CATEGORIES);
+    }
+
+    readPetSizes(): Observable<ISizesPets[]> {
+        return this.httpService.get(ApiEndpoint.PETS_SIZES);
     }
 }

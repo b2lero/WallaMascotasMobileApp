@@ -104,7 +104,13 @@
                 </ion-row>
             </ion-grid>
 
-            <upload-image (imagesLinksStorage)="loadPictures($event)"></upload-image>
+<!--            <ion-item lines="none">-->
+<!--                <ion-button (click)="submitPhoto()">-->
+<!--                    <ion-icon slot="icon-only" name="camera"></ion-icon>-->
+<!--                    Subir foto-->
+<!--                </ion-button>-->
+<!--            </ion-item>-->
+
 
         </ion-item-group>
         <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>
