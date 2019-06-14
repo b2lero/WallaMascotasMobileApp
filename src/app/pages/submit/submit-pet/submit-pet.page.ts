@@ -35,6 +35,7 @@ export class SubmitPetPage implements OnInit {
     isPositiveInFelineImmunodeficiency = false;
     // Photos Storage
     imagesFromPhone = [];
+    images64Pets = [];
     private isPhotos = false;
 
     constructor(
@@ -67,7 +68,6 @@ export class SubmitPetPage implements OnInit {
             isSterilized: [''],
             isInTreatment: [''],
             isPositiveInFelineImmunodeficiency: [''],
-            base64Pictures: ['']
         });
 
         this.countryService.readAllcountries().subscribe(
@@ -89,18 +89,6 @@ export class SubmitPetPage implements OnInit {
 
     get fControls() {
         return this.submitPetForm.controls;
-    }
-
-
-    onSubmit(submitFormPet: FormGroup) {
-        this.isSubmitted = true;
-        const newPet: PetRequestModel = submitFormPet.value;
-        newPet.base64Pictures = this.imagesFromPhone;
-        if (newPet && this.submitPetForm.valid) {
-            this.petService.createPet(newPet).subscribe(
-                success => console.log('--> Success pet submitted', success)
-            );
-        }
     }
 
     getRegionsByCountry(event) {
@@ -131,6 +119,28 @@ export class SubmitPetPage implements OnInit {
             }
         );
     }
+
+    onSubmit(submitFormPet: FormGroup) {
+        this.isSubmitted = true;
+        const newPet: PetRequestModel = submitFormPet.value;
+        this.images64Pets = this.imagesFromPhone.map(
+            x => {
+                console.log(x);
+                this.cameraService.formatImg64(x).then(
+                    res => console.log('from submit form', res)
+                );
+            }
+        );
+        console.log('images processed', this.images64Pets);
+        newPet.base64Pictures = this.images64Pets;
+
+        // if (newPet && this.submitPetForm.valid) {
+        //     this.petService.createPet(newPet).subscribe(
+        //         success => console.log('--> Success pet submitted', success)
+        //     );
+        // }
+    }
+
 
     ionViewDidLeave() {
         this.cameraService.resetPhotos();

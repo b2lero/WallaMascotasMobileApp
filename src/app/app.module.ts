@@ -23,7 +23,7 @@ import {NotificationService} from '../services/notification.service';
 import {FacebookService} from '../services/facebook.service';
 import {CountryService} from '../services/country.service';
 import {CameraService} from '../services/camera.service';
-import {ChangeDetectorStatus} from '@angular/core/src/change_detection/constants';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
     declarations: [
@@ -42,6 +42,7 @@ import {ChangeDetectorStatus} from '@angular/core/src/change_detection/constants
         Camera,
         CameraService,
         CountryService,
+        LocalNotifications,
         Facebook,
         FacebookService,
         File,

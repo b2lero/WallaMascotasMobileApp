@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {ActionSheetController, Platform} from '@ionic/angular';
-import {File} from '@ionic-native/File/ngx';
+import {File, FileEntry} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {Subject} from 'rxjs';
@@ -14,7 +14,6 @@ export class CameraService {
     STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
     imagesTaken: Subject<any> = new Subject();
-
     cameraOptions: CameraOptions;
 
     constructor(
@@ -71,6 +70,25 @@ export class CameraService {
         }, error => {
             console.log('Error copying to local dir', error);
         });
+    }
+
+    formatImg64(imgEntry) {
+        return this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
+            .then(entry => {
+                (entry as FileEntry).file(file => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const imgBlob = new Blob([reader.result], {
+                            type: file.type
+                        });
+                        // this.uploadImageData(formData);
+                    };
+                    reader.readAsArrayBuffer(file);
+                });
+            })
+            .catch(err => {
+                console.log('Error while reading file.');
+            });
     }
 
     resetPhotos() {

@@ -7,6 +7,7 @@ import {IPet} from '../../../../models/pet.model';
 import {PetService} from '../../../../services/pet.service';
 import {IonContent, IonInfiniteScroll, ToastController} from '@ionic/angular';
 import {NotificationService} from '../../../../services/notification.service';
+import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @Component({
     selector: 'app-association-profile',
@@ -50,7 +51,8 @@ export class AssociationProfilePage implements OnInit {
         private router: ActivatedRoute,
         private changeDetect: ChangeDetectorRef,
         private notificationService: NotificationService,
-        public toastController: ToastController) {
+        public toastController: ToastController,
+        private localNotifications: LocalNotifications) {
     }
 
     ngOnInit() {
@@ -139,10 +141,24 @@ export class AssociationProfilePage implements OnInit {
                 if (data !== undefined) {
                     this.isNotif = true;
                     this.msg = data;
-                    this.presentToast();
+                    this.scheduleNotif();
                 }
             }
+        );
+    }
 
+    scheduleNotif() {
+        this.localNotifications.hasPermission().then(
+            ok => {
+            this.localNotifications.schedule({
+                    id: 1,
+                    title: 'New Pet Added',
+                    text: 'Association 1 added new pet',
+                    trigger: {in: 1, unit: ELocalNotificationTriggerUnit.SECOND},
+                    icon: 'res://icon.png',
+                    smallIcon: 'res://icon.png'
+                });
+            }
         );
     }
 
@@ -153,4 +169,6 @@ export class AssociationProfilePage implements OnInit {
         });
         toast.present();
     }
+
+
 }
