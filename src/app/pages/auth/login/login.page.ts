@@ -49,7 +49,10 @@ export class LoginPage implements OnInit {
             const credentials = {mail, password, type: 'Vanilla'};
 
             this.loginService.connect(credentials).subscribe(
-                res => console.log('Connection OK'),
+                () => {
+                    console.log('Connection OK');
+                    this.router.navigate(['home']);
+                },
                 () => {},
                 () => this.router.navigate(['home'])
             );

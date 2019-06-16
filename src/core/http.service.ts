@@ -15,6 +15,7 @@ export class HttpService implements CanActivate {
     constructor(private http: HttpClient, private router: Router, private storage: Storage, public toastCtrl: ToastController) {
         this.resetOptions();
     }
+
     static API_END_POINT = environment.API;
     static UNAUTHORIZED = 401;
     static NOT_FOUND = 404;
@@ -25,6 +26,7 @@ export class HttpService implements CanActivate {
     private successfulNotification = undefined;
     private myToken;
     public authState = new BehaviorSubject(false);
+
     // private authState: Subject<boolean> = new Subject();
 
     param(key: string, value: string): HttpService {
@@ -49,6 +51,7 @@ export class HttpService implements CanActivate {
 
     // tslint:disable-next-line:ban-types
     post(endpoint: string, body?: Object): Observable<any> {
+        console.log(this.createOptions());
         return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
             map(response => this.extractData(response)
             ), catchError(error => {
@@ -62,9 +65,9 @@ export class HttpService implements CanActivate {
     }
 
     // tslint:disable-next-line:ban-types
-    login(endpoint: string,  user: Object): Observable<any> {
-        return this.http.post(HttpService.API_END_POINT + ApiEndpoint.USERS_AUTH, user, this.createOptions()).pipe(
-            map(response =>  this.handleToken(response)
+    login(endpoint: string, user: Object): Observable<any> {
+        return this.http.post(HttpService.API_END_POINT + ApiEndpoint.USERS_AUTH, user).pipe(
+            map(response => this.handleToken(response)
             ), catchError(err => {
                 console.log('error caught', err);
                 return this.handleError(err);
@@ -98,6 +101,13 @@ export class HttpService implements CanActivate {
     }
 
     private createOptions(): any {
+        if (this.myToken !== undefined) {
+            this.header('Access-Control-Allow-Origin' , '*');
+            this.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+            this.header('Accept', 'application/json');
+            this.header('Content-Type', 'application/json-patch+json');
+            this.header('Authorization', 'Bearer ' + this.myToken);
+        }
         const options: any = {
             headers: this.headers,
             params: this.params,
@@ -108,7 +118,7 @@ export class HttpService implements CanActivate {
         return options;
     }
 
-    private getToken() {
+    getToken() {
         return this.myToken;
     }
 
@@ -124,19 +134,15 @@ export class HttpService implements CanActivate {
     }
 
     private handleToken(response) {
-        console.log('handel token response', response);
-        if (response.status === 200) {
-            const token =  response.body.token;
-            this.setToken(token);
-            this.storage.set('USER_INFO', {
-                user_id: response.body.user.id,
-                username: response.body.user.name,
-                functions: response.body.user.functions
-            });
-            this.authState.next(true);
-        } else {
-            return response.body;
-        }
+        const token = response.token;
+        this.setToken(token);
+        this.myToken = token;
+        this.storage.set('USER_INFO', {
+            user_id: response.user.id,
+            username: response.user.name,
+            functions: response.user.functions
+        });
+        this.authState.next(true);
     }
 
     private extractData(response): any {
@@ -153,7 +159,6 @@ export class HttpService implements CanActivate {
             return response;
         }
     }
-
 
 
     async presentToast(customMessage: string, time?: number) {

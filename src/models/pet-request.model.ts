@@ -4,7 +4,6 @@ interface Base64Picture {
 }
 
 export interface PetRequestModel {
-     countryId?: number;
      name: string;
      location: string;
      latitude?: number;

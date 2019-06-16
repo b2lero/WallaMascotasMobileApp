@@ -26,7 +26,7 @@ export class CameraService {
         private webview: WebView) {
 
         this.cameraOptions = {
-            quality: 65,
+            quality: 50,
             sourceType: this.camera.PictureSourceType.CAMERA,
             saveToPhotoAlbum: false,
             correctOrientation: true,
@@ -59,37 +59,17 @@ export class CameraService {
             const localFilePath = this.file.dataDirectory + newFileName;
             const resPath = this.pathForImage(localFilePath);
 
-            const newEntry = {
+            return {
                 name: newFileName,
                 path: resPath,
                 filePath: localFilePath
             };
-            this.storedImages = [newEntry, ...this.storedImages];
-            return this.storedImages;
 
         }, error => {
             console.log('Error copying to local dir', error);
         });
     }
 
-    formatImg64(imgEntry) {
-        return this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
-            .then(entry => {
-                (entry as FileEntry).file(file => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        const imgBlob = new Blob([reader.result], {
-                            type: file.type
-                        });
-                        // this.uploadImageData(formData);
-                    };
-                    reader.readAsArrayBuffer(file);
-                });
-            })
-            .catch(err => {
-                console.log('Error while reading file.');
-            });
-    }
 
     resetPhotos() {
         this.storedImages = [];

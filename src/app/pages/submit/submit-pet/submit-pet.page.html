@@ -1,7 +1,7 @@
 <app-header [title]="pageTitle"></app-header>
 
 <ion-content>
-  <form [formGroup]="submitPetForm" (ngSubmit)="onSubmit(submitPetForm)">
+  <form [formGroup]="submitPetForm" (ngSubmit)="onSubmit(submitPetForm)" #formPEt>
     <ion-item-group>
       <ion-item-divider class="ion-margin-top">
         <ion-label>Informacion Mascota</ion-label>
@@ -11,17 +11,27 @@
         <ion-label position="stacked" color="primary">Nombre</ion-label>
         <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.name.touched && fControls.name.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.name.touched && fControls.name.invalid"  lines="none">
         <p class="error-danger">Ingresar nombre de la mascota</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Tipo</ion-label>
-        <ion-select formControlName="type">
-          <ion-select-option *ngFor="let type of typeAnimals">{{type}}</ion-select-option>
+        <ion-select formControlName="petTypeId">
+          <ion-select-option value="{{type.id}}" *ngFor="let type of typeAnimals">{{type.name}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="fControls.type.touched && fControls.type.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.petTypeId.touched && fControls.petTypeId.invalid"  lines="none">
+        <p class="error-danger">Ingresar tipo de la mascota</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Categoria</ion-label>
+        <ion-select formControlName="petCategoryId">
+            <ion-select-option value="{{category.id}}" *ngFor="let category of petCategories">{{category.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="fControls.petTypeId.touched && fControls.petTypeId.invalid"  lines="none">
         <p class="error-danger">Ingresar tipo de la mascota</p>
       </ion-item>
 
@@ -32,14 +42,14 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
-        <ion-select (ionChange)="getRegionsByCountry($event)">
+        <ion-select formControlName="countryId" (ionChange)="getRegionsByCountry($event)">
         <ion-select-option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Region</ion-label>
-        <ion-select>
+        <ion-select formControlName="regionId">
           <ion-select-option value="{{region.id}}" *ngFor="let region of regions">{{region.name}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -48,7 +58,7 @@
         <ion-label position="stacked" color="primary">Localidad</ion-label>
         <ion-input formControlName="location" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.location.touched && fControls.location.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.location.touched && fControls.location.invalid"  lines="none">
         <p class="error-danger">Ingresar la localidad</p>
       </ion-item>
 
@@ -62,15 +72,15 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Fecha de Nacimiento</ion-label>
-        <ion-datetime formControlName="birthdate" placeholder="dd/mm/yyyy" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
+        <ion-datetime formControlName="birthDate" placeholder="dd/mm/yyyy" display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
       </ion-item>
-      <ion-item *ngIf="fControls.birthdate.touched && fControls.birthdate.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.birthDate.touched && fControls.birthDate.invalid"  lines="none">
         <p class="error-danger">Ingresar la fecha de nacimiento</p>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Tamaño</ion-label>
-        <ion-select formControlName="size">
+        <ion-select formControlName="sizeId">
           <ion-select-option value="{{size.id}}" *ngFor="let size of sizesPets">{{size.name}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -80,7 +90,7 @@
         <ion-label position="stacked" color="primary">Descripcion</ion-label>
         <ion-textarea formControlName="description" type="text" class="bg-input"></ion-textarea>
       </ion-item>
-      <ion-item *ngIf="fControls.description.touched && fControls.description.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.description.touched && fControls.description.invalid"  lines="none">
         <p class="error-danger">Ingresar pequeña descripcion</p>
       </ion-item>
 
@@ -124,7 +134,7 @@
           <ion-col>
             <ion-item>
               <ion-label>Licensia PPP</ion-label>
-              <ion-checkbox formControlName="hasPppLicense"[(ngModel)]="hasPppLicense"></ion-checkbox>
+              <ion-checkbox formControlName="hasPppLicense" [(ngModel)]="hasPppLicense"></ion-checkbox>
             </ion-item>
           </ion-col>
           <ion-col>
@@ -169,14 +179,14 @@
       </ion-grid>
 
       <ion-item lines="none">
-        <ion-button (click)="uploadPhoto()">
+        <ion-button (click)="launchCameraService()">
           <ion-icon slot="icon-only" name="camera"></ion-icon>
           Subir foto
         </ion-button>
       </ion-item>
     </ion-item-group>
 
-<!--    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Enviar</ion-button>-->
-    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitPetForm.valid">Enviar</ion-button>
+<!--    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>-->
   </form>
 </ion-content>
