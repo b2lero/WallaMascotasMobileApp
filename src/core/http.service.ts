@@ -51,8 +51,13 @@ export class HttpService implements CanActivate {
 
     // tslint:disable-next-line:ban-types
     post(endpoint: string, body?: Object): Observable<any> {
-        console.log(this.createOptions());
-        return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
+        if (this.myToken !== undefined) {
+            this.storage.get('token').then(t => this.myToken = t);
+        }
+        const headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json')
+            .set('Authorization', 'bearer ' + this.myToken).set('Access-Control-Allow-Origin', '*') ;
+        console.log('post https', body);
+        return this.http.post(HttpService.API_END_POINT + endpoint, body, {headers}).pipe(
             map(response => this.extractData(response)
             ), catchError(error => {
                 return this.handleError(error);
@@ -96,18 +101,21 @@ export class HttpService implements CanActivate {
 
     private resetOptions(): void {
         this.headers = new HttpHeaders();
-        this.params = new HttpParams();
         this.responseType = 'json';
     }
 
     private createOptions(): any {
-        if (this.myToken !== undefined) {
-            this.header('Access-Control-Allow-Origin' , '*');
-            this.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-            this.header('Accept', 'application/json');
-            this.header('Content-Type', 'application/json-patch+json');
-            this.header('Authorization', 'Bearer ' + this.myToken);
-        }
+        this.storage.get('token').then( res => {
+            if (res !== undefined) {
+                console.log('GOT THE TOKEN');
+                this.header('Access-Control-Allow-Origin', '*');
+                this.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                this.header('Accept', 'application/json');
+                this.header('Content-Type', 'application/json');
+                this.header('Authorization', 'Bearer ' + this.myToken);
+            }
+        });
+
         const options: any = {
             headers: this.headers,
             params: this.params,
@@ -115,6 +123,7 @@ export class HttpService implements CanActivate {
             observe: 'response'
         };
         this.resetOptions();
+        console.log('headers added', options);
         return options;
     }
 
@@ -178,12 +187,12 @@ export class HttpService implements CanActivate {
             return throwError(response.error);
         } else {
             try {
-                if (response.status === HttpService.NOT_FOUND) {
-                    error = {error: 'Not Found', message: '', path: ''};
+                if (response.status === 400) {
+                    error = {error: 'Bad Request', message: '', path: ''};
+                    this.presentToast(error.error + ':' + error.message, 3000);
                 } else {
                     error = response.error; // with 'text': JSON.parse(response.error);
                 }
-                this.presentToast(error.error + ':' + error.message, 3000);
                 return throwError(error);
             } catch (e) {
                 console.log('error' + e, 'No Server Response');

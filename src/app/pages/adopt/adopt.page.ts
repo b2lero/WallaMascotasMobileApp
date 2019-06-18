@@ -25,7 +25,7 @@ export class AdoptPage {
     constructor(private petService: PetService, private router: Router) {
         this.petService.readAllPets(this.request).subscribe(
             result => {
-                console.log(result);
+                console.log('result pets', result);
                 this.animals = result.pets;
                 this.currentPage += 1;
             }

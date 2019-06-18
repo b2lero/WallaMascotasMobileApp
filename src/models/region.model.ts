@@ -1,7 +1,7 @@
 import {ICountry} from './country.model';
 
 export interface IRegion {
-    id?: string;
+    id?: number;
     name?: string;
     code?: string;
     country?: ICountry;

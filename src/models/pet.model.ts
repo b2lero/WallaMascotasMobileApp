@@ -5,7 +5,7 @@ import {IPetType} from './pet-type.model';
 import {Phone} from './phone.model';
 
 export interface IPet {
-    id?: string;
+    id?: number;
     name: string;
     birthDate: string;
     type: IPetType;

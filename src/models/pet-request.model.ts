@@ -1,7 +1,4 @@
-interface Base64Picture {
-    fileName?: string;
-    base64String?: string;
-}
+import {Base64Picture} from './base64.model';
 
 export interface PetRequestModel {
      name: string;

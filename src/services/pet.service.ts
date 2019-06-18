@@ -25,7 +25,7 @@ export class PetService {
 
     // POST /pets
     createPet(pet: PetRequestModel): Observable<PetRequestModel> {
-        console.log(this.httpService.getToken());
+        console.log('POST PET', pet);
         return this.httpService.post(ApiEndpoint.PETS, pet);
     }
 
