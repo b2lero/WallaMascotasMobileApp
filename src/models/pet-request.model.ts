@@ -1,8 +1,8 @@
 import {Base64Picture} from './base64.model';
 
 export interface PetRequestModel {
-     name: string;
-     location: string;
+     name?: string;
+     location?: number;
      latitude?: number;
      longitude?: number;
      isFemale?: boolean;
@@ -11,7 +11,7 @@ export interface PetRequestModel {
      petCategoryId?: number;
      petSizeId?: number;
      regionId?: number;
-     base64Pictures: Base64Picture[];
+     base64Pictures?: Base64Picture[];
      breed?: string;
      description?: string;
      birthDate?: Date;
@@ -23,8 +23,6 @@ export interface PetRequestModel {
      isPositiveInLeukemia?: boolean;
      hasChip?: boolean;
      isVaccinated?: boolean;
-     associationId?: number;
-     rectifiedPetId?: number;
 }
 
 

@@ -42,7 +42,7 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
-        <ion-select (ionChange)="getRegionsByCountry($event)">
+        <ion-select formControlName="countryId" (ionChange)="getRegionsByCountry($event)">
         <ion-select-option [value]="country.id" *ngFor="let country of countries">{{country.name}}</ion-select-option>
         </ion-select>
       </ion-item>

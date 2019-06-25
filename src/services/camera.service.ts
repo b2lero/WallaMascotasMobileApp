@@ -13,7 +13,7 @@ export class CameraService {
     storedImages = [];
     STORAGE_KEY = 'my_images';
     sourcePathImg = '/source/path/img';
-    imagesTaken: Subject<any> = new Subject();
+    imagesTaken: Subject<any[]> = new Subject();
     cameraOptions: CameraOptions;
 
     constructor(
@@ -29,6 +29,7 @@ export class CameraService {
             quality: 50,
             sourceType: this.camera.PictureSourceType.CAMERA,
             saveToPhotoAlbum: false,
+            destinationType: this.camera.DestinationType.FILE_URI,
             correctOrientation: true,
             allowEdit: true,
             targetWidth: 300,
@@ -49,7 +50,7 @@ export class CameraService {
             .then(imagePath => {
                 const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
                 const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                return this.copyFileToLocalDir(correctPath, currentName, 'photo_' + new Date().getTime() + '.jpg');
+                return this.copyFileToLocalDir(correctPath, currentName, new Date().getTime() + '.jpeg');
             });
     }
 

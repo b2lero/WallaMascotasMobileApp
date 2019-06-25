@@ -1,33 +1,33 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {CanActivate, Router} from '@angular/router';
-import {BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 import {environment} from '../environments/environment';
 import {Storage} from '@ionic/storage';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {ToastController} from '@ionic/angular';
+import {Headers} from '@angular/http';
 
 @Injectable()
 export class HttpService implements CanActivate {
 
     constructor(private http: HttpClient, private router: Router, private storage: Storage, public toastCtrl: ToastController) {
         this.resetOptions();
+        this.checkTokenPhoneStorage();
     }
 
     static API_END_POINT = environment.API;
     static UNAUTHORIZED = 401;
     static NOT_FOUND = 404;
 
-    private headers: HttpHeaders;
+    private headers: Headers;
     private params: HttpParams;
     private responseType: string;
     private successfulNotification = undefined;
     private myToken;
     public authState = new BehaviorSubject(false);
-
-    // private authState: Subject<boolean> = new Subject();
 
     param(key: string, value: string): HttpService {
         this.params = this.params.append(key, value); // This class is immutable
@@ -51,14 +51,11 @@ export class HttpService implements CanActivate {
 
     // tslint:disable-next-line:ban-types
     post(endpoint: string, body?: Object): Observable<any> {
-        if (this.myToken !== undefined) {
-            this.storage.get('token').then(t => this.myToken = t);
-        }
-        const headers = new HttpHeaders().set('Content-Type', 'application/json-patch+json')
-            .set('Authorization', 'bearer ' + this.myToken).set('Access-Control-Allow-Origin', '*') ;
-        console.log('post https', body);
-        return this.http.post(HttpService.API_END_POINT + endpoint, body, {headers}).pipe(
-            map(response => this.extractData(response)
+        console.log(body);
+        return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
+            map(response => {
+                    return this.extractData(response);
+                }
             ), catchError(error => {
                 return this.handleError(error);
             })
@@ -95,36 +92,22 @@ export class HttpService implements CanActivate {
     }
 
     private header(key: string, value: string): HttpService {
-        this.headers = this.headers.append(key, value); // This class is immutable
+        this.headers.append(key, value);
         return this;
     }
 
     private resetOptions(): void {
-        this.headers = new HttpHeaders();
+        this.headers = new Headers();
         this.responseType = 'json';
     }
 
     private createOptions(): any {
-        this.storage.get('token').then( res => {
-            if (res !== undefined) {
-                console.log('GOT THE TOKEN');
-                this.header('Access-Control-Allow-Origin', '*');
-                this.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-                this.header('Accept', 'application/json');
-                this.header('Content-Type', 'application/json');
-                this.header('Authorization', 'Bearer ' + this.myToken);
-            }
+        const header: HttpHeaders = new HttpHeaders({
+            Accept: 'application/json',
+            Authorization: 'bearer ' + this.myToken,
+            'Content-Type': 'application/json-patch+json',
         });
-
-        const options: any = {
-            headers: this.headers,
-            params: this.params,
-            responseType: this.responseType,
-            observe: 'response'
-        };
-        this.resetOptions();
-        console.log('headers added', options);
-        return options;
+        return {headers: header, responseTYpe: 'json', observe: 'response'};
     }
 
     getToken() {
@@ -144,14 +127,11 @@ export class HttpService implements CanActivate {
 
     private handleToken(response) {
         const token = response.token;
-        this.setToken(token);
-        this.myToken = token;
-        this.storage.set('USER_INFO', {
-            user_id: response.user.id,
-            username: response.user.name,
-            functions: response.user.functions
-        });
-        this.authState.next(true);
+        if (token) {
+            console.log(token);
+            this.setToken(token);
+            this.authState.next(true);
+        }
     }
 
     private extractData(response): any {
@@ -169,6 +149,17 @@ export class HttpService implements CanActivate {
         }
     }
 
+    private checkTokenPhoneStorage() {
+        this.storage.get('token').then(
+            result => {
+                if (result !== undefined) {
+                    this.myToken = result;
+                } else {
+                    this.myToken = undefined;
+                }
+            }
+        );
+    }
 
     async presentToast(customMessage: string, time?: number) {
         const toast = await this.toastCtrl.create({
