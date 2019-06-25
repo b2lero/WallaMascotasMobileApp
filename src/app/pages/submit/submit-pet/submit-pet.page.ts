@@ -16,6 +16,7 @@ import {IPetCategory} from '../../../../models/pet-category.model';
 import {Base64Picture} from '../../../../models/base64.model';
 import {JsonArray, parseJson} from '@angular-devkit/core';
 import {environment} from '../../../../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-submit-pet',
@@ -30,13 +31,14 @@ export class SubmitPetPage implements OnInit {
     sizesPets: ISizesPets [];
     img64: Base64Picture = {fileName: null, base64String: null};
     imgs64Formatted: Base64Picture[] = [];
+    imgsCameraWebFormat = [];
     petCategories: IPetCategory[];
     regions: IRegion[];
     submitPetForm: FormGroup;
     typeAnimals: ITypesPets[];
     isSubmitted = false;
     newPet: PetRequestModel = {};
-    newPet2: PetRequestModel = {};
+    imge64Test: Base64Picture[] = [{ fileName: 'petTet.jpeg', base64String: environment.img64test}];
     // Checkbox form values
     hasChip = false;
     isFemale = true;
@@ -47,9 +49,6 @@ export class SubmitPetPage implements OnInit {
     isSterilized = false;
     isInTreatment = false;
     isPositiveInFelineImmunodeficiency = false;
-    // Photos Storage
-    imagesFromPhone = [];
-    private isPhotos = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -58,23 +57,23 @@ export class SubmitPetPage implements OnInit {
         private countryService: CountryService,
         private cameraService: CameraService,
         private changeRef: ChangeDetectorRef,
-        private file: File
+        private file: File,
+        private router: Router
     ) {
     }
 
     ngOnInit() {
         this.submitPetForm = this.formBuilder.group({
-            name: [''],
-            location: [''],
-            isFemale: [''],
-            petTypeId: [''],
-            petCategoryId: [''],
-            regionId: [''],
-            countryId: [''],
+            name: ['', Validators.required],
+            location: ['', Validators.required],
+            isFemale: ['', Validators.required],
+            petTypeId: ['', Validators.required],
+            petCategoryId: ['', Validators.required],
+            regionId: ['', Validators.required],
             breed: [''],
             description: [''],
-            petSizeId: [''],
-            birthDate: [''],
+            petSizeId: ['', Validators.required],
+            birthDate: ['', Validators.required],
             hasChip: [''],
             isVaccinated: [''],
             isPositiveInLeukemia: [''],
@@ -126,13 +125,13 @@ export class SubmitPetPage implements OnInit {
     launchCameraService() {
         fromPromise(this.cameraService.takePicture()).subscribe(
             res => {
-                this.imagesFromPhone.unshift(res);
-                this.formatImg64(res);
+                this.imgsCameraWebFormat.unshift(res);
+                this.formatToImg64(res);
             }
         );
     }
 
-    formatImg64(imgEntry) {
+    formatToImg64(imgEntry) {
         fromPromise(this.file.resolveLocalFilesystemUrl(imgEntry.filePath)).subscribe(
             entry => {
                 (entry as FileEntry).file(resultFile => {
@@ -151,8 +150,8 @@ export class SubmitPetPage implements OnInit {
     onSubmit(submitFormPet) {
         this.isSubmitted = true;
         if (this.submitPetForm.valid) {
+            // TODO change validation
             const newPet: PetRequestModel = submitFormPet.value;
-
             this.newPet = {
                 name: newPet.name,
                 location: 0,
@@ -164,7 +163,7 @@ export class SubmitPetPage implements OnInit {
                 petCategoryId: newPet.petCategoryId,
                 petSizeId: newPet.petSizeId,
                 regionId: newPet.regionId,
-                base64Pictures: this.imgs64Formatted,
+                base64Pictures: this.imge64Test,
                 breed: newPet.breed,
                 description: newPet.description,
                 birthDate: new Date(),
@@ -181,6 +180,9 @@ export class SubmitPetPage implements OnInit {
                 result => {
                     console.log('Pet submitted', result);
                     this.isSubmitted = !this.isSubmitted;
+                    setTimeout(() => {
+                        this.router.navigate(['submit/pets']);
+                    }, 2000);
                 }, (err) => {
                     console.log('error submitting pet', err);
                 }

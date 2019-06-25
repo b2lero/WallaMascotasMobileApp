@@ -26,7 +26,7 @@ export class PetService {
     // POST /pets
     createPet(pet: PetRequestModel): Observable<PetRequestModel> {
         console.log(pet);
-        return this.httpService.post(ApiEndpoint.PETS, JSON.stringify(pet));
+        return this.httpService.successful('Pet Submitted').post(ApiEndpoint.PETS, JSON.stringify(pet));
     }
 
     readPetCategories(): Observable<IPetCategory[]> {
