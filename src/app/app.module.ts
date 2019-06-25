@@ -21,6 +21,9 @@ import {ProfessionalServService} from '../services/professional-serv.service';
 import {Facebook} from '@ionic-native/facebook/ngx';
 import {NotificationService} from '../services/notification.service';
 import {FacebookService} from '../services/facebook.service';
+import {CountryService} from '../services/country.service';
+import {CameraService} from '../services/camera.service';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
     declarations: [
@@ -37,6 +40,9 @@ import {FacebookService} from '../services/facebook.service';
     providers: [
         AssociationService,
         Camera,
+        CameraService,
+        CountryService,
+        LocalNotifications,
         Facebook,
         FacebookService,
         File,

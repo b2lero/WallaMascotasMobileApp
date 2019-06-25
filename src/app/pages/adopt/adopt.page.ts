@@ -18,13 +18,14 @@ export class AdoptPage {
     animals: IPet[] = [];
     currentPage = 1;
     PAGE_SIZE = 2;
-    request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
+    request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: ['1']};
     categorySelected: string;
     categoriesPets: IPetCategory[];
 
     constructor(private petService: PetService, private router: Router) {
         this.petService.readAllPets(this.request).subscribe(
             result => {
+                console.log('result pets', result);
                 this.animals = result.pets;
                 this.currentPage += 1;
             }
@@ -71,7 +72,6 @@ export class AdoptPage {
         this.resetOptions();
         const categorySelected = [];
         categorySelected.push(event.detail.value);
-        console.log('--> selected category', categorySelected);
         const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelected};
         this.petService.readAllPets(request).subscribe(
             result => {

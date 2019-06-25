@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {AssociationService} from '../../../../services/association.service';
+import {CameraService} from '../../../../services/camera.service';
 
 @Component({
     selector: 'app-submit-asociation',
@@ -22,7 +23,8 @@ export class SubmitAsociationPage implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private associationService: AssociationService,
-                public actionSheetController: ActionSheetController) {
+                public actionSheetController: ActionSheetController,
+                private cameraService: CameraService) {
     }
 
     ngOnInit() {
@@ -43,10 +45,6 @@ export class SubmitAsociationPage implements OnInit {
         return this.submitAsociation.controls;
     }
 
-    loadPictures(imagesTakenFromPhone: string[]) {
-        this.imagesFromPhone = imagesTakenFromPhone;
-    }
-
     onSubmit(submitAsocForm: FormGroup) {
         console.log('form submitted');
         this.isSubmitted = true;
@@ -58,6 +56,17 @@ export class SubmitAsociationPage implements OnInit {
                 (error) => console.log('Error submission', error)
             );
         }
-
     }
+
+    // submitPhoto() {
+    //     this.cameraService.submitPhoto().then( result => {
+    //         console.log('launch camera');
+    //         this.cameraService.imagesLinksStorage.asObservable().subscribe(
+    //             data => {
+    //                 console.log('retrieving photos');
+    //                 this.imagesFromPhone = data;
+    //             }
+    //         );
+    //     });
+    // }
 }

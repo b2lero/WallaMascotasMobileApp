@@ -78,14 +78,14 @@ export class AppComponent {
 
     checkAuthentication() {
         this.storage.get('FB_USER').then(user => {
-            console.log('user auth', user);
-            if (user.name) {
+            if (user) {
                 this.httpService.authState.next(true);
                 this.authenticated = true;
                 console.log('state observable', this.httpService.authState.value);
+                console.log('just launched', user.email);
             }
-            console.log('just launched', user.email);
-        }).catch(e => console.log('error local storage', e));
+        });
+            // .catch(e => console.log('error local storage', e));
     }
 
     logout() {

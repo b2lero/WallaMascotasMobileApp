@@ -30,23 +30,4 @@ export class FacebookService {
         });
     }
 
-    // facebookDisconnect() {
-    //     this.facebook.logout().then(
-    //         response => {
-    //             console.log('logout facebook', response);
-    //             this.httpService.authState.next(false);
-    //         }
-    //     );
-    // }
-
-    facebookAuthenticated() {
-        return  true;
-        //this.storage.get('FB_USER');
-        /*
-        this.facebook.getLoginStatus().then(response => {
-            if (response.status === 'connected') {
-                this.httpService.authState.next(true);
-            }
-        }).catch( err => console.log('error auth home', err));*/
-    }
 }

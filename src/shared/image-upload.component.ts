@@ -1,9 +1,10 @@
 import {ChangeDetectorRef, Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
-import {ActionSheetController} from '@ionic/angular';
+import {ActionSheetController, Platform} from '@ionic/angular';
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
 import {WebView} from '@ionic-native/ionic-webview/ngx';
 import {File} from '@ionic-native/File/ngx';
 import {Storage} from '@ionic/storage';
+import {FilePath} from '@ionic-native/file-path/ngx';
 
 @Component({
     selector: 'upload-image',
@@ -21,6 +22,8 @@ export class ImageUploadComponent implements OnInit {
     constructor(
         private camera: Camera,
         private actionSheetController: ActionSheetController,
+        private platform: Platform,
+        private filePath: FilePath,
         private file: File,
         private storage: Storage,
         private webview: WebView,
@@ -93,9 +96,18 @@ export class ImageUploadComponent implements OnInit {
 
         this.camera.getPicture(cameraOptions)
             .then(imagePath => {
-                const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-                const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+                if (this.platform.is('android') && deviceSourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+                    this.filePath.resolveNativePath(imagePath)
+                        .then(filePath => {
+                            const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+                            const currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+                            this.copyFileToLocalDir(correctPath, currentName, 'photo_' + new Date().getTime() + '.jpg');
+                        });
+                } else {
+                    const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+                    const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+                    this.copyFileToLocalDir(correctPath, currentName, 'photo_' + new Date().getTime() + '.jpg');
+                }
             });
     }
 

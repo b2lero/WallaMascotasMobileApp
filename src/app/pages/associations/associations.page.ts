@@ -62,7 +62,7 @@ export class AssociationsPage implements OnInit {
                 // All data loaded
                 // this.infiniteScroll.disabled = true;
               }
-            }, 50);
+            }, 2000);
           }
       );
     }

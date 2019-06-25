@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   { path: LoginPage.URL, loadChildren: './pages/auth/login/login.module#LoginPageModule'},
   { path: 'submit/' + SubmitPetPage.URL, loadChildren: './pages/submit/submit-pet/submit-pet.module#SubmitPetPageModule',
-    canActivate: [HttpService]
+  // TODO add canactivate
   },
   { path: 'submit/' + SubmitAsociationPage.URL,
     loadChildren: './pages/submit/submit-asociation/submit-asociation.module#SubmitAsociationPageModule',

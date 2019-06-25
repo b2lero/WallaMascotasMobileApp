@@ -1,4 +1,4 @@
-export interface IShippingType {
+export interface ITypesPets {
     id?: number;
     name: string;
 }
