@@ -7,7 +7,7 @@ import {IPet} from '../../../../models/pet.model';
 import {PetService} from '../../../../services/pet.service';
 import {IonContent, IonInfiniteScroll, ToastController} from '@ionic/angular';
 import {NotificationService} from '../../../../services/notification.service';
-import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @Component({
     selector: 'app-association-profile',

@@ -26,6 +26,7 @@
     "@capacitor/core": "1.0.0-beta.24",
     "@ionic-native/camera": "^5.6.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/crop": "^5.8.0",
     "@ionic-native/facebook": "^5.7.0",
     "@ionic-native/file": "^5.6.0",
     "@ionic-native/file-path": "^5.6.0",
@@ -40,6 +41,7 @@
     "cordova-ios": "5.0.1",
     "cordova-plugin-badge": "0.8.8",
     "cordova-plugin-camera": "4.0.3",
+    "cordova-plugin-crop": "0.4.0",
     "cordova-plugin-facebook4": "4.2.1",
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-filepath": "1.5.5",
@@ -99,7 +101,8 @@
         "APP_ID": "304419680499825",
         "APP_NAME": "testWalla"
       },
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-crop": {}
     },
     "platforms": [
       "ios",

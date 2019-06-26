@@ -24,6 +24,7 @@ import {FacebookService} from '../services/facebook.service';
 import {CountryService} from '../services/country.service';
 import {CameraService} from '../services/camera.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {Crop} from '@ionic-native/crop/ngx';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
         FacebookService,
         File,
         FilePath,
+        Crop,
         NotificationService,
         PetService,
         ProfessionalServService,

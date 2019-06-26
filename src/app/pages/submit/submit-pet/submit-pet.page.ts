@@ -125,11 +125,22 @@ export class SubmitPetPage implements OnInit {
     launchCameraService() {
         fromPromise(this.cameraService.takePicture()).subscribe(
             res => {
+                console.log(res);
                 this.imgsCameraWebFormat.unshift(res);
                 this.formatToImg64(res);
             }
         );
     }
+
+    launchPhotolibraryService() {
+        fromPromise(this.cameraService.takePictureFromGallery()).subscribe(
+          res => {
+              this.imgsCameraWebFormat.unshift(res);
+              this.formatToImg64(res);
+          }
+        );
+    }
+
 
     formatToImg64(imgEntry) {
         fromPromise(this.file.resolveLocalFilesystemUrl(imgEntry.filePath)).subscribe(
@@ -193,7 +204,6 @@ export class SubmitPetPage implements OnInit {
 
     ionViewDidLeave() {
         this.cameraService.resetPhotos();
-        // this.newPet.base64Pictures = [];
     }
 
 }
