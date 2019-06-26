@@ -13,17 +13,17 @@
   <ion-grid>
     <ion-row>
         <ion-col [size]="6">
-          <ion-img class="--img-shadow" src="{{profileAssoc.pictures[0].url}}"></ion-img>
+          <ion-img *ngIf="profileAssoc.pictures" class="--img-shadow" src="{{profileAssoc.pictures[0]?.url}}"></ion-img>
         </ion-col>
         <ion-col [size]="6">
           <ion-list>
             <ion-list-header>Animales</ion-list-header>
             <ion-item lines="none">
-              <ion-badge slot="start">{{profileAssoc.petsAvailable}}</ion-badge>
+              <ion-badge slot="start">45</ion-badge>
               <ion-label>disponibles</ion-label>
             </ion-item>
             <ion-item lines="none">
-              <ion-badge slot="start" color="secondary">{{profileAssoc.adopted}}</ion-badge>
+              <ion-badge slot="start" color="secondary">13</ion-badge>
               <ion-label>adoptados</ion-label>
             </ion-item>
           </ion-list>

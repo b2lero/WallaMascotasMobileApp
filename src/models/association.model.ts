@@ -12,9 +12,6 @@ export interface IAssociation {
     email: Array<string>;
     shippingType?: IShippingType;
     websiteUrl?: string;
-    phones: Array<Phone>;
     pictures: Array<IPicture>;
-    members?: Array<IUser>;
-    adopted?: string;
-    petsAvailable?: string;
+    userIds?: number[];
 }
