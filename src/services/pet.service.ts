@@ -40,4 +40,8 @@ export class PetService {
     readPetTypes(): Observable<ITypesPets[]> {
         return this.httpService.get(ApiEndpoint.PETS_TYPES);
     }
+
+    notificationSuccessful() {
+        this.httpService.presentToast('Pet Submitted', 1000);
+    }
 }

@@ -51,7 +51,6 @@ export class HttpService implements CanActivate {
 
     // tslint:disable-next-line:ban-types
     post(endpoint: string, body?: Object): Observable<any> {
-        console.log(body);
         return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
             map(response => {
                     return this.extractData(response);
@@ -165,7 +164,8 @@ export class HttpService implements CanActivate {
         const toast = await this.toastCtrl.create({
             message: customMessage,
             duration: 2000,
-            position: 'bottom'
+            position: 'bottom',
+            color: 'warning'
         });
         toast.present();
     }

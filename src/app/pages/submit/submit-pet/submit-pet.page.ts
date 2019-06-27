@@ -14,7 +14,6 @@ import {FileEntry} from '@ionic-native/file/ngx';
 import {ITypesPets} from '../../../../models/pet-types.model';
 import {IPetCategory} from '../../../../models/pet-category.model';
 import {Base64Picture} from '../../../../models/base64.model';
-import {JsonArray, parseJson} from '@angular-devkit/core';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 
@@ -125,11 +124,22 @@ export class SubmitPetPage implements OnInit {
     launchCameraService() {
         fromPromise(this.cameraService.takePicture()).subscribe(
             res => {
+                console.log(res);
                 this.imgsCameraWebFormat.unshift(res);
                 this.formatToImg64(res);
             }
         );
     }
+
+    launchPhotolibraryService() {
+        fromPromise(this.cameraService.takePictureFromGallery()).subscribe(
+          res => {
+              this.imgsCameraWebFormat.unshift(res);
+              this.formatToImg64(res);
+          }
+        );
+    }
+
 
     formatToImg64(imgEntry) {
         fromPromise(this.file.resolveLocalFilesystemUrl(imgEntry.filePath)).subscribe(
@@ -149,8 +159,7 @@ export class SubmitPetPage implements OnInit {
 
     onSubmit(submitFormPet) {
         this.isSubmitted = true;
-        if (this.submitPetForm.valid) {
-            // TODO change validation
+        if (this.submitPetForm.valid && this.imgs64Formatted.length > 0) {
             const newPet: PetRequestModel = submitFormPet.value;
             this.newPet = {
                 name: newPet.name,
@@ -187,13 +196,11 @@ export class SubmitPetPage implements OnInit {
                     console.log('error submitting pet', err);
                 }
             );
-
         }
     }
 
-    ionViewDidLeave() {
-        this.cameraService.resetPhotos();
-        // this.newPet.base64Pictures = [];
+    deletePicture(position) {
+        this.imgs64Formatted.slice(position, 1);
+        this.imgsCameraWebFormat.splice(position, 1);
     }
-
 }

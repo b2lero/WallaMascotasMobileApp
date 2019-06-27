@@ -7,7 +7,7 @@ import {IPet} from '../../../../models/pet.model';
 import {PetService} from '../../../../services/pet.service';
 import {IonContent, IonInfiniteScroll, ToastController} from '@ionic/angular';
 import {NotificationService} from '../../../../services/notification.service';
-import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @Component({
     selector: 'app-association-profile',
@@ -19,29 +19,17 @@ export class AssociationProfilePage implements OnInit {
     static URL = ':id';
     @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     @ViewChild(IonContent) content: IonContent;
-    mockPicture = {url: './../../../../assets/imgs/wallamascotas_logo.jpg'};
-    private currentPage = 1;
     PAGE_SIZE = 8;
+    private currentPage = 1;
+    request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
     associationId: string;
     associationPetsImages: IPet[] = [];
-    request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
     isAdoptedToogle = false;
-    profileAssoc: IAssociation = {
-        name: 'Wallamascotas',
-        location: 'Madrid',
-        websiteUrl: 'wallamascotas.com',
-        region: {name: 'Madrid', country: {name: 'España', code: 'dedede'}},
-        email: ['walla@wallamascotas.com'],
-        phones: [{number: '640 758 894', countryCode: '34'}],
-        shippingType: {name: 'No se envia'},
-        pictures: [this.mockPicture, this.mockPicture, this.mockPicture],
-        adopted: '12',
-        petsAvailable: '30'
-    };
     private isContentLoaded: boolean;
     private isSubscribed = false;
     private isNotif = false;
     private msg: string;
+    private profileAssoc: IAssociation = {};
 
 
     constructor(
@@ -57,14 +45,14 @@ export class AssociationProfilePage implements OnInit {
 
     ngOnInit() {
         this.associationId = this.router.snapshot.paramMap.get('id');
-        // this.readAssociationById(this.associationId);
+        this.readAssocById(this.associationId);
         // this.readAllPetsPicturesByAsssociationId(this.associationId);
         this.loadPets(this.request);
         this.currentPage += 1;
     }
 
     readAssocById(id) {
-        this.assocService.readAssociationById(id).subscribe(
+        this.assocService.readAssociationById(this.associationId).subscribe(
             data => this.profileAssoc = data
         );
     }
@@ -114,14 +102,12 @@ export class AssociationProfilePage implements OnInit {
 
     resetOptions() {
         this.currentPage = 1;
-        // this.infiniteScroll.disabled = false;
         this.isContentLoaded = false;
     }
 
     loadAdoptedPets() {
         if (this.isAdoptedToogle) {
             this.changeDetect.detectChanges();
-            // this.infiniteScroll.disabled = false;
             this.resetOptions();
             const req = {page: 1, pageSize: this.PAGE_SIZE, status: 'adoptado'};
             this.loadPets(req);
@@ -154,7 +140,6 @@ export class AssociationProfilePage implements OnInit {
                     id: 1,
                     title: 'New Pet Added',
                     text: 'Association 1 added new pet',
-                    trigger: {in: 1, unit: ELocalNotificationTriggerUnit.SECOND},
                     icon: 'res://icon.png',
                     smallIcon: 'res://icon.png'
                 });

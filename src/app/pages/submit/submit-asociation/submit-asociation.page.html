@@ -17,11 +17,25 @@
             </ion-item>
 
             <ion-item>
-                <ion-label position="stacked" color="primary">TLF</ion-label>
-                <ion-input formControlName="TLF" type="text" class="bg-input" clearInput></ion-input>
+                <ion-label position="stacked" color="primary">Pais</ion-label>
+                <ion-select (ionChange)="getRegionsByCountry($event)">
+                    <ion-select-option [value]="country.id" *ngFor="let country of countries">{{country.name}}</ion-select-option>
+                </ion-select>
             </ion-item>
-            <ion-item *ngIf="fControls.TLF.touched && fControls.TLF.invalid && this.isSubmitted">
-                <p class="error-danger">Ingresar TLF</p>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Region</ion-label>
+                <ion-select formControlName="regionId">
+                    <ion-select-option [value]="region.id" *ngFor="let region of regions">{{region.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Localidad</ion-label>
+                <ion-input formControlName="location" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isSubmitted && fControls.location.invalid"  lines="none">
+                <p class="error-danger">Ingresar la localidad</p>
             </ion-item>
 
             <ion-item>
@@ -33,57 +47,22 @@
             </ion-item>
 
             <ion-item>
-                <ion-label position="stacked" color="primary">Tipo</ion-label>
-                <ion-select formControlName="type">
-                    <ion-select-option *ngFor="let type of typeAsociations">{{type}}</ion-select-option>
+                <ion-label position="stacked" color="primary">websiteUrl</ion-label>
+                <ion-input formControlName="websiteUrl" type="text" class="bg-input" clearInput></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked" color="primary">Tipo de asociacion</ion-label>
+                <ion-select formControlName="associationTypeId">
+                    <ion-select-option [value]="type.id" *ngFor="let type of typeAsociations">{{type.name}}</ion-select-option>
                 </ion-select>
             </ion-item>
-            <ion-item *ngIf="fControls.type.touched && fControls.type.invalid && this.isSubmitted"  lines="none">
-                <p class="error-danger">Ingresar tipo de la mascota</p>
-            </ion-item>
 
             <ion-item>
-                <ion-label position="stacked" color="primary">Pais</ion-label>
-                <ion-input formControlName="country" type="text" class="bg-input" clearInput></ion-input>
-            </ion-item>
-            <ion-item *ngIf="fControls.country.touched && fControls.country.invalid && this.isSubmitted"  lines="none">
-                <p class="error-danger">Ingresar el pais</p>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked" color="primary">Region</ion-label>
-                <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
-            </ion-item>
-            <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
-                <p class="error-danger">Ingresar la region</p>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked" color="primary">Pagina Web</ion-label>
-                <ion-input formControlName="web" type="text" class="bg-input" clearInput></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked" color="primary">Descripcion</ion-label>
-                <ion-textarea formControlName="description" type="text" class="bg-input"></ion-textarea>
-            </ion-item>
-            <ion-item *ngIf="fControls.description.touched && fControls.description.invalid && this.isSubmitted"  lines="none">
-                <p class="error-danger">Ingresar pequeña descripcion</p>
-            </ion-item>
-
-            <ion-item-divider class="ion-margin-top">
-                <ion-label>Informacion Adicional</ion-label>
-            </ion-item-divider>
-
-
-            <ion-item>
-                <ion-label position="stacked" color="primary">Envios</ion-label>
-                <ion-select formControlName="typeShipping">
-                    <ion-select-option *ngFor="let type of typeShippings">{{type}}</ion-select-option>
+                <ion-label position="stacked" color="primary">Tipo de Envios</ion-label>
+                <ion-select formControlName="shippingTypeId">
+                    <ion-select-option [value]="type.id" *ngFor="let type of typeShippings">{{type.name}}</ion-select-option>
                 </ion-select>
-            </ion-item>
-            <ion-item *ngIf="fControls.typeShipping.touched && fControls.typeShipping.invalid && this.isSubmitted"  lines="none">
-                <p class="error-danger">Ingresar tipo de envios</p>
             </ion-item>
 
         </ion-item-group>
@@ -95,24 +74,29 @@
 
             <ion-grid>
                 <ion-row>
-                    <ng-container *ngFor="let img of imagesFromPhone">
+                    <ng-container *ngFor="let img of imgsCameraWebFormat; index as position">
                         <ion-col size="4">
                             <ion-img src="{{img.path}}"></ion-img>
-                            <ion-label>{{img.name}}</ion-label>
+                            <ion-button color="danger" class="over-img" size="small" (click)="deletePicture(position)">
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-button>
                         </ion-col>
                     </ng-container>
                 </ion-row>
             </ion-grid>
 
-<!--            <ion-item lines="none">-->
-<!--                <ion-button (click)="submitPhoto()">-->
-<!--                    <ion-icon slot="icon-only" name="camera"></ion-icon>-->
-<!--                    Subir foto-->
-<!--                </ion-button>-->
-<!--            </ion-item>-->
-
-
+            <ion-item lines="none">
+                <ion-button (click)="launchCameraService()">
+                    <ion-icon slot="icon-only" name="camera"></ion-icon>
+                    Utilizar camara
+                </ion-button>
+                <ion-button (click)="launchPhotolibraryService()">
+                    <ion-icon slot="icon-only" name="images"></ion-icon>
+                    Utilizar galeria
+                </ion-button>
+            </ion-item>
         </ion-item-group>
+
         <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>
     </form>
 </ion-content>

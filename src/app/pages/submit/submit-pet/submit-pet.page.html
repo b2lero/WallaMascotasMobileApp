@@ -42,7 +42,7 @@
 
       <ion-item>
         <ion-label position="stacked" color="primary">Pais</ion-label>
-        <ion-select formControlName="countryId" (ionChange)="getRegionsByCountry($event)">
+        <ion-select (ionChange)="getRegionsByCountry($event)">
         <ion-select-option [value]="country.id" *ngFor="let country of countries">{{country.name}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -53,6 +53,10 @@
           <ion-select-option [value]="region.id" *ngFor="let region of regions">{{region.name}}</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item *ngIf="isSubmitted && fControls.regionId.invalid"  lines="none">
+        <p class="error-danger">Ingresar la region</p>
+      </ion-item>
+      i
 
       <ion-item>
         <ion-label position="stacked" color="primary">Localidad</ion-label>
@@ -69,6 +73,9 @@
           <ion-select-option [value]="!isFemale">Macho</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item *ngIf="isSubmitted && fControls.isFemale.invalid"  lines="none">
+        <p class="error-danger">Ingresar el sexo</p>
+      </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Fecha de Nacimiento</ion-label>
@@ -83,6 +90,9 @@
         <ion-select formControlName="petSizeId">
           <ion-select-option [value]="size.id" *ngFor="let size of sizesPets">{{size.name}}</ion-select-option>
         </ion-select>
+      </ion-item>
+      <ion-item *ngIf="fControls.petSizeId.invalid && isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar el tamaño</p>
       </ion-item>
 
 
@@ -169,10 +179,12 @@
 
       <ion-grid>
         <ion-row>
-          <ng-container *ngFor="let img of imgsCameraWebFormat">
+          <ng-container *ngFor="let img of imgsCameraWebFormat; index as position">
             <ion-col size="4">
               <ion-img src="{{img.path}}"></ion-img>
-              <ion-label>{{img.name}}</ion-label>
+              <ion-button color="danger" class="over-img" size="small" (click)="deletePicture(position)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
             </ion-col>
           </ng-container>
         </ion-row>
@@ -183,6 +195,10 @@
           <ion-icon slot="icon-only" name="camera"></ion-icon>
           Utilizar camara
         </ion-button>
+        <ion-button (click)="launchPhotolibraryService()">
+          <ion-icon slot="icon-only" name="images"></ion-icon>
+          Utilizar galeria
+        </ion-button>
       </ion-item>
     </ion-item-group>
 
@@ -190,9 +206,6 @@
       <p class="error-danger">Ingresar una foto</p>
     </ion-item>
 
-
-
     <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>
-<!--    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>-->
   </form>
 </ion-content>

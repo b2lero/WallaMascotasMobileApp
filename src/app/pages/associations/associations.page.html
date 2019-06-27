@@ -10,8 +10,8 @@
                             <ion-label><strong>Asociación</strong></ion-label>
                         </ion-item>
                         <ion-card-header class="padding-vertical">
-                            <ion-img src="{{association.pictures[0].url}}"></ion-img>
-                            <ion-card-title class="--text-small">{{assoc.name}}</ion-card-title>
+                            <ion-img src="{{assoc.pictures[0].url}}"></ion-img>
+                            <ion-card-title class="--text-small ion-margin-top">{{assoc.name}}</ion-card-title>
                         </ion-card-header>
                         <ion-card-content class="no-padding-top">
                             <ion-text class="--text-description">{{assoc.location}}</ion-text>
@@ -20,7 +20,7 @@
                 </ion-col>
             </ng-container>
 
-            <ion-infinite-scroll *ngIf="!noContent" threshold="20px" (ionInfinite)="loadMoreAssociations()">
+            <ion-infinite-scroll *ngIf="" threshold="20px" (ionInfinite)="loadMoreAssociations()">
                 <ion-infinite-scroll-content
                         loadingSpinner="bubbles"
                         loadingText="Loading more data...">
