@@ -22,4 +22,12 @@ export class AssociationService {
     readAllAssociations(requestBody): Observable<any> {
         return this.httpService.post(ApiEndpoint.ASSOCIATIONS_PAGES, requestBody);
     }
+
+    readAssociationTypes() {
+        return this.httpService.get(ApiEndpoint.ASSOCIATIONS_TYPES);
+    }
+
+    readShippingTypes() {
+        return this.httpService.get(ApiEndpoint.SHIPPING_TYPES);
+    }
 }

@@ -14,7 +14,6 @@ import {FileEntry} from '@ionic-native/file/ngx';
 import {ITypesPets} from '../../../../models/pet-types.model';
 import {IPetCategory} from '../../../../models/pet-category.model';
 import {Base64Picture} from '../../../../models/base64.model';
-import {JsonArray, parseJson} from '@angular-devkit/core';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 
@@ -160,7 +159,7 @@ export class SubmitPetPage implements OnInit {
 
     onSubmit(submitFormPet) {
         this.isSubmitted = true;
-        if (this.submitPetForm.valid) {
+        if (this.submitPetForm.valid && this.imgs64Formatted.length > 0) {
             // TODO change validation
             const newPet: PetRequestModel = submitFormPet.value;
             this.newPet = {
@@ -198,7 +197,6 @@ export class SubmitPetPage implements OnInit {
                     console.log('error submitting pet', err);
                 }
             );
-
         }
     }
 
@@ -206,4 +204,8 @@ export class SubmitPetPage implements OnInit {
         this.cameraService.resetPhotos();
     }
 
+    deletePicture(position) {
+        this.imgs64Formatted.slice(position, 1);
+        this.imgsCameraWebFormat.splice(position, 1);
+    }
 }

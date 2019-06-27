@@ -164,7 +164,8 @@ export class HttpService implements CanActivate {
         const toast = await this.toastCtrl.create({
             message: customMessage,
             duration: 2000,
-            position: 'bottom'
+            position: 'bottom',
+            color: 'warning'
         });
         toast.present();
     }

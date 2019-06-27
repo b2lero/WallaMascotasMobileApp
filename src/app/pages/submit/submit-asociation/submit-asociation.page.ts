@@ -4,6 +4,9 @@ import {ActionSheetController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {AssociationService} from '../../../../services/association.service';
 import {CameraService} from '../../../../services/camera.service';
+import {CountryService} from '../../../../services/country.service';
+import {ICountry} from '../../../../models/country.model';
+import {IRegion} from '../../../../models/region.model';
 
 @Component({
     selector: 'app-submit-asociation',
@@ -15,7 +18,10 @@ export class SubmitAsociationPage implements OnInit {
     static URL = 'asociation';
     pageTitle = 'Alta asociacion';
     submitAsociation: FormGroup;
+    associationsTypes = [];
     isSubmitted = false;
+    countries: ICountry[];
+    regions: IRegion[];
     typeAsociations = ['Asociacion', 'Casa de Acogida', 'Hogar Temporal', 'Otros'];
     typeShippings = ['No se realizan', 'Misma provincia', 'Toda España', 'Toda Europa'];
     imagesFromPhone = [];
@@ -24,21 +30,47 @@ export class SubmitAsociationPage implements OnInit {
                 private router: Router,
                 private associationService: AssociationService,
                 public actionSheetController: ActionSheetController,
-                private cameraService: CameraService) {
+                private cameraService: CameraService,
+                private countryService: CountryService) {
     }
 
     ngOnInit() {
         this.submitAsociation = this.formBuilder.group({
-            name: ['', [Validators.required]],
-            TLF: ['', [Validators.required]],
-            country: ['', [Validators.required]],
-            region: ['', [Validators.required]],
-            type: ['', [Validators.required]],
-            email: ['', [Validators.required, Validators.email]],
-            description: ['', [Validators.required]],
-            typeShipping: ['', [Validators.required]],
-            web: ['']
+            name: ['', Validators.required],
+            location: ['', Validators.required],
+            regionId: [''],
+            websiteUrl: [''],
+            associationTypeId: [''],
+            shippingTypeId: [''],
+            email: ['', Validators.required],
         });
+
+        this.countryService.readAllcountries().subscribe(
+            countries => {
+                this.countries = countries;
+            }
+        );
+
+        this.associationService.readAssociationTypes().subscribe(
+            result => {
+                this.typeAsociations = result;
+            }
+        );
+
+        this.associationService.readShippingTypes().subscribe(
+            res => {
+                this.typeShippings = res;
+            }
+        );
+    }
+
+    getRegionsByCountry(event) {
+        const countryId = event.detail.value;
+        this.countryService.readRegionById(countryId).subscribe(
+            regions => {
+                this.regions = regions;
+            }
+        );
     }
 
     get fControls() {

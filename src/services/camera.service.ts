@@ -46,8 +46,8 @@ export class CameraService {
             saveToPhotoAlbum: false,
             destinationType: this.camera.DestinationType.FILE_URI,
             correctOrientation: true,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: -1,
+            targetHeight: -1,
         };
     }
 
@@ -105,6 +105,9 @@ export class CameraService {
         });
     }
 
+    deletePhoto() {
+
+    }
 
     resetPhotos() {
         this.storedImages = [];

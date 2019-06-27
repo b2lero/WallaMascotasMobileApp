@@ -7,6 +7,9 @@ export class ApiEndpoint {
 
     public static ASSOCIATIONS = '/associations';
     public static ASSOCIATIONS_PAGES = ApiEndpoint.ASSOCIATIONS + '/pages';
+    public static ASSOCIATIONS_TYPES = '/association-types';
+
+    public  static SHIPPING_TYPES = '/shipping-types';
 
     public static COUNTRIES = '/countries';
     public static USERS = '/users';
@@ -16,5 +19,5 @@ export class ApiEndpoint {
 
     static PROFESSIONAL_SERVICE = '/professional-services';
     public static HUB = 'http://10.0.2.2:3000/hub';
-    public static TOPIC_ASSOCIATION_PETS = 'http://wallamascotas.api/v1/public/users/associations/pets';
+    public static TOPIC_ASSOCIATION_PETS = 'http://wallamascotas-pre.azurewebsites.net/associations/pets';
 }
