@@ -7,6 +7,11 @@ import {CameraService} from '../../../../services/camera.service';
 import {CountryService} from '../../../../services/country.service';
 import {ICountry} from '../../../../models/country.model';
 import {IRegion} from '../../../../models/region.model';
+import {fromPromise} from 'rxjs/internal-compatibility';
+import {File, FileEntry} from '@ionic-native/file/ngx';
+import {Base64Picture} from '../../../../models/base64.model';
+import {PetRequestModel} from '../../../../models/pet-request.model';
+import {IAssociation} from '../../../../models/association.model';
 
 @Component({
     selector: 'app-submit-asociation',
@@ -20,8 +25,12 @@ export class SubmitAsociationPage implements OnInit {
     submitAsociation: FormGroup;
     associationsTypes = [];
     isSubmitted = false;
+    newAssociation: IAssociation = {};
     countries: ICountry[];
     regions: IRegion[];
+    img64: Base64Picture = {fileName: null, base64String: null};
+    imgs64Formatted: Base64Picture[] = [];
+    imgsCameraWebFormat = [];
     typeAsociations = ['Asociacion', 'Casa de Acogida', 'Hogar Temporal', 'Otros'];
     typeShippings = ['No se realizan', 'Misma provincia', 'Toda España', 'Toda Europa'];
     imagesFromPhone = [];
@@ -31,7 +40,8 @@ export class SubmitAsociationPage implements OnInit {
                 private associationService: AssociationService,
                 public actionSheetController: ActionSheetController,
                 private cameraService: CameraService,
-                private countryService: CountryService) {
+                private countryService: CountryService,
+                private file: File) {
     }
 
     ngOnInit() {
@@ -77,28 +87,76 @@ export class SubmitAsociationPage implements OnInit {
         return this.submitAsociation.controls;
     }
 
-    onSubmit(submitAsocForm: FormGroup) {
-        console.log('form submitted');
-        this.isSubmitted = true;
-        const newAssociation = submitAsocForm.value;
+    launchCameraService() {
+        fromPromise(this.cameraService.takePicture()).subscribe(
+            res => {
+                console.log(res);
+                this.imgsCameraWebFormat.unshift(res);
+                this.formatToImg64(res);
+            }
+        );
+    }
 
-        if (this.submitAsociation.valid) {
-            this.associationService.createAssociation(newAssociation).subscribe(
-                res => console.log('Successs', res),
-                (error) => console.log('Error submission', error)
+    launchPhotolibraryService() {
+        fromPromise(this.cameraService.takePictureFromGallery()).subscribe(
+            res => {
+                this.imgsCameraWebFormat.unshift(res);
+                this.formatToImg64(res);
+            }
+        );
+    }
+
+
+    formatToImg64(imgEntry) {
+        fromPromise(this.file.resolveLocalFilesystemUrl(imgEntry.filePath)).subscribe(
+            entry => {
+                (entry as FileEntry).file(resultFile => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(resultFile);
+                    reader.onloadend = () => {
+                        this.img64.fileName = resultFile.name;
+                        this.img64.base64String = reader.result.toString();
+                        this.imgs64Formatted.push(this.img64);
+                    };
+                });
+            }
+        );
+    }
+
+    onSubmit(submitAsociation) {
+        this.isSubmitted = true;
+        if (this.submitAsociation.valid && this.imgs64Formatted.length > 0) {
+            const newAsssoc: IAssociation = submitAsociation.value;
+            this.newAssociation = {
+                name: newAsssoc.name,
+                location: newAsssoc.location,
+                regionId: newAsssoc.regionId,
+                websiteUrl: newAsssoc.websiteUrl,
+                associationTypeId: newAsssoc.associationTypeId,
+                shippingTypeId: newAsssoc.shippingTypeId,
+                base64Pictures: this.imgs64Formatted
+            };
+
+            this.associationService.createAssociation(this.newAssociation).subscribe(
+                result => {
+                    console.log('Association submitted', result);
+                    this.isSubmitted = !this.isSubmitted;
+                    setTimeout(() => {
+                        this.router.navigate(['home']);
+                    }, 2000);
+                }, (err) => {
+                    console.log('error submitting pet', err);
+                }
             );
         }
     }
 
-    // submitPhoto() {
-    //     this.cameraService.submitPhoto().then( result => {
-    //         console.log('launch camera');
-    //         this.cameraService.imagesLinksStorage.asObservable().subscribe(
-    //             data => {
-    //                 console.log('retrieving photos');
-    //                 this.imagesFromPhone = data;
-    //             }
-    //         );
-    //     });
-    // }
+    ionViewDidLeave() {
+        this.cameraService.resetPhotos();
+    }
+
+    deletePicture(position) {
+        this.imgs64Formatted.slice(position, 1);
+        this.imgsCameraWebFormat.splice(position, 1);
+    }
 }

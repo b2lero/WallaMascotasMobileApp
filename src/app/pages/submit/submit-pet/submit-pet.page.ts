@@ -160,7 +160,6 @@ export class SubmitPetPage implements OnInit {
     onSubmit(submitFormPet) {
         this.isSubmitted = true;
         if (this.submitPetForm.valid && this.imgs64Formatted.length > 0) {
-            // TODO change validation
             const newPet: PetRequestModel = submitFormPet.value;
             this.newPet = {
                 name: newPet.name,

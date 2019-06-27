@@ -3,15 +3,16 @@ import {Phone} from './phone.model';
 import {IPicture} from './picture.model';
 import {IUser} from './user.model';
 import {IShippingType} from './shipping-type.model';
+import {Base64Picture} from './base64.model';
 
 export interface IAssociation {
     id?: string;
-    name: string;
-    location: string;
-    region?: IRegion;
-    email: Array<string>;
-    shippingType?: IShippingType;
+    name?: string;
+    location?: string;
+    regionId?: IRegion;
     websiteUrl?: string;
-    pictures: Array<IPicture>;
-    userIds?: number[];
+    associationTypeId?: number;
+    shippingTypeId?: number;
+    email?: string;
+    base64Pictures?: Base64Picture[];
 }

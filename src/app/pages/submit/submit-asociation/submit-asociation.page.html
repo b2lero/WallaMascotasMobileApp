@@ -65,10 +65,6 @@
                 </ion-select>
             </ion-item>
 
-            <ion-item-divider class="ion-margin-top">
-                <ion-label>Informacion Adicional</ion-label>
-            </ion-item-divider>
-
         </ion-item-group>
 
         <ion-item-group>
@@ -78,24 +74,29 @@
 
             <ion-grid>
                 <ion-row>
-                    <ng-container *ngFor="let img of imagesFromPhone">
+                    <ng-container *ngFor="let img of imgsCameraWebFormat; index as position">
                         <ion-col size="4">
                             <ion-img src="{{img.path}}"></ion-img>
-                            <ion-label>{{img.name}}</ion-label>
+                            <ion-button color="danger" class="over-img" size="small" (click)="deletePicture(position)">
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-button>
                         </ion-col>
                     </ng-container>
                 </ion-row>
             </ion-grid>
 
-<!--            <ion-item lines="none">-->
-<!--                <ion-button (click)="submitPhoto()">-->
-<!--                    <ion-icon slot="icon-only" name="camera"></ion-icon>-->
-<!--                    Subir foto-->
-<!--                </ion-button>-->
-<!--            </ion-item>-->
-
-
+            <ion-item lines="none">
+                <ion-button (click)="launchCameraService()">
+                    <ion-icon slot="icon-only" name="camera"></ion-icon>
+                    Utilizar camara
+                </ion-button>
+                <ion-button (click)="launchPhotolibraryService()">
+                    <ion-icon slot="icon-only" name="images"></ion-icon>
+                    Utilizar galeria
+                </ion-button>
+            </ion-item>
         </ion-item-group>
+
         <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>
     </form>
 </ion-content>
