@@ -29,13 +29,7 @@ export class AssociationProfilePage implements OnInit {
     private isSubscribed = false;
     private isNotif = false;
     private msg: string;
-    private profileAssoc: IAssociation = {
-        name: null,
-        location: null,
-        pictures: null,
-        websiteUrl: null,
-        email: null
-    };
+    private profileAssoc: IAssociation = {};
 
 
     constructor(

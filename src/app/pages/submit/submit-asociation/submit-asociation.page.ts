@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActionSheetController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import {File} from '@ionic-native/File/ngx';
 import {AssociationService} from '../../../../services/association.service';
 import {CameraService} from '../../../../services/camera.service';
 import {CountryService} from '../../../../services/country.service';
 import {ICountry} from '../../../../models/country.model';
 import {IRegion} from '../../../../models/region.model';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {File, FileEntry} from '@ionic-native/file/ngx';
+import {FileEntry} from '@ionic-native/file/ngx';
 import {Base64Picture} from '../../../../models/base64.model';
-import {PetRequestModel} from '../../../../models/pet-request.model';
 import {IAssociation} from '../../../../models/association.model';
 
 @Component({
@@ -25,7 +25,15 @@ export class SubmitAsociationPage implements OnInit {
     submitAsociation: FormGroup;
     associationsTypes = [];
     isSubmitted = false;
-    newAssociation: IAssociation = {};
+    newAssociation: IAssociation = {
+        name: null,
+        location: null,
+        regionId: null,
+        websiteUrl: null,
+        associationTypeId: null,
+        shippingTypeId: null,
+        base64Pictures: null
+    };
     countries: ICountry[];
     regions: IRegion[];
     img64: Base64Picture = {fileName: null, base64String: null};
@@ -52,7 +60,7 @@ export class SubmitAsociationPage implements OnInit {
             websiteUrl: [''],
             associationTypeId: [''],
             shippingTypeId: [''],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
         });
 
         this.countryService.readAllcountries().subscribe(
@@ -100,6 +108,7 @@ export class SubmitAsociationPage implements OnInit {
     launchPhotolibraryService() {
         fromPromise(this.cameraService.takePictureFromGallery()).subscribe(
             res => {
+                console.log(res);
                 this.imgsCameraWebFormat.unshift(res);
                 this.formatToImg64(res);
             }
@@ -132,6 +141,7 @@ export class SubmitAsociationPage implements OnInit {
                 location: newAsssoc.location,
                 regionId: newAsssoc.regionId,
                 websiteUrl: newAsssoc.websiteUrl,
+                email: newAsssoc.email,
                 associationTypeId: newAsssoc.associationTypeId,
                 shippingTypeId: newAsssoc.shippingTypeId,
                 base64Pictures: this.imgs64Formatted
@@ -145,18 +155,14 @@ export class SubmitAsociationPage implements OnInit {
                         this.router.navigate(['home']);
                     }, 2000);
                 }, (err) => {
-                    console.log('error submitting pet', err);
+                    console.log('error submitting pet', err , this.newAssociation);
                 }
             );
         }
     }
 
-    ionViewDidLeave() {
-        this.cameraService.resetPhotos();
-    }
-
     deletePicture(position) {
-        this.imgs64Formatted.slice(position, 1);
+        this.imgs64Formatted.splice(position, 1);
         this.imgsCameraWebFormat.splice(position, 1);
     }
 }

@@ -60,7 +60,7 @@
 
             <ion-item>
                 <ion-label position="stacked" color="primary">Tipo de Envios</ion-label>
-                <ion-select formControlName="associationTypeId">
+                <ion-select formControlName="shippingTypeId">
                     <ion-select-option [value]="type.id" *ngFor="let type of typeShippings">{{type.name}}</ion-select-option>
                 </ion-select>
             </ion-item>

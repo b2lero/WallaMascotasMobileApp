@@ -53,6 +53,10 @@
           <ion-select-option [value]="region.id" *ngFor="let region of regions">{{region.name}}</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item *ngIf="isSubmitted && fControls.regionId.invalid"  lines="none">
+        <p class="error-danger">Ingresar la region</p>
+      </ion-item>
+      i
 
       <ion-item>
         <ion-label position="stacked" color="primary">Localidad</ion-label>
@@ -69,6 +73,9 @@
           <ion-select-option [value]="!isFemale">Macho</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item *ngIf="isSubmitted && fControls.isFemale.invalid"  lines="none">
+        <p class="error-danger">Ingresar el sexo</p>
+      </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Fecha de Nacimiento</ion-label>
@@ -83,6 +90,9 @@
         <ion-select formControlName="petSizeId">
           <ion-select-option [value]="size.id" *ngFor="let size of sizesPets">{{size.name}}</ion-select-option>
         </ion-select>
+      </ion-item>
+      <ion-item *ngIf="fControls.petSizeId.invalid && isSubmitted"  lines="none">
+        <p class="error-danger">Ingresar el tamaño</p>
       </ion-item>
 
 

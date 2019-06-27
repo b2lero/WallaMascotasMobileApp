@@ -74,10 +74,8 @@ export class CameraService {
             .then(imagePath => {
                 return this.crop.crop(imagePath, {quality: 50}).then(
                     croppedImg => {
-                        console.log('before file path', croppedImg);
                         return this.filePath.resolveNativePath(croppedImg).then(
                             filePath => {
-                                console.log('after file path', filePath);
                                 const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
                                 const currentName = croppedImg.substring(croppedImg.lastIndexOf('/') + 1, croppedImg.lastIndexOf('?'));
                                 return this.copyFileToLocalDir(correctPath, currentName, new Date().getTime() + '.jpeg');
@@ -103,10 +101,6 @@ export class CameraService {
         }, error => {
             console.log('Error copying to local dir', error);
         });
-    }
-
-    deletePhoto() {
-
     }
 
     resetPhotos() {

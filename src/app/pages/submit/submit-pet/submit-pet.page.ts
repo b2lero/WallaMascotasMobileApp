@@ -199,10 +199,6 @@ export class SubmitPetPage implements OnInit {
         }
     }
 
-    ionViewDidLeave() {
-        this.cameraService.resetPhotos();
-    }
-
     deletePicture(position) {
         this.imgs64Formatted.slice(position, 1);
         this.imgsCameraWebFormat.splice(position, 1);
