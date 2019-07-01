@@ -4,6 +4,8 @@ export class ApiEndpoint {
     public static PETS_CATEGORIES = '/pet-categories';
     public static PETS_SIZES = '/pet-sizes';
     public static PETS_TYPES = '/pet-types';
+    public static PET_CONTACTS_INFO = '/contact-info';
+
 
     public static ASSOCIATIONS = '/associations';
     public static ASSOCIATIONS_PAGES = ApiEndpoint.ASSOCIATIONS + '/pages';
