@@ -44,4 +44,8 @@ export class PetService {
     notificationSuccessful() {
         this.httpService.presentToast('Pet Submitted', 1000);
     }
+
+    readContactInfoPetById(id: string) {
+        return this.httpService.get(ApiEndpoint.PETS + '/' + id + ApiEndpoint.PET_CONTACTS_INFO);
+    }
 }
