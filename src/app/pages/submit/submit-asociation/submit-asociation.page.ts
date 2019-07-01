@@ -115,7 +115,6 @@ export class SubmitAsociationPage implements OnInit {
         );
     }
 
-
     formatToImg64(imgEntry) {
         fromPromise(this.file.resolveLocalFilesystemUrl(imgEntry.filePath)).subscribe(
             entry => {
