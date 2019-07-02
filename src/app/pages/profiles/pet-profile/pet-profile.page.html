@@ -64,7 +64,7 @@
         </ion-row>
         <ion-row *ngIf="profile?.creationUtcDateTime">
             <ion-col><strong>Fecha de alta:</strong></ion-col>
-            <ion-col>{{profile?.creationUtcDateTime}}</ion-col>
+            <ion-col>{{profile?.creationUtcDateTime | date:'mediumDate'}}</ion-col>
         </ion-row>
         <ion-row *ngIf="profile?.region.name">
             <ion-col><strong>Provincia</strong></ion-col>
@@ -72,7 +72,7 @@
         </ion-row>
         <ion-row *ngIf="profile?.birthDate">
             <ion-col><strong>Fecha de nacimiento</strong></ion-col>
-            <ion-col>{{profile?.birthDate}}</ion-col>
+            <ion-col>{{profile?.birthDate | date:'mediumDate'}}</ion-col>
         </ion-row>
         <ion-row>
             <!-- TODO Add social media & more information about this dog-->
