@@ -173,7 +173,7 @@ export class HttpService implements CanActivate {
     private handleError(response): any {
         let error;
         if (response.status === HttpService.UNAUTHORIZED) {
-            this.presentToast('Unauthorized', 3500, 'warning');
+            this.presentToast('Unauthorized', 3000, 'warning');
             this.router.navigate(['']);
             return throwError(response.error);
         } else {

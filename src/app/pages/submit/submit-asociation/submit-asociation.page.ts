@@ -42,7 +42,7 @@ export class SubmitAsociationPage implements OnInit {
     imgsCameraWebFormat = [];
     typeAsociations = ['Asociacion', 'Casa de Acogida', 'Hogar Temporal', 'Otros'];
     typeShippings = ['No se realizan', 'Misma provincia', 'Toda España', 'Toda Europa'];
-    imagesFromPhone = [];
+    // imagesFromPhone = [];
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,

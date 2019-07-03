@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpService} from '../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {ProServicesTypes} from '../models/service-types.model';
 
 @Injectable()
 export class ProfessionalServService {
@@ -11,10 +11,8 @@ export class ProfessionalServService {
     }
 
     // GET /professional-service-types
-    readAllProfessionalServicesTypes() {
-        return this.httpService.get(ApiEndpoint.PROFESSIONAL_TYPES).pipe(
-            map( result => result.name)
-        );
+    readAllProfessionalServicesTypes(): Observable<ProServicesTypes[]> {
+        return this.httpService.get(ApiEndpoint.PROFESSIONAL_TYPES);
     }
 
     createProfessionalService(newService: any) {

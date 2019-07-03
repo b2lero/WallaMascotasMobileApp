@@ -12,41 +12,34 @@
           <ion-list-header>Seleccione un servicio</ion-list-header>
           <ion-item>
             <ion-label>Servicio:</ion-label>
-            <ion-select formControlName="typeService" placeholder="seleccione uno">
-              <ion-select-option *ngFor="let service of typeOfServices">{{service}}</ion-select-option>
+            <ion-select placeholder="seleccione uno">
+              <ion-select-option [value]="service.id" *ngFor="let service of typeOfServices">{{service.name}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
-      <ion-item *ngIf="fControls.typeService.touched && fControls.typeService.invalid && this.isSubmitted" lines="none">
-        <p class="error-danger">Escoger un servicio</p>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked" color="primary">Otro servico no incluido</ion-label>
-        <ion-input formControlName="otherService" type="text" class="bg-input" clearInput></ion-input>
-      </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Nombre de la compania</ion-label>
-        <ion-input formControlName="nameCompany" type="text" class="bg-input" clearInput></ion-input>
+        <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.nameCompany.touched && fControls.nameCompany.invalid && this.isSubmitted" lines="none">
+      <ion-item *ngIf="fControls.name.invalid && this.isSubmitted" lines="none">
         <p class="error-danger">Ingresar nombre de la compania</p>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" color="primary">Nombre del servicio</ion-label>
-        <ion-input formControlName="nameService" type="text" class="bg-input" clearInput></ion-input>
-      </ion-item>
-      <ion-item *ngIf="fControls.nameService.touched && fControls.nameService.invalid && this.isSubmitted" lines="none">
-        <p class="error-danger">Ingresar nombre del servico</p>
+        <ion-label position="stacked" color="primary">Pais</ion-label>
+        <ion-select (ionChange)="getRegionsByCountry($event)">
+          <ion-select-option [value]="country.id" *ngFor="let country of countries">{{country.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Region</ion-label>
-        <ion-input formControlName="region" type="text" class="bg-input" clearInput></ion-input>
+        <ion-select formControlName="regionId">
+          <ion-select-option [value]="region.id" *ngFor="let region of regions">{{region.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item *ngIf="fControls.region.touched && fControls.region.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.regionId.invalid && this.isSubmitted" lines="none">
         <p class="error-danger">Ingresar la region</p>
       </ion-item>
 
@@ -54,7 +47,7 @@
         <ion-label position="stacked" color="primary">Localidad</ion-label>
         <ion-input formControlName="location" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.location.touched && fControls.location.invalid && this.isSubmitted"  lines="none">
+      <ion-item *ngIf="fControls.location.invalid && this.isSubmitted"  lines="none">
         <p class="error-danger">Ingresar la localidad</p>
       </ion-item>
 
@@ -62,16 +55,8 @@
         <ion-label position="stacked" color="primary">Correo Electronico</ion-label>
         <ion-input formControlName="email" type="text" class="bg-input" clearInput></ion-input>
       </ion-item>
-      <ion-item *ngIf="fControls.email.touched && fControls.email.invalid" lines="none">
-        <p class="error-danger">Correo electronico incorrecto</p>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked" color="primary">Telefono</ion-label>
-        <ion-input formControlName="phone" type="tel" class="bg-input" clearInput></ion-input>
-      </ion-item>
-      <ion-item *ngIf="fControls.phone.touched && fControls.phone.invalid && this.isSubmitted"  lines="none">
-        <p class="error-danger">Ingresar numero de telefono</p>
+      <ion-item *ngIf="fControls.email.invalid && this.isSubmitted" lines="none">
+        <p class="error-danger">Ingresar correo electronico</p>
       </ion-item>
 
       <ion-item>
@@ -86,21 +71,35 @@
         <ion-label>Fotos de las instalaciones</ion-label>
       </ion-item-divider>
 
-
       <ion-grid>
         <ion-row>
-          <ng-container *ngFor="let img of imagesFromPhone">
+          <ng-container *ngFor="let img of imgsCameraWebFormat; index as position">
             <ion-col size="4">
               <ion-img src="{{img.path}}"></ion-img>
-              <ion-label>{{img.name}}</ion-label>
+              <ion-button color="danger" class="over-img" size="small" (click)="deletePicture(position)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
             </ion-col>
           </ng-container>
         </ion-row>
       </ion-grid>
 
-      <upload-image (imagesLinksStorage)="loadPictures($event)"></upload-image>
+      <ion-item lines="none">
+        <ion-button (click)="launchCameraService()">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+          Utilizar camara
+        </ion-button>
+        <ion-button (click)="launchPhotolibraryService()">
+          <ion-icon slot="icon-only" name="images"></ion-icon>
+          Utilizar galeria
+        </ion-button>
+      </ion-item>
+
+      <ion-item *ngIf="isSubmitted && isImgs64FormattedEmpty()"  lines="none">
+        <p class="error-danger">Se debe enviar al menos una foto</p>
+      </ion-item>
 
     </ion-item-group>
-    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitFormService.valid">Enviar</ion-button>
+    <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>
   </form>
 </ion-content>
