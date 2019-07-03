@@ -14,7 +14,6 @@ import {FileEntry} from '@ionic-native/file/ngx';
 import {ITypesPets} from '../../../../models/pet-types.model';
 import {IPetCategory} from '../../../../models/pet-category.model';
 import {Base64Picture} from '../../../../models/base64.model';
-import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 
 @Component({
@@ -33,11 +32,11 @@ export class SubmitPetPage implements OnInit {
     imgsCameraWebFormat = [];
     petCategories: IPetCategory[];
     regions: IRegion[];
+    isPhotos = true;
     submitPetForm: FormGroup;
     typeAnimals: ITypesPets[];
     isSubmitted = false;
     newPet: PetRequestModel = {};
-    imge64Test: Base64Picture[] = [{ fileName: 'petTet.jpeg', base64String: environment.img64test}];
     // Checkbox form values
     hasChip = false;
     isFemale = true;
@@ -121,6 +120,10 @@ export class SubmitPetPage implements OnInit {
         );
     }
 
+    isImgs64FormattedEmpty(): boolean {
+        return (this.imgs64Formatted.length <= 0);
+    }
+
     launchCameraService() {
         fromPromise(this.cameraService.takePicture()).subscribe(
             res => {
@@ -172,7 +175,7 @@ export class SubmitPetPage implements OnInit {
                 petCategoryId: newPet.petCategoryId,
                 petSizeId: newPet.petSizeId,
                 regionId: newPet.regionId,
-                base64Pictures: this.imge64Test,
+                base64Pictures: this.imgs64Formatted,
                 breed: newPet.breed,
                 description: newPet.description,
                 birthDate: new Date(),
@@ -190,7 +193,7 @@ export class SubmitPetPage implements OnInit {
                     console.log('Pet submitted', result);
                     this.isSubmitted = !this.isSubmitted;
                     setTimeout(() => {
-                        this.router.navigate(['submit/pets']);
+                        this.router.navigate(['home']);
                     }, 2000);
                 }, (err) => {
                     console.log('error submitting pet', err);
@@ -198,6 +201,8 @@ export class SubmitPetPage implements OnInit {
             );
         }
     }
+
+
 
     deletePicture(position) {
         this.imgs64Formatted.slice(position, 1);

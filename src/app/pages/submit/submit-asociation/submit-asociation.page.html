@@ -12,7 +12,7 @@
                 <ion-label position="stacked" color="primary">Nombre</ion-label>
                 <ion-input formControlName="name" type="text" class="bg-input" clearInput></ion-input>
             </ion-item>
-            <ion-item *ngIf="fControls.name.touched && fControls.name.invalid && this.isSubmitted" lines="none">
+            <ion-item *ngIf="fControls.name.invalid && this.isSubmitted" lines="none">
                 <p class="error-danger">Ingresar nombre de la mascota</p>
             </ion-item>
 
@@ -29,6 +29,9 @@
                     <ion-select-option [value]="region.id" *ngFor="let region of regions">{{region.name}}</ion-select-option>
                 </ion-select>
             </ion-item>
+            <ion-item *ngIf="fControls.regionId.invalid && this.isSubmitted" lines="none">
+                <p class="error-danger">Ingresar la region</p>
+            </ion-item>
 
             <ion-item>
                 <ion-label position="stacked" color="primary">Localidad</ion-label>
@@ -42,7 +45,7 @@
                 <ion-label position="stacked" color="primary">Correo Electronico</ion-label>
                 <ion-input formControlName="email" type="text" class="bg-input" clearInput></ion-input>
             </ion-item>
-            <ion-item *ngIf="fControls.email.touched && fControls.email.invalid" lines="none">
+            <ion-item *ngIf="fControls.email.invalid && isSubmitted" lines="none">
                 <p [class.error-danger]="fControls.email.invalid">Please enter a valid email</p>
             </ion-item>
 
@@ -85,6 +88,10 @@
                 </ion-row>
             </ion-grid>
 
+            <ion-item *ngIf="isSubmitted && isImgs64FormattedEmpty()"  lines="none">
+                <p class="error-danger">Se debe enviar al menos una foto</p>
+            </ion-item>
+
             <ion-item lines="none">
                 <ion-button (click)="launchCameraService()">
                     <ion-icon slot="icon-only" name="camera"></ion-icon>
@@ -97,6 +104,6 @@
             </ion-item>
         </ion-item-group>
 
-        <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary" [disabled]="!this.submitAsociation.valid">Enviar</ion-button>
+        <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>
     </form>
 </ion-content>

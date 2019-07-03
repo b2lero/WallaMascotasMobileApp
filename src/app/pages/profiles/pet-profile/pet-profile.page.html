@@ -12,11 +12,13 @@
 <ion-content>
     <ion-grid class="ion-margin-horizontal">
         <ion-row class="ion-margin-top">
-            <ion-slides pager="true">
-                <ion-slide *ngFor="let slide of profile?.pictures">
-                    <ion-img [src]="slide.url"></ion-img>
-                </ion-slide>
-            </ion-slides>
+            <ion-col size="12">
+                <ion-slides pager="true" [options]="slideOpts">
+                    <ion-slide *ngFor="let slide of profile?.pictures">
+                        <ion-img [src]="slide.url"></ion-img>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
         </ion-row>
         <ion-row *ngIf="profile?.type.name">
             <ion-col><strong>Tipo</strong></ion-col>

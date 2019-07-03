@@ -12,6 +12,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {FileEntry} from '@ionic-native/file/ngx';
 import {Base64Picture} from '../../../../models/base64.model';
 import {IAssociation} from '../../../../models/association.model';
+import {HttpService} from '../../../../core/http.service';
 
 @Component({
     selector: 'app-submit-asociation',
@@ -49,7 +50,8 @@ export class SubmitAsociationPage implements OnInit {
                 public actionSheetController: ActionSheetController,
                 private cameraService: CameraService,
                 private countryService: CountryService,
-                private file: File) {
+                private file: File,
+                private httpService: HttpService) {
     }
 
     ngOnInit() {
@@ -93,6 +95,10 @@ export class SubmitAsociationPage implements OnInit {
 
     get fControls() {
         return this.submitAsociation.controls;
+    }
+
+    isImgs64FormattedEmpty(): boolean {
+        return (this.imgs64Formatted.length <= 0);
     }
 
     launchCameraService() {
@@ -150,11 +156,16 @@ export class SubmitAsociationPage implements OnInit {
                 result => {
                     console.log('Association submitted', result);
                     this.isSubmitted = !this.isSubmitted;
+                    this.httpService.presentToast('Association Submitted', 2000, 'success');
                     setTimeout(() => {
                         this.router.navigate(['home']);
                     }, 2000);
-                }, (err) => {
-                    console.log('error submitting pet', err , this.newAssociation);
+                }, (e) => {
+                    if (e.text !== undefined) {
+                        this.router.navigate(['']);
+                        console.log('association submitted');
+                        console.log(e.text);
+                    }
                 }
             );
         }

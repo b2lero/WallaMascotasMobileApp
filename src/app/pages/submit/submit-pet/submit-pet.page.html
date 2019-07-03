@@ -56,7 +56,6 @@
       <ion-item *ngIf="isSubmitted && fControls.regionId.invalid"  lines="none">
         <p class="error-danger">Ingresar la region</p>
       </ion-item>
-      i
 
       <ion-item>
         <ion-label position="stacked" color="primary">Localidad</ion-label>
@@ -190,6 +189,11 @@
         </ion-row>
       </ion-grid>
 
+      <ion-item *ngIf="isSubmitted && isImgs64FormattedEmpty()"  lines="none">
+        <p class="error-danger">Se debe enviar al menos una foto</p>
+      </ion-item>
+
+
       <ion-item lines="none">
         <ion-button (click)="launchCameraService()">
           <ion-icon slot="icon-only" name="camera"></ion-icon>
@@ -201,10 +205,6 @@
         </ion-button>
       </ion-item>
     </ion-item-group>
-
-    <ion-item *ngIf="isSubmitted && imgs64Formatted.length < 0"  lines="none">
-      <p class="error-danger">Ingresar una foto</p>
-    </ion-item>
 
     <ion-button class="ion-margin-horizontal ion-margin-top" type="submit" expand="block" color="primary">Enviar</ion-button>
   </form>

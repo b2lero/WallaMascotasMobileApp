@@ -12,7 +12,7 @@ export class AssociationService {
     }
 
     createAssociation(requestBody: object): Observable<any> {
-        return this.httpService.post(ApiEndpoint.ASSOCIATIONS, requestBody);
+        return this.httpService.successful('Association Submitted').post(ApiEndpoint.ASSOCIATIONS, requestBody);
     }
 
     readAssociationById(id): Observable<any> {

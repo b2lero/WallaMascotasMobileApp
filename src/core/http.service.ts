@@ -160,12 +160,12 @@ export class HttpService implements CanActivate {
         );
     }
 
-    async presentToast(customMessage: string, time?: number) {
+    async presentToast(customMessage: string, time?: number, typeColor?: string) {
         const toast = await this.toastCtrl.create({
             message: customMessage,
             duration: 2000,
             position: 'bottom',
-            color: 'warning'
+            color: typeColor || 'success'
         });
         toast.present();
     }
@@ -173,14 +173,14 @@ export class HttpService implements CanActivate {
     private handleError(response): any {
         let error;
         if (response.status === HttpService.UNAUTHORIZED) {
-            this.presentToast('Unauthorized', 3500);
+            this.presentToast('Unauthorized', 3500, 'warning');
             this.router.navigate(['']);
             return throwError(response.error);
         } else {
             try {
                 if (response.status === 400) {
                     error = {error: 'Bad Request', message: '', path: ''};
-                    this.presentToast(error.error + ':' + error.message, 3000);
+                    this.presentToast(error.error + ':' + error.message, 3000, 'warning');
                 } else {
                     error = response.error; // with 'text': JSON.parse(response.error);
                 }

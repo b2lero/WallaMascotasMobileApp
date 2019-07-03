@@ -5,6 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {HttpService} from '../core/http.service';
 import {Storage} from '@ionic/storage';
+import {ApiEndpoint} from '../shared/api-endpoint.model';
 
 @Component({
     selector: 'app-root',
@@ -80,7 +81,9 @@ export class AppComponent {
         this.storage.get('FB_USER').then(user => {
             if (user) {
                 this.httpService.authState.next(true);
-                this.authenticated = true;
+                // this.authenticated = true;
+                const validUSer = {mail: 'admin@wallamascots.com', password: 'admin'};
+                this.httpService.login(ApiEndpoint.USERS_AUTH, validUSer).subscribe(res => console.log('ok', res));
                 console.log('state observable', this.httpService.authState.value);
                 console.log('just launched', user.email);
             }
