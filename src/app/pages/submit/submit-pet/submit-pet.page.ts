@@ -151,7 +151,7 @@ export class SubmitPetPage implements OnInit {
                     const reader = new FileReader();
                     reader.readAsDataURL(resultFile);
                     reader.onloadend = () => {
-                        this.img64.fileName = resultFile.name;
+                        // this.img64.fileName = resultFile.name;
                         this.img64.base64String = reader.result.toString();
                         this.imgs64Formatted.push(this.img64);
                     };
