@@ -159,6 +159,10 @@ export class SubmitPetPage implements OnInit {
             }
         );
     }
+    deletePicture(position) {
+        this.imgs64Formatted.splice(position, 1);
+        this.imgsCameraWebFormat.splice(position, 1);
+    }
 
     onSubmit(submitFormPet) {
         this.isSubmitted = true;
@@ -194,6 +198,9 @@ export class SubmitPetPage implements OnInit {
                     this.isSubmitted = !this.isSubmitted;
                     setTimeout(() => {
                         this.router.navigate(['home']);
+                        // this.petService.putPetById(result.id, { publicationStatusId: 2 }).subscribe(
+                        //     res => console.log('pet aprobed', res)
+                        // );s
                     }, 2000);
                 }, (err) => {
                     console.log('error submitting pet', err);
@@ -202,10 +209,4 @@ export class SubmitPetPage implements OnInit {
         }
     }
 
-
-
-    deletePicture(position) {
-        this.imgs64Formatted.slice(position, 1);
-        this.imgsCameraWebFormat.splice(position, 1);
-    }
 }

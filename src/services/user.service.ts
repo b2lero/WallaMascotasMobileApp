@@ -13,7 +13,7 @@ export class UserService {
 
     // POST users/authenticate
     connect(credentials: IUser) {
-        return this.httpService.login(ApiEndpoint.USERS_AUTH, credentials);
+        return this.httpService.successful('Conectado').login(ApiEndpoint.USERS_AUTH, credentials);
     }
 
     isConnected() {

@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {IonInfiniteScroll} from '@ionic/angular';
+import {IonInfiniteScroll, LoadingController} from '@ionic/angular';
 import {PetService} from '../../../services/pet.service';
 import {IPet} from '../../../models/pet.model';
 import {IPetCategory} from '../../../models/pet-category.model';
@@ -19,7 +19,7 @@ export class AdoptPage {
     currentPage = 1;
     PAGE_SIZE = 2;
     request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: ['1']};
-    categorySelected: string;
+    categorySelected = '1';
     categoriesPets: IPetCategory[];
 
     constructor(private petService: PetService, private router: Router) {
@@ -28,6 +28,9 @@ export class AdoptPage {
                 console.log('result pets', result);
                 this.animals = result.pets;
                 this.currentPage += 1;
+            }, () => {},
+            () => {
+                 // loading.onDidDismiss();
             }
         );
     }
@@ -35,6 +38,7 @@ export class AdoptPage {
     ionViewWillEnter() {
         this.petService.readPetCategories().subscribe(
             result => {
+                console.log(result);
                 this.categoriesPets = result;
             }
         );
@@ -43,7 +47,9 @@ export class AdoptPage {
     loadMorePets() {
         // Change state on each call from 'Loading' to 'Enable
         this.infiniteScroll.complete();
-        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE};
+        const categorySelected = [];
+        categorySelected.push(this.categorySelected);
+        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelected};
         this.petService.readAllPets(request).subscribe(
             (result) => {
                 setTimeout(() => {
@@ -65,12 +71,14 @@ export class AdoptPage {
 
     resetOptions() {
         this.currentPage = 1;
+        this.animals = [];
         this.infiniteScroll.disabled = false;
     }
 
     loadContentBasedOnCategory(event) {
         this.resetOptions();
         const categorySelected = [];
+        this.categorySelected = event.detail.value;
         categorySelected.push(event.detail.value);
         const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelected};
         this.petService.readAllPets(request).subscribe(

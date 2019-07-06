@@ -84,7 +84,6 @@ export class AppComponent {
                 // this.authenticated = true;
                 const validUSer = {mail: 'admin@wallamascots.com', password: 'admin'};
                 this.httpService.login(ApiEndpoint.USERS_AUTH, validUSer).subscribe(res => console.log('ok', res));
-                console.log('state observable', this.httpService.authState.value);
                 console.log('just launched', user.email);
             }
         });

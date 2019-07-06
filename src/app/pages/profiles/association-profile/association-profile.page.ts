@@ -8,6 +8,7 @@ import {PetService} from '../../../../services/pet.service';
 import {IonContent, IonInfiniteScroll, ToastController} from '@ionic/angular';
 import {NotificationService} from '../../../../services/notification.service';
 import { LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {MessageModel} from '../../../../models/message.model';
 
 @Component({
     selector: 'app-association-profile',
@@ -28,7 +29,7 @@ export class AssociationProfilePage implements OnInit {
     private isContentLoaded: boolean;
     private isSubscribed = false;
     private isNotif = false;
-    private msg: string;
+    private msg: MessageModel;
     private profileAssoc: IAssociation = {};
 
 
@@ -120,12 +121,13 @@ export class AssociationProfilePage implements OnInit {
 
     subscribeThisAssociation() {
         this.isSubscribed = !this.isSubscribed;
-        this.notificationService.subscribeThisTopic();
+        this.notificationService.subscribeThisTopic(this.associationId);
 
         this.notificationService.topicObservable().subscribe(
             data => {
                 if (data !== undefined) {
-                    this.isNotif = true;
+                    // this.isNotif = true;
+                    console.log('recibido por parte del servidor', data);
                     this.msg = data;
                     this.scheduleNotif();
                 }
@@ -139,7 +141,7 @@ export class AssociationProfilePage implements OnInit {
             this.localNotifications.schedule({
                     id: 1,
                     title: 'New Pet Added',
-                    text: 'Association 1 added new pet',
+                    text: 'Association ' + this.associationId + ' added new pet ' + this.msg,
                     icon: 'res://icon.png',
                     smallIcon: 'res://icon.png'
                 });

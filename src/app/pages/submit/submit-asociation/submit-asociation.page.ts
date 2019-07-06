@@ -149,7 +149,8 @@ export class SubmitAsociationPage implements OnInit {
                 email: newAsssoc.email,
                 associationTypeId: newAsssoc.associationTypeId,
                 shippingTypeId: newAsssoc.shippingTypeId,
-                base64Pictures: this.imgs64Formatted
+                base64Pictures: this.imgs64Formatted,
+                publicationStatus: 2,
             };
 
             this.associationService.createAssociation(this.newAssociation).subscribe(

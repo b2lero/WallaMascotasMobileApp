@@ -19,6 +19,7 @@ export class HttpService implements CanActivate {
     }
 
     static API_END_POINT = environment.API;
+    static API_END_POINT_ADMIN = environment.API_ADMIN;
     static UNAUTHORIZED = 401;
     static NOT_FOUND = 404;
 
@@ -52,6 +53,18 @@ export class HttpService implements CanActivate {
     // tslint:disable-next-line:ban-types
     post(endpoint: string, body?: Object): Observable<any> {
         return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
+            map(response => {
+                    return this.extractData(response);
+                }
+            ), catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
+    // tslint:disable-next-line:ban-types
+    put(endpoint: string, body?: Object): Observable<any> {
+        return this.http.put(HttpService.API_END_POINT_ADMIN + endpoint, body, this.createOptions()).pipe(
             map(response => {
                     return this.extractData(response);
                 }
@@ -125,6 +138,10 @@ export class HttpService implements CanActivate {
     }
 
     private handleToken(response) {
+        if (this.successfulNotification) {
+            this.presentToast(this.successfulNotification);
+            this.successfulNotification = undefined;
+        }
         const token = response.token;
         if (token) {
             console.log(token);

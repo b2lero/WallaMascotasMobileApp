@@ -15,4 +15,6 @@ export interface IAssociation {
     shippingTypeId?: number;
     email?: string;
     base64Pictures?: Base64Picture[];
+    publicationStatus?: number;
+    pictures?: IPicture[];
 }

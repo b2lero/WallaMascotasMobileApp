@@ -24,7 +24,7 @@ export class PetService {
     }
 
     // POST /pets
-    createPet(pet: PetRequestModel): Observable<PetRequestModel> {
+    createPet(pet: PetRequestModel): Observable<IPet> {
         console.log(pet);
         return this.httpService.successful('Pet Submitted').post(ApiEndpoint.PETS, JSON.stringify(pet));
     }
@@ -47,5 +47,9 @@ export class PetService {
 
     readContactInfoPetById(id: string) {
         return this.httpService.get(ApiEndpoint.PETS + '/' + id + ApiEndpoint.PET_CONTACTS_INFO);
+    }
+
+    putPetById(id: number, body) {
+        return this.httpService.put(ApiEndpoint.PETS + id, body);
     }
 }
