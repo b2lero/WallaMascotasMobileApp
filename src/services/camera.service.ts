@@ -74,12 +74,18 @@ export class CameraService {
             .then(imagePath => {
                 return this.crop.crop(imagePath, {quality: 50}).then(
                     croppedImg => {
-                        return this.filePath.resolveNativePath(croppedImg).then(
-                            filePath => {
-                                const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-                                const currentName = croppedImg.substring(croppedImg.lastIndexOf('/') + 1, croppedImg.lastIndexOf('?'));
-                                return this.copyFileToLocalDir(correctPath, currentName, new Date().getTime() + '.jpeg');
-                            });
+                      if (this.platform.is('android')){
+                          return this.filePath.resolveNativePath(croppedImg).then(
+                              filePath => {
+                                  const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+                                  const currentName = croppedImg.substring(croppedImg.lastIndexOf('/') + 1, croppedImg.lastIndexOf('?'));
+                                  return this.copyFileToLocalDir(correctPath, currentName, new Date().getTime() + '.jpeg');
+                              });
+                      } else {
+                          const currentName = croppedImg.substr(croppedImg.lastIndexOf('/') + 1);
+                          const correctPath = croppedImg.substr(0, croppedImg.lastIndexOf('/') + 1);
+                          return this.copyFileToLocalDir(correctPath, currentName, new Date().getTime() + '.jpeg');
+                      }
                     }
                 );
 

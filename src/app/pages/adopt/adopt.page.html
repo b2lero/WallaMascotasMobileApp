@@ -3,7 +3,7 @@
 <ion-toolbar>
     <ion-segment (ionChange)="loadContentBasedOnCategory($event)">
         <ng-container *ngFor="let category of categoriesPets; let i = index">
-            <ion-segment-button  value="{{category.id}}" [checked]="i === 0">
+            <ion-segment-button value="{{category.id}}" [checked]="i === 0">
                 <ion-label>{{category.name}}</ion-label>
             </ion-segment-button>
         </ng-container>

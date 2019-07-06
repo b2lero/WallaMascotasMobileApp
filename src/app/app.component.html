@@ -25,7 +25,7 @@
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
 
-                        <ion-list *ngIf="p.open" class="no-margin-end">
+                        <ion-list *ngIf="p.open && authenticated" class="no-margin-end">
                             <ion-menu-toggle>
                                 <ion-item *ngFor="let sub of p.children" class="sub-item" [routerLink]="sub.url" routerDirection="root">
                                     <ion-icon [name]="sub.icon" slot="start"></ion-icon>

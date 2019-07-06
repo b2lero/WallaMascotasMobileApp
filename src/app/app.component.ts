@@ -92,7 +92,6 @@ export class AppComponent {
 
     logout() {
         this.httpService.logout();
-        this.authenticated = false;
     }
 
 

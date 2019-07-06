@@ -76,6 +76,10 @@
             <ion-col><strong>Fecha de nacimiento</strong></ion-col>
             <ion-col>{{profile?.birthDate | date:'mediumDate'}}</ion-col>
         </ion-row>
+        <ion-row *ngIf="profile?.birthDate">
+            <ion-col><strong>Contacto</strong></ion-col>
+            <ion-col>{{profile?.mails[0]}}</ion-col>
+        </ion-row>
         <ion-row>
             <!-- TODO Add social media & more information about this dog-->
         </ion-row>

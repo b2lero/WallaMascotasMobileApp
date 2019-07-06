@@ -71,20 +71,19 @@ export class AdoptPage {
 
     resetOptions() {
         this.currentPage = 1;
-        this.animals = [];
         this.infiniteScroll.disabled = false;
     }
 
     loadContentBasedOnCategory(event) {
         this.resetOptions();
-        const categorySelected = [];
+        this.animals = [];
+        const categorySelectted = [];
         this.categorySelected = event.detail.value;
-        categorySelected.push(event.detail.value);
-        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelected};
+        categorySelectted.push(event.detail.value);
+        const request = {page: this.currentPage, pageSize: this.PAGE_SIZE, petCategoryIds: categorySelectted};
         this.petService.readAllPets(request).subscribe(
             result => {
                 // update list pets with new category;
-                console.log('log from loadContentBased...', result);
                 this.animals = result.pets;
                 this.currentPage += 1;
             },
