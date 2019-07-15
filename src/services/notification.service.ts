@@ -31,6 +31,11 @@ export class NotificationService {
         this.eventSource.onerror = e => this.topicSubject.error(e);
     }
 
+    unsubscribeThisTopic() {
+        this.eventSource.close();
+        console.log('unsubscribed');
+    }
+
     topicObservable() {
         return this.topicSubject.asObservable();
     }

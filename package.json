@@ -1,5 +1,5 @@
 {
-  "name": "WallaMascotasMobileApp",
+  "name": "walla",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -38,7 +38,7 @@
     "@ionic/storage": "^2.2.0",
     "@types/facebook-js-sdk": "^3.3.0",
     "cordova-android": "8.0.0",
-    "cordova-ios": "5.0.1",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-badge": "0.8.8",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-crop": "0.4.0",
@@ -105,8 +105,8 @@
       "cordova-plugin-crop": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

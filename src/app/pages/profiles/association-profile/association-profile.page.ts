@@ -32,6 +32,8 @@ export class AssociationProfilePage implements OnInit {
     private msg: MessageModel;
     private profileAssoc: IAssociation = {};
 
+    private authenticated = false;
+
 
     constructor(
         private petSerivecTest: PetService,
@@ -42,6 +44,11 @@ export class AssociationProfilePage implements OnInit {
         private notificationService: NotificationService,
         public toastController: ToastController,
         private localNotifications: LocalNotifications) {
+        this.userService.isConnected().subscribe(
+            result => {
+                this.authenticated = result;
+            }
+        );
     }
 
     ngOnInit() {
@@ -135,13 +142,18 @@ export class AssociationProfilePage implements OnInit {
         );
     }
 
+    unsubscribeThisAssociation() {
+        this.isSubscribed = !this.isSubscribed;
+        this.notificationService.unsubscribeThisTopic();
+    }
+
     scheduleNotif() {
         this.localNotifications.hasPermission().then(
             ok => {
             this.localNotifications.schedule({
                     id: 1,
                     title: 'New Pet Added',
-                    text: 'Association ' + this.associationId + ' added new pet ' + this.msg,
+                    text: 'Association ' + this.associationId + ' added new pet: ' + this.msg,
                     icon: 'res://icon.png',
                     smallIcon: 'res://icon.png'
                 });
@@ -156,6 +168,7 @@ export class AssociationProfilePage implements OnInit {
         });
         toast.present();
     }
+
 
 
 }

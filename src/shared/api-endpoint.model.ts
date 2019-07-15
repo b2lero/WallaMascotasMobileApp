@@ -21,6 +21,7 @@ export class ApiEndpoint {
 
     static PROFESSIONAL_SERVICE = '/professional-services';
     public static HUB = 'http://10.0.2.2:3000/hub';
+    // public static HUB = 'http://localhost:3000/hub';
     public static TOPIC_ASSOCIATION_PETS = 'wallamascotas.es/associations/';
 
 }

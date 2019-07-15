@@ -47,7 +47,10 @@
         <ion-item lines="none">
           <ion-button>Enviar mensaje</ion-button>
           <ion-button color="success"><ion-icon name="call" slot="end"></ion-icon>Llamar</ion-button>
-          <ion-button color="danger" (click)="subscribeThisAssociation()"><ion-icon name="heart"></ion-icon>favorita</ion-button>
+          <ng-container *ngIf="authenticated">
+            <ion-button color="danger" size="small" (click)="subscribeThisAssociation()" *ngIf="!this.isSubscribed"><ion-icon name="heart"></ion-icon> favorita</ion-button>
+            <ion-button color="warning" size="small" (click)="unsubscribeThisAssociation()" *ngIf="this.isSubscribed"><ion-icon name="ios-close-circle"></ion-icon> salir</ion-button>
+          </ng-container>
         </ion-item>
         <ion-list-header>
           <ion-label>Fotos animales</ion-label>
