@@ -47,7 +47,7 @@
     "cordova-plugin-filepath": "1.5.5",
     "cordova-plugin-local-notification": "0.9.0-beta.2",
     "core-js": "^2.5.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "rxjs": "~6.5.1",
     "serve": "11.0.1",
     "tslib": "^1.9.0",
